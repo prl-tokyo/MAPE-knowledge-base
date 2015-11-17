@@ -9,6 +9,7 @@ class TestMonitoringEndpoint(unittest.TestCase):
         self.assertEqual("200 OK",
                          hug.test.put(api,
                                       'v1/monitor',
-                                      {'status': {}}
+                                      {'resource': "ec2:0001",
+                                       'status': "OK"}
                          ).status
         )
