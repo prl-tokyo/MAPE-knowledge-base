@@ -38,3 +38,11 @@ class TestMonitoringEndpoint(unittest.TestCase):
                                       {'resource': "ec2:0001"}
                          ).data
         )
+
+    def test_put_returns_ok_on_success(self):
+        self.assertEqual("OK",
+                         hug.test.put(api,
+                                      'v1/monitor',
+                                      {'resource': "ec2:0001", 'status': "OK"}
+                         ).data
+        )
