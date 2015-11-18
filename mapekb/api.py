@@ -3,7 +3,5 @@ import hug
 
 @hug.put('/monitor', versions=1)
 def monitor(resource, status):
-    """Indicate the status of a resource. The resource is identified by
-    its resource ID.
-    """
+    """Indicate the status of a resource. The resource is identified by its resource ID."""
     return "OK"
