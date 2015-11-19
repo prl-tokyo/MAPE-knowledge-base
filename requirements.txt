@@ -1,4 +1,3 @@
-codecov==1.6.3
 cov-core==1.15.0
 coverage==4.0.2
 falcon==0.3.0
