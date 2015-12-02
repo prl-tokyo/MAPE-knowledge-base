@@ -53,22 +53,26 @@
                                                                 "id": { "type": "string" }
                                                             },
 
-                                                            "additionalProperties": false
+                                                            "additionalProperties": false,
+                                                            "required": ["name", "id"]
                                                         }
                                                     }
                                                 },
 
-                                                "additionalProperties": false
+                                                "additionalProperties": false,
+                                                "required": ["name", "id"]
                                             }
                                         }
                                     },
 
-                                    "additionalProperties": false
+                                    "additionalProperties": false,
+                                    "required": ["name", "id", "type", "ami", "publicIP", "privateIP", "size", "security", "region"]
                                 }
                             }
                         },
 
-                        "additionalProperties": false
+                        "additionalProperties": false,
+                        "required": ["name", "id"]
                     }
                 },
                 "dependencies": {
@@ -82,7 +86,8 @@
                             "to": { "type": "string"}
                         },
 
-                        "additionalProperties": false
+                        "additionalProperties": false,
+                        "required": ["from", "to"]
                     }
                 }
             },
