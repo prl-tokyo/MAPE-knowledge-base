@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/schema/#",
+
+    "type": "object",
+    "properties": {
+        "Addresses": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "InstanceId": { "type": [ "string", "null" ] },
+                    "PublicIp": { "type": "string" },
+                    "AllocationId": { "type": "string" },
+                    "AssociationId": { "type": "string" },
+                    "Domain": { "type": "string" },
+                    "NetworkInterfaceId": { "type": "string" },
+                    "NetworkInterfaceOwnerId": { "type": "string" },
+                    "PrivateIpAddress": { "type": "string" }
+                },
+                "additionalProperties": false
+            }
+        }
+    }
+}
