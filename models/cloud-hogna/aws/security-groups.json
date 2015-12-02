@@ -24,8 +24,8 @@
             "type": "object",
             "properties": {
                 "IpProtocol": { "type": "string" },
-                "FromPort": { "type": "number" },
-                "ToPort": { "type": "number" },
+                "FromPort": { "type": "integer" },
+                "ToPort": { "type": "integer" },
                 "UserIdGroupPairs": {
                     "type": "array",
                     "items": { "$ref": "#/definitions/id-pair" }
