@@ -51,16 +51,24 @@
                                                             "properties": {
                                                                 "name": { "type": "string" },
                                                                 "id": { "type": "string" }
-                                                            }
+                                                            },
+
+                                                            "additionalProperties": false
                                                         }
                                                     }
-                                                }
+                                                },
+
+                                                "additionalProperties": false
                                             }
                                         }
-                                    }
+                                    },
+
+                                    "additionalProperties": false
                                 }
                             }
-                        }
+                        },
+
+                        "additionalProperties": false
                     }
                 },
                 "dependencies": {
@@ -72,10 +80,16 @@
                         "properties": {
                             "from": { "type": "string"},
                             "to": { "type": "string"}
-                        }
+                        },
+
+                        "additionalProperties": false
                     }
                 }
-            }
+            },
+
+            "additionalProperties": false
         }
-    }
+    },
+
+    "additionalProperties": false
 }
