@@ -1,0 +1,81 @@
+{
+    "$schema": "http://json-schema.org/schema/#",
+
+    "type": "object",
+
+    "properties": {
+        "cloud topology": {
+            "type": "object",
+
+            "properties": {
+                "clusters": {
+                    "type": "array",
+
+                    "items": {
+                        "type": "object",
+
+                        "properties": {
+                            "name": { "type": "string" },
+                            "id": { "type": "string" },
+                            "nodes": {
+                                "type": "array",
+
+                                "items": {
+                                    "type": "object",
+
+                                    "properties": {
+                                        "name": { "type": "string" },
+                                        "id": { "type": "string" },
+                                        "type": { "type": "string" },
+                                        "ami": { "type": "string" },
+                                        "publicIP": { "type": "string" },
+                                        "privateIP": { "type": "string" },
+                                        "size": { "type": "string" },
+                                        "security": { "type": "string" },
+                                        "region": { "type": "string" },
+                                        "containers": {
+                                            "type": "array",
+
+                                            "items": {
+                                                "type": "object",
+
+                                                "properties": {
+                                                    "name": { "type": "string" },
+                                                    "id": { "type": "string" },
+                                                    "services": {
+                                                        "type": "array",
+
+                                                        "items": {
+                                                            "type": "object",
+
+                                                            "properties": {
+                                                                "name": { "type": "string" },
+                                                                "id": { "type": "string" }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "dependencies": {
+                    "type": "array",
+
+                    "items": {
+                        "type": "object",
+
+                        "properties": {
+                            "from": { "type": "string"},
+                            "to": { "type": "string"}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
