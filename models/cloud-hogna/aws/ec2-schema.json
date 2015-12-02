@@ -1,0 +1,251 @@
+{
+    "$schema": "http://json-schema.org/schema/#",
+
+    "definitions": {
+
+
+        "state": {
+            "type": "object",
+            "properties": {
+                "Code": { "type": "integer" },
+                "Name": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+
+        "product-code": {
+            "type": "object",
+            "properties": {
+                "ProductCodeId": { "type": "string" },
+                "ProductCodeType": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+
+        "placement": {
+            "type": "object",
+            "properties": {
+                "AvailabilityZone": { "type": "string" },
+                "GroupName": { "type": "string" },
+                "Tenancy": { "type": "string" },
+                "HostId": { "type": "string" },
+                "Affinity": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+
+        "state-reason": {
+            "type": "object",
+            "properties": {
+                "Code": { "type": "string" },
+                "Message": { "type": "string",
+                             "enum": ["Server,SpotInstaceTermination",
+                                      "Server.InternalError",
+                                      "Server.InsufficientInstanceCapacity",
+                                      "Client.InternalError",
+                                      "Client.InstanceInitiatedShutdown",
+                                      "Client.UserInitiatedShutdown",
+                                      "Client.VolumeLimitExceeded",
+                                      "Client.InvalidSnapshot"]
+                           }
+            },
+            "additionalProperties": false
+        },
+
+        "ebs": {
+            "type": "object",
+            "properties": {
+                "VolumeId": { "type": "string" },
+                "Status": { "type": "string" },
+                "AttachTime": { "type": "string" },
+                "DeleteOnTermination": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+
+        "block-device-mapping": {
+            "type": "object",
+            "properties": {
+                "DeviceName": { "type": "string" },
+                "Ebs": { "$ref": "#/definitions/ebs" }
+            },
+            "additionalProperties": false
+        },
+
+        "tag": {
+            "type": "object",
+            "properties": {
+                "Key": { "type": "string" },
+                "Value": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+
+        "security-group": {
+            "type": "object",
+            "properties": {
+                "GroupName": { "type": "string" },
+                "GroupId": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+
+        "attachment": {
+            "type": "object",
+            "properties": {
+                "AttachmentId": { "type": "string" },
+                "DeviceIndex": { "type": "string" },
+                "Status": { "type": "string" },
+                "AttachTime": { "type": "string" },
+                "DeleteOnTermination": { "type": "boolean" }
+            },
+            "additionalProperties": false
+        },
+
+        "association": {
+            "type": "object",
+            "properties": {
+                "PublicIp": { "type": "string" },
+                "PublicDnsName": { "type": "string" },
+                "IpOwnerId": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+
+        "private-ip-address": {
+            "type": "object",
+            "properties": {
+                "PrivateIpAddress": { "type": "string" },
+                "PrivateDnsName": { "type": "string" },
+                "Primary": { "type": "boolean" },
+                "Association": { "$ref": "#/definitions/association" }
+            },
+            "additionalProperties": false
+        },
+
+        "network-interface": {
+            "type": "object",
+            "properties": {
+                "NetworkInterfaceId": { "type": "string" },
+                "SubnetId": { "type": "string" },
+                "VpcId": { "type": "string" },
+                "Description": { "type": "string" },
+                "OwnerId": { "type": "string" },
+                "Status": { "type": "string" },
+                "MacAddress": { "type": "string" },
+                "PrivateIpAddress": { "type": "string" },
+                "PrivateDnsName": { "type": "string" },
+                "SourceDestCheck": { "type": "boolean" },
+                "Groups": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/security-group" }
+                },
+                "Attachment" : { "$ref": "#/definitions/attachment" },
+                "Association": { "$ref": "#/definitions/association" },
+                "PrivateIpAddresses": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/private-ip-address" }
+                }
+            },
+            "additionalProperties": false
+        },
+
+        "instance": {
+            "type": "object",
+            "properties": {
+                "InstanceId": { "type": "string" },
+                "ImageId": { "type": "string"},
+                "State": { "$ref": "#/definitions/state" },
+                "PrivateDnsName": { "type": "string" },
+                "PublicDnsName": { "type": "string" },
+                "StateTransitionReason": { "type": "string" },
+                "KeyName": { "type": "string" },
+                "AmiLaunchIndex": { "type": "integer" },
+                "ProductCodes": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/product-code" }
+                },
+                "InstanceType": { "type": "string" },
+                "LaunchTime" : { "type": "string" },
+                "Placement": { "$ref": "#/definitions/placement" },
+                "KernelId": { "type": [ "string", "null" ] },
+                "RamdiskId": { "type": [ "string", "null" ] },
+                "Platform": { "type": "string" },
+                "Monitoring": {
+                    "type": "object",
+                    "properties": {
+                        "State": { "type": "string" }
+                    },
+                    "additionalProperties": false
+                },
+                "SubnetId": { "type": "string" },
+                "VpcId": { "type": "string" },
+                "PrivateIpAddress": { "type": "string" },
+                "PublicIpAddress": { "type": "string" },
+                "StateReason": { "$ref": "#/definitions/state-reason" },
+                "Architecture": { "type": "string" },
+                "RootDeviceType": { "type": "string" },
+                "RootDeviceName": { "type": "string" },
+                "BlockDeviceMappings": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/block-device-mapping" }
+                },
+                "VirtualizationType": { "type": "string" },
+                "InstanceLifecycle": { "type": "string" },
+                "SpotInstanceRequestId": { "type": "string" },
+                "ClientToken": { "type": "string" },
+                "Tags": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/tag" }
+                },
+                "SecurityGroups": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/security-group" }
+                },
+                "SourceDestCheck": { "type": "boolean" },
+                "Hypervisor": { "type": "string" },
+                "NetworkInterfaces": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/network-interface" }
+                },
+                "IamInstanceProfile": {
+                    "type": "object",
+                    "properties": {
+                        "Arn": { "type": "string" },
+                        "Id": { "type": "string" }
+                    },
+                    "additionalProperties": false
+                },
+                "EbsOptimized": { "type": "boolean" },
+                "SriovNetSupport": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+
+        "reservation": {
+            "type": "object",
+            "properties": {
+                "ReservationId": { "type": "string" },
+                "OwnerId": { "type": "string" },
+                "RequesterId": { "type": "string"},
+                "Groups": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/security-group" }
+                },
+                "Instances": {
+                    "type": "array",
+                    "items": {"$ref": "#/definitions/instance" }
+                }
+            }
+        }
+    },
+
+    "type": "object",
+    "properties": {
+        "Reservations": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/reservation" }
+        }
+    },
+    "additionalProperties": false
+}
