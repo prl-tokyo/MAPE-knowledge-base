@@ -38,16 +38,7 @@
             "type": "object",
             "properties": {
                 "Code": { "type": "string" },
-                "Message": { "type": "string",
-                             "enum": ["Server,SpotInstaceTermination",
-                                      "Server.InternalError",
-                                      "Server.InsufficientInstanceCapacity",
-                                      "Client.InternalError",
-                                      "Client.InstanceInitiatedShutdown",
-                                      "Client.UserInitiatedShutdown",
-                                      "Client.VolumeLimitExceeded",
-                                      "Client.InvalidSnapshot"]
-                           }
+                "Message": { "type": "string" }
             },
             "additionalProperties": false
         },
