@@ -85,7 +85,7 @@
             "type": "object",
             "properties": {
                 "AttachmentId": { "type": "string" },
-                "DeviceIndex": { "type": "string" },
+                "DeviceIndex": { "type": "integer" },
                 "Status": { "type": "string" },
                 "AttachTime": { "type": "string" },
                 "DeleteOnTermination": { "type": "boolean" }
