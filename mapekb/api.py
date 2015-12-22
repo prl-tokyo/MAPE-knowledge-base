@@ -9,3 +9,8 @@ def my_input_formatter(data):
 def monitor(resource, status):
     """Indicate the status of a resource. The resource is identified by its resource ID."""
     return "OK"
+
+@hug.put('/plan', versions=1)
+def plan(plan):
+    """Adds an item to the plan"""
+    return "OK"
