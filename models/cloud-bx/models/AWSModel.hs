@@ -1,51 +1,64 @@
-module AWSModel(Model)
-where
+{-# LANGUAGE OverloadedStrings, FlexibleInstances, DeriveGeneric, TemplateHaskell, ScopedTypeVariables #-}
 
-model = Model {
-mVMS = [vm1, vm2, vm3, vm4],
-mSecurityGroup = [sg1, sg2]
-}
-vm1 = VirtualMachine {
-svmID = "vm1",
-svmType = "t2.micro",
-svmLoad = 1.12,
-svmCost = 0.02,
-svmCPU = 4,
-svmRAM = 8,
-svmAMI = "abc",
-svmState = 1,
-svmSecurityGroupRef = "sg-123",
-svmFirewallRules = []
+import qualified SourceModel as S
+
+fw = S.FirewallRule {
+    S.fwID = "123"
+  , S.outbound = False
+  , S.port = "80"
+  , S.ip = "0.0.0.0"
+  , S.protocol = "tcp"
+  }
+
+model = S.Model {
+    S.reservations = [res1]
+  , S.securityGroups = [sg1, sg2]
 }
 
-vm2 = VirtualMachine {
-svmID = "vm2",
-svmType = "t2.micro",
-svmLoad = 0.42,
-svmCost = 0.01,
-svmCPU = 2,
-svmRAM = 4,
-svmAMI = "abc",
-svmState = 1,
-svmSecurityGroupRef = "sg-123",
-svmFirewallRules = []
+res1 = S.Reservation {
+    S.resID = "res1"
+  , S.securityGroupRefs = ["sg1", "sg2"]
+  , S.vms = [vm1, vm2, vm3]
+  }
+
+vm1 = S.VM {
+  S.vmID = "vm1",
+  S.vmType = "t2.micro",
+  S.load = 1.12,
+  S.cost = 0.02,
+  S.cpu = 4,
+  S.ram = 8,
+  S.ami = "abc",
+  S.state = 1,
+  S.securityGroupRef = "sg-123"
 }
 
-vm3 = VirtualMachine {
-svmID = "vm3",
-svmType = "c2.4xlarge",
-svmLoad = 10.22,
-svmCost = 0.50,
-svmCPU = 16,
-svmRAM = 64,
-svmAMI = "abc",
-svmState = 1,
-svmSecurityGroupRef = "sg-123",
-svmFirewallRules = []
+vm2 = S.VM {
+  S.vmID = "vm2",
+  S.vmType = "t2.micro",
+  S.load = 0.42,
+  S.cost = 0.01,
+  S.cpu = 2,
+  S.ram = 4,
+  S.ami = "abc",
+  S.state = 1,
+  S.securityGroupRef = "sg-123"
 }
 
-sg1 = SecurityGroup {
+vm3 = S.VM {
+  S.vmID = "vm3",
+  S.vmType = "c2.4xlarge",
+  S.load = 10.22,
+  S.cost = 0.50,
+  S.cpu = 16,
+  S.ram = 64,
+  S.ami = "abc",
+  S.state = 1,
+  S.securityGroupRef = "sg-123"
 }
 
-sg2 = SecurityGroup {
+sg1 = S.SecurityGroup {
+}
+
+sg2 = S.SecurityGroup {
 }
