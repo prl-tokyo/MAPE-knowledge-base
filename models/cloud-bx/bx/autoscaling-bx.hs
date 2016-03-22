@@ -13,142 +13,96 @@ import GHC.Generics
 import Control.Arrow
 import Data.Maybe
 import AWSModel
-import SourceModel
+import qualified SourceModel as S
+import qualified AutoScalingModel as V (View(..), VVM(..))
 
-data Autoscaling = Autoscaling {
-vvms :: [VirtualMachineLoad]
-} deriving (Show, Eq)
+deriveBiGULGeneric ''S.Model
+deriveBiGULGeneric ''S.VM
+deriveBiGULGeneric ''S.FirewallRule
+deriveBiGULGeneric ''S.Reservation
+deriveBiGULGeneric ''S.SecurityGroup
+deriveBiGULGeneric ''V.VVM
+deriveBiGULGeneric ''V.View
 
-data VirtualMachineLoad = VirtualMachineLoad {
-vvmID :: String,
-vvmType :: String,
-vvmLoad :: Double
-} deriving (Show, Eq)
-
-data VirtualMachine = VirtualMachine {
-svmID :: String,
-svmType :: String,
-svmLoad :: Double,
-svmCost :: Double,
-svmCPU :: Int,
-svmRAM :: Int,
-svmAMI :: String,
-svmState :: Int,
-svmSecurityGroupRef :: String,
-svmFirewallRules :: [FirewallRule]
-} deriving (Show, Eq)
-
-data FirewallRule = FirewallRule {
-fwOutbound :: Bool,
-fwIP :: String,
-fwPort :: String,
-fwProtocol :: String
-} deriving (Show, Eq)
-
-data Model = Model {
-mVMs :: [VirtualMachine],
-mSecurityGroups :: [SecurityGroup]
-} deriving (Show, Eq)
-
-data SecurityGroup = SecurityGroup {
-sgID :: String,
-sgVMs :: [String],
-sgFirewallRules :: [String]
-} deriving (Show, Eq)
-
-
-deriveBiGULGeneric ''VirtualMachine
-deriveBiGULGeneric ''VirtualMachineLoad
-deriveBiGULGeneric ''FirewallRule
-deriveBiGULGeneric ''Model
-deriveBiGULGeneric ''SecurityGroup
-
-vmUpd :: BiGUL VirtualMachine VirtualMachineLoad
-vmUpd = $(update [p| VirtualMachineLoad {
-        vvmID = vmID,
-        vvmType = vmType,
-        vvmLoad = vmLoad
-    }|] [p| VirtualMachine {
-            svmID = vmID,
-            svmType = vmType,
-            svmLoad = vmLoad
+vmUpd :: BiGUL S.VM V.VVM
+vmUpd = $(update [p| V.VVM {
+        V.vvmID = vmID,
+        V.vvmType = vmType,
+        V.vload = vmLoad
+    }|] [p| S.VVM {
+            S.vmID = vmID,
+            S.vmType = vmType,
+            S.load = vmLoad
     }|] [d| vmID = Replace;
             vmType = Replace;
             vmLoad = Replace
     |])
 
-vmListAlign :: BiGUL [VirtualMachine] [VirtualMachineLoad]
+vmListAlign :: BiGUL [S.VM] [V.VVM]
 vmListAlign = align (const True)
-  (\ s v -> svmID s == vvmID v)
+  (\ s v -> S.vmID s == V.vvmID v)
   ($(update [p| v |] [p| v |] [d| v = vmUpd |]))
-  (\v -> VirtualMachine {
-      svmID = vvmID v,
-      svmType = vvmType v,
-      svmLoad = vvmLoad v,
-      svmCost = 0.00,
-      svmCPU = 0,
-      svmRAM = 0,
-      svmAMI = "0000",
-      svmState = 0,
-      svmSecurityGroupRef = "sg-123",
-      svmFirewallRules = []
+  (\v -> S.VM {
+      S.vmID = vvmID v,
+      S.vmType = vvmType v,
+      S.load = vvmLoad v,
+      S.cost = 0.00,
+      S.cpu = 0,
+      S.ram = 0,
+      S.ami = "0000",
+      S.state = 0,
+      S.securityGroupRef = "sg-123"
       })
   (const Nothing)
 
-instance Ord VirtualMachineLoad where
-  compare vm1 vm2 = compare (vvmID vm1) (vvmID vm2)
+-- svm :: [VM]
+-- svm = [vm1, vm2]
 
-instance Ord VirtualMachine where
-  compare vm1 vm2 = compare (svmID vm1) (svmID vm2)
+-- svm3 :: [VM]
+-- svm3 = [vm1, vm2, vm3]
 
-svm :: [VM]
-svm = [vm1, vm2]
+-- vvm :: [VirtualMachineLoad]
+-- vvm = [vmview1, vmview2]
 
-svm3 :: [VM]
-svm3 = [vm1, vm2, vm3]
+-- vvmDelete :: [VirtualMachineLoad]
+-- vvmDelete = [vmview1]
 
-vvm :: [VirtualMachineLoad]
-vvm = [vmview1, vmview2]
+-- vvmNoOrder :: [VirtualMachineLoad]
+-- vvmNoOrder = [vmview1, vmview3, vmview2]
 
-vvmDelete :: [VirtualMachineLoad]
-vvmDelete = [vmview1]
+-- vvmAdd :: [VirtualMachineLoad]
+-- vvmAdd = [vmview1, vmview2, vmview3]
 
-vvmNoOrder :: [VirtualMachineLoad]
-vvmNoOrder = [vmview1, vmview3, vmview2]
+-- vmDefault = VirtualMachine {
+-- svmID = "0000",
+-- svmType = "0000",
+-- svmLoad = 0.00,
+-- svmCost = 0.00,
+-- svmCPU = 0,
+-- svmRAM = 0,
+-- svmAMI = "0000",
+-- svmState = 0,
+-- svmSecurityGroupRef = "0000",
+-- svmFirewallRules = []
+-- }
 
-vvmAdd :: [VirtualMachineLoad]
-vvmAdd = [vmview1, vmview2, vmview3]
+-- vmview1 = VirtualMachineLoad {
+-- vvmID = "vm1",
+-- vvmType = "t2.large",
+-- vvmLoad = 1.12
+-- }
 
-vmDefault = VirtualMachine {
-svmID = "0000",
-svmType = "0000",
-svmLoad = 0.00,
-svmCost = 0.00,
-svmCPU = 0,
-svmRAM = 0,
-svmAMI = "0000",
-svmState = 0,
-svmSecurityGroupRef = "0000",
-svmFirewallRules = []
-}
+-- vmview2 = VirtualMachineLoad {
+-- vvmID = "vm2",
+-- vvmType = "t2.xxlarge",
+-- vvmLoad = 0.42
+-- }
 
-vmview1 = VirtualMachineLoad {
-vvmID = "vm1",
-vvmType = "t2.large",
-vvmLoad = 1.12
-}
-
-vmview2 = VirtualMachineLoad {
-vvmID = "vm2",
-vvmType = "t2.xxlarge",
-vvmLoad = 0.42
-}
-
-vmview3 = VirtualMachineLoad {
-vvmID = "vm3",
-vvmType = "t4.xlarge",
-vvmLoad = 10.22
-}
+-- vmview3 = VirtualMachineLoad {
+-- vvmID = "vm3",
+-- vvmType = "t4.xlarge",
+-- vvmLoad = 10.22
+-- }
 
 align :: (a -> Bool)
       -> (a -> b -> Bool)
