@@ -1,0 +1,553 @@
+{
+    "SecurityGroups": [
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "PrefixListIds": []
+                }
+            ], 
+            "Description": "default VPC security group", 
+            "IpPermissions": [
+                {
+                    "IpProtocol": "-1", 
+                    "IpRanges": [], 
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-4864f92d"
+                        }
+                    ], 
+                    "PrefixListIds": []
+                }
+            ], 
+            "GroupName": "default", 
+            "VpcId": "vpc-f7e93192", 
+            "OwnerId": "329784703453", 
+            "GroupId": "sg-4864f92d"
+        }, 
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "PrefixListIds": []
+                }
+            ], 
+            "Description": "Test security group for self-adaptation with EC2", 
+            "IpPermissions": [
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 80, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 80, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 22, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 22, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 443, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 443, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }
+            ], 
+            "GroupName": "ec2-self-adaptive-test", 
+            "VpcId": "vpc-f7e93192", 
+            "OwnerId": "329784703453", 
+            "GroupId": "sg-88c92fec"
+        }, 
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "PrefixListIds": []
+                }
+            ], 
+            "Description": "launch-wizard-1 created 2015-08-21T10:05:22.885+09:00", 
+            "IpPermissions": [
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 22, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 22, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }
+            ], 
+            "GroupName": "launch-wizard-1", 
+            "VpcId": "vpc-f7e93192", 
+            "OwnerId": "329784703453", 
+            "GroupId": "sg-e9195c8c"
+        }, 
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "PrefixListIds": []
+                }
+            ], 
+            "Description": "launch-wizard-2 created 2016-03-16T14:34:33.388+09:00", 
+            "IpPermissions": [
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 22, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 22, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 3306, 
+                    "IpRanges": [], 
+                    "ToPort": 3306, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-77d40013"
+                        }
+                    ]
+                }
+            ], 
+            "GroupName": "MAPE-cloud-DB", 
+            "VpcId": "vpc-f7e93192", 
+            "OwnerId": "329784703453", 
+            "GroupId": "sg-b8d400dc"
+        }, 
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "PrefixListIds": []
+                }
+            ], 
+            "Description": "Web application VMs", 
+            "IpPermissions": [
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 80, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 80, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 22, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 22, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 443, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 443, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }
+            ], 
+            "GroupName": "MAPE-cloud-web", 
+            "VpcId": "vpc-f7e93192", 
+            "OwnerId": "329784703453", 
+            "GroupId": "sg-77d40013"
+        }, 
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "PrefixListIds": []
+                }
+            ], 
+            "Description": "Spark EC2 group", 
+            "IpPermissions": [
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 50030, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 50030, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 50070, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 50070, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 8080, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 8081, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 5080, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 5080, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 22, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 22, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 1, 
+                    "IpRanges": [], 
+                    "ToPort": 65535, 
+                    "IpProtocol": "udp", 
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b8610fdd"
+                        }, 
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b9610fdc"
+                        }
+                    ]
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 60070, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 60070, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 19999, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 19999, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 1, 
+                    "IpRanges": [], 
+                    "ToPort": 65535, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b8610fdd"
+                        }, 
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b9610fdc"
+                        }
+                    ]
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 4040, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 4045, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": -1, 
+                    "IpRanges": [], 
+                    "ToPort": -1, 
+                    "IpProtocol": "icmp", 
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b8610fdd"
+                        }, 
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b9610fdc"
+                        }
+                    ]
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 18080, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 18080, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }
+            ], 
+            "GroupName": "prl-test-master", 
+            "VpcId": "vpc-f7e93192", 
+            "OwnerId": "329784703453", 
+            "GroupId": "sg-b9610fdc"
+        }, 
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "PrefixListIds": []
+                }
+            ], 
+            "Description": "Spark EC2 group", 
+            "IpPermissions": [
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 50075, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 50075, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 8080, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 8081, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 60060, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 60060, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 22, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 22, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 1, 
+                    "IpRanges": [], 
+                    "ToPort": 65535, 
+                    "IpProtocol": "udp", 
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b8610fdd"
+                        }, 
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b9610fdc"
+                        }
+                    ]
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 1, 
+                    "IpRanges": [], 
+                    "ToPort": 65535, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b8610fdd"
+                        }, 
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b9610fdc"
+                        }
+                    ]
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 50060, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 50060, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 60075, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 60075, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": []
+                }, 
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": -1, 
+                    "IpRanges": [], 
+                    "ToPort": -1, 
+                    "IpProtocol": "icmp", 
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b8610fdd"
+                        }, 
+                        {
+                            "UserId": "329784703453", 
+                            "GroupId": "sg-b9610fdc"
+                        }
+                    ]
+                }
+            ], 
+            "GroupName": "prl-test-slaves", 
+            "VpcId": "vpc-f7e93192", 
+            "OwnerId": "329784703453", 
+            "GroupId": "sg-b8610fdd"
+        }
+    ]
+}

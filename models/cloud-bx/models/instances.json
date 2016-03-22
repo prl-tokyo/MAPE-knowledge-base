@@ -1,0 +1,430 @@
+{
+    "Reservations": [
+        {
+            "OwnerId": "329784703453", 
+            "ReservationId": "r-e4415446", 
+            "Groups": [], 
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-52-192-174-56.ap-northeast-1.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2016-03-16T05:35:37.000Z", 
+                    "PublicIpAddress": "52.192.174.56", 
+                    "PrivateIpAddress": "172.31.21.156", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f7e93192", 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-cd33dc69", 
+                    "ImageId": "ami-59bdb937", 
+                    "PrivateDnsName": "ip-172-31-21-156.ap-northeast-1.compute.internal", 
+                    "KeyName": "MAPE-cloud", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "MAPE-cloud-DB", 
+                            "GroupId": "sg-b8d400dc"
+                        }
+                    ], 
+                    "ClientToken": "VgpVZ1458106536437", 
+                    "SubnetId": "subnet-8c8d25fb", 
+                    "InstanceType": "t2.micro", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:be:e2:d0:a1:b7", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f7e93192", 
+                            "Description": "", 
+                            "Association": {
+                                "PublicIp": "52.192.174.56", 
+                                "PublicDnsName": "ec2-52-192-174-56.ap-northeast-1.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }, 
+                            "NetworkInterfaceId": "eni-af63f1e7", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-21-156.ap-northeast-1.compute.internal", 
+                                    "Association": {
+                                        "PublicIp": "52.192.174.56", 
+                                        "PublicDnsName": "ec2-52-192-174-56.ap-northeast-1.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }, 
+                                    "Primary": true, 
+                                    "PrivateIpAddress": "172.31.21.156"
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-21-156.ap-northeast-1.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-d1add622", 
+                                "AttachTime": "2016-03-16T05:35:37.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "MAPE-cloud-DB", 
+                                    "GroupId": "sg-b8d400dc"
+                                }
+                            ], 
+                            "SubnetId": "subnet-8c8d25fb", 
+                            "OwnerId": "329784703453", 
+                            "PrivateIpAddress": "172.31.21.156"
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "ap-northeast-1a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-3c8c9ec3", 
+                                "AttachTime": "2016-03-16T05:35:37.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/xvda", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "cloud-MAPE-test", 
+                            "Key": "Name"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ]
+        }, 
+        {
+            "OwnerId": "329784703453", 
+            "ReservationId": "r-ff40555d", 
+            "Groups": [], 
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-52-68-7-53.ap-northeast-1.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2016-03-16T05:33:57.000Z", 
+                    "PublicIpAddress": "52.68.7.53", 
+                    "PrivateIpAddress": "172.31.25.235", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f7e93192", 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-6834dbcc", 
+                    "ImageId": "ami-59bdb937", 
+                    "PrivateDnsName": "ip-172-31-25-235.ap-northeast-1.compute.internal", 
+                    "KeyName": "MAPE-cloud", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "MAPE-cloud-web", 
+                            "GroupId": "sg-77d40013"
+                        }
+                    ], 
+                    "ClientToken": "JITiM1458106436481", 
+                    "SubnetId": "subnet-8c8d25fb", 
+                    "InstanceType": "t2.micro", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:03:95:e0:a1:2d", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f7e93192", 
+                            "Description": "", 
+                            "Association": {
+                                "PublicIp": "52.68.7.53", 
+                                "PublicDnsName": "ec2-52-68-7-53.ap-northeast-1.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }, 
+                            "NetworkInterfaceId": "eni-1f62f057", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-25-235.ap-northeast-1.compute.internal", 
+                                    "Association": {
+                                        "PublicIp": "52.68.7.53", 
+                                        "PublicDnsName": "ec2-52-68-7-53.ap-northeast-1.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }, 
+                                    "Primary": true, 
+                                    "PrivateIpAddress": "172.31.25.235"
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-25-235.ap-northeast-1.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-29aed5da", 
+                                "AttachTime": "2016-03-16T05:33:57.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "MAPE-cloud-web", 
+                                    "GroupId": "sg-77d40013"
+                                }
+                            ], 
+                            "SubnetId": "subnet-8c8d25fb", 
+                            "OwnerId": "329784703453", 
+                            "PrivateIpAddress": "172.31.25.235"
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "ap-northeast-1a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-938c9e6c", 
+                                "AttachTime": "2016-03-16T05:33:57.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/xvda", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "cloud-MAPE-test", 
+                            "Key": "Name"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 2
+                }, 
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-52-192-6-62.ap-northeast-1.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2016-03-16T05:33:57.000Z", 
+                    "PublicIpAddress": "52.192.6.62", 
+                    "PrivateIpAddress": "172.31.25.233", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f7e93192", 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-6a34dbce", 
+                    "ImageId": "ami-59bdb937", 
+                    "PrivateDnsName": "ip-172-31-25-233.ap-northeast-1.compute.internal", 
+                    "KeyName": "MAPE-cloud", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "MAPE-cloud-web", 
+                            "GroupId": "sg-77d40013"
+                        }
+                    ], 
+                    "ClientToken": "JITiM1458106436481", 
+                    "SubnetId": "subnet-8c8d25fb", 
+                    "InstanceType": "t2.micro", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:7e:7e:cb:9b:29", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f7e93192", 
+                            "Description": "", 
+                            "Association": {
+                                "PublicIp": "52.192.6.62", 
+                                "PublicDnsName": "ec2-52-192-6-62.ap-northeast-1.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }, 
+                            "NetworkInterfaceId": "eni-1062f058", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-25-233.ap-northeast-1.compute.internal", 
+                                    "Association": {
+                                        "PublicIp": "52.192.6.62", 
+                                        "PublicDnsName": "ec2-52-192-6-62.ap-northeast-1.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }, 
+                                    "Primary": true, 
+                                    "PrivateIpAddress": "172.31.25.233"
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-25-233.ap-northeast-1.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-46aed5b5", 
+                                "AttachTime": "2016-03-16T05:33:57.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "MAPE-cloud-web", 
+                                    "GroupId": "sg-77d40013"
+                                }
+                            ], 
+                            "SubnetId": "subnet-8c8d25fb", 
+                            "OwnerId": "329784703453", 
+                            "PrivateIpAddress": "172.31.25.233"
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "ap-northeast-1a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-6e8c9e91", 
+                                "AttachTime": "2016-03-16T05:33:58.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/xvda", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "cloud-MAPE-test", 
+                            "Key": "Name"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }, 
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-52-68-168-206.ap-northeast-1.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2016-03-16T05:33:57.000Z", 
+                    "PublicIpAddress": "52.68.168.206", 
+                    "PrivateIpAddress": "172.31.25.234", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f7e93192", 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-6b34dbcf", 
+                    "ImageId": "ami-59bdb937", 
+                    "PrivateDnsName": "ip-172-31-25-234.ap-northeast-1.compute.internal", 
+                    "KeyName": "MAPE-cloud", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "MAPE-cloud-web", 
+                            "GroupId": "sg-77d40013"
+                        }
+                    ], 
+                    "ClientToken": "JITiM1458106436481", 
+                    "SubnetId": "subnet-8c8d25fb", 
+                    "InstanceType": "t2.micro", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:3d:33:d8:23:17", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f7e93192", 
+                            "Description": "", 
+                            "Association": {
+                                "PublicIp": "52.68.168.206", 
+                                "PublicDnsName": "ec2-52-68-168-206.ap-northeast-1.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }, 
+                            "NetworkInterfaceId": "eni-1162f059", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-25-234.ap-northeast-1.compute.internal", 
+                                    "Association": {
+                                        "PublicIp": "52.68.168.206", 
+                                        "PublicDnsName": "ec2-52-68-168-206.ap-northeast-1.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }, 
+                                    "Primary": true, 
+                                    "PrivateIpAddress": "172.31.25.234"
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-25-234.ap-northeast-1.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-40aed5b3", 
+                                "AttachTime": "2016-03-16T05:33:57.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "MAPE-cloud-web", 
+                                    "GroupId": "sg-77d40013"
+                                }
+                            ], 
+                            "SubnetId": "subnet-8c8d25fb", 
+                            "OwnerId": "329784703453", 
+                            "PrivateIpAddress": "172.31.25.234"
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "ap-northeast-1a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-828c9e7d", 
+                                "AttachTime": "2016-03-16T05:33:57.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/xvda", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "cloud-MAPE-test", 
+                            "Key": "Name"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 1
+                }
+            ]
+        }
+    ]
+}
