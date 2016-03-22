@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings, FlexibleInstances, DeriveGeneric, TemplateHaskell, ScopedTypeVariables #-}
+module AWSModel where
 
 import qualified SourceModel as S
 

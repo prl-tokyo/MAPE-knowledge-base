@@ -13,6 +13,7 @@ import GHC.Generics
 import Control.Arrow
 import Data.Maybe
 import AWSModel
+import SourceModel
 
 data Autoscaling = Autoscaling {
 vvms :: [VirtualMachineLoad]
@@ -100,10 +101,10 @@ instance Ord VirtualMachineLoad where
 instance Ord VirtualMachine where
   compare vm1 vm2 = compare (svmID vm1) (svmID vm2)
 
-svm :: [VirtualMachine]
+svm :: [VM]
 svm = [vm1, vm2]
 
-svm3 :: [VirtualMachine]
+svm3 :: [VM]
 svm3 = [vm1, vm2, vm3]
 
 vvm :: [VirtualMachineLoad]
