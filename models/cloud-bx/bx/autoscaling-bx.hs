@@ -29,7 +29,7 @@ vmUpd = $(update [p| V.VVM {
         V.vvmID = vmID,
         V.vvmType = vmType,
         V.vload = vmLoad
-    }|] [p| S.VVM {
+    }|] [p| S.VM {
             S.vmID = vmID,
             S.vmType = vmType,
             S.load = vmLoad
@@ -43,9 +43,9 @@ vmListAlign = align (const True)
   (\ s v -> S.vmID s == V.vvmID v)
   ($(update [p| v |] [p| v |] [d| v = vmUpd |]))
   (\v -> S.VM {
-      S.vmID = vvmID v,
-      S.vmType = vvmType v,
-      S.load = vvmLoad v,
+      S.vmID = V.vvmID v,
+      S.vmType = V.vvmType v,
+      S.load = V.vload v,
       S.cost = 0.00,
       S.cpu = 0,
       S.ram = 0,

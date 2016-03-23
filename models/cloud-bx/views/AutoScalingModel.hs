@@ -1,16 +1,16 @@
 module AutoScalingModel(
   View(..)
-  , VM(..)
+  , VVM(..)
   ) where
 
 data View = View {
-  vms :: [VM]} deriving (Show, Eq)
+  vvms :: [VVM]} deriving (Show, Eq)
 
-data VM = VM {
-  vmID :: String
-  , vmType :: String
-  , load :: Double
+data VVM = VVM {
+  vvmID :: String
+  , vvmType :: String
+  , vload :: Double
   } deriving (Show, Eq)
 
-instance Ord VM where
-  compare vm1 vm2 = compare (vmID vm1) (vmID vm2)
+instance Ord VVM where
+  compare vm1 vm2 = compare (vvmID vm1) (vvmID vm2)
