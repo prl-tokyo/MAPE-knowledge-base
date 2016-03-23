@@ -55,8 +55,8 @@ vmListAlign = align (const True)
       })
   (const Nothing)
 
--- svm :: [VM]
--- svm = [vm1, vm2]
+svm :: [S.VM]
+svm = [vm1, vm2]
 
 -- svm3 :: [VM]
 -- svm3 = [vm1, vm2, vm3]
