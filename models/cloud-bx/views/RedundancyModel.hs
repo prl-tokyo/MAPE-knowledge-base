@@ -1,4 +1,8 @@
-module RedundancyModel(RView(..), RVM(..)) where
+{-# LANGUAGE OverloadedStrings, FlexibleInstances, DeriveGeneric, TemplateHaskell, ScopedTypeVariables #-}
+module RedundancyModel (
+    RView(..)
+  , RVM(..)
+  ) where
 
 data RView = RView {rvms :: [RVM]} deriving (Show, Eq)
 

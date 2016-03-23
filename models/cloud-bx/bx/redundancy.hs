@@ -14,7 +14,7 @@ import Control.Arrow
 import Data.Maybe
 import AWSModel
 import qualified SourceModel as S
-import qualified RedundancyModel as V (RView(..), RVM(..))
+import qualified RedundancyModel as V --(RView(..), RVM(..))
 
 deriveBiGULGeneric ''S.Model
 deriveBiGULGeneric ''S.VM
@@ -45,6 +45,7 @@ rvmListAlign = align (const True)
   ($(update [p| v |] [p| v |] [d| v = rvmUpd |]))
   (\v -> S.VM {
       S.vmID = V.rvmID v,
+      S.vmType = "t2.micro",
       S.load = 0.00,
       S.cost = 0.00,
       S.cpu = 0,
@@ -57,6 +58,24 @@ rvmListAlign = align (const True)
 
 svm :: [S.VM]
 svm = [vm1, vm2]
+
+rvm :: [V.RVM]
+rvm = [rvm1, rvm2, rvm3]
+
+rvm1 = V.RVM {
+  V.rvmID = "vm1",
+  V.rSecurityGroupRef = "sg-123"
+  }
+
+rvm2 = V.RVM {
+  V.rvmID = "vm2",
+  V.rSecurityGroupRef = "sg-NEW"
+  }
+
+rvm3 = V.RVM {
+  V.rvmID = "vm3",
+  V.rSecurityGroupRef = "sg-456"
+  }
 
 align :: (a -> Bool)
       -> (a -> b -> Bool)
