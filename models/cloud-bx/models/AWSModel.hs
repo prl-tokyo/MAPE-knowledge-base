@@ -63,3 +63,31 @@ sg1 = S.SecurityGroup {
 
 sg2 = S.SecurityGroup {
 }
+
+svm2 = [S.VM {S.vmID = "vm1"
+             , S.vmType = "t2.micro"
+             , S.cost = 2.0e-2
+             , S.cpu = 4
+             , S.ram = 8
+             , S.ami = "abc"
+             , S.state = 1
+             , S.securityGroupRef = "sg-123"
+             , S.load = 1.12}
+       ,S.VM {S.vmID = "vm2"
+             , S.vmType = "t2.micro"
+             , S.cost = 1.0e-2
+             , S.cpu = 2
+             , S.ram = 4
+             , S.ami = "abc"
+             , S.state = 1
+             , S.securityGroupRef = "sg-123"
+             , S.load = 0.42}
+       ,S.VM {S.vmID = "vm3"
+             , S.vmType = "t4.large"
+             , S.cost = 0.0
+             , S.cpu = 0
+             , S.ram = 0
+             , S.ami = "0000"
+             , S.state = 0
+             , S.securityGroupRef = "sg-123"
+             , S.load = 1.32}]

@@ -8,6 +8,13 @@ module SourceModel(
   , FirewallRule(..)
   ) where
 
+import Generics.BiGUL.AST
+import Generics.BiGUL.Error
+import Generics.BiGUL.Interpreter
+import Language.Haskell.TH as TH hiding (Name)
+import Generics.BiGUL.TH
+import GHC.Generics
+
 data Model = Model {
     reservations :: [Reservation]
   , securityGroups :: [SecurityGroup]
@@ -56,3 +63,9 @@ data FirewallRule = FirewallRule {
 
 instance Ord FirewallRule where
   compare fw1 fw2 = compare (fwID fw1) (fwID fw2)
+
+deriveBiGULGeneric ''Model
+deriveBiGULGeneric ''VM
+deriveBiGULGeneric ''FirewallRule
+deriveBiGULGeneric ''Reservation
+deriveBiGULGeneric ''SecurityGroup

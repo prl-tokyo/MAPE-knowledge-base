@@ -1,5 +1,11 @@
 {-# LANGUAGE FlexibleContexts, TemplateHaskell, TypeFamilies, TypeOperators, ViewPatterns #-}
 
+module RedundancyBX(
+  rvmUpd,
+  rvmListAlign,
+  V.rView1
+  ) where
+
 --import Generics.BiGUL
 import Generics.BiGUL.AST
 import Generics.BiGUL.Error
@@ -14,95 +20,60 @@ import Control.Arrow
 import Data.Maybe
 import AWSModel
 import qualified SourceModel as S
-import qualified AutoScalingModel as V (View(..), VVM(..))
+import qualified RedundancyModel as V --(RView(..), RVM(..))
 
-deriveBiGULGeneric ''S.Model
-deriveBiGULGeneric ''S.VM
-deriveBiGULGeneric ''S.FirewallRule
-deriveBiGULGeneric ''S.Reservation
-deriveBiGULGeneric ''S.SecurityGroup
-deriveBiGULGeneric ''V.VVM
-deriveBiGULGeneric ''V.View
 
-vmUpd :: BiGUL S.VM V.VVM
-vmUpd = $(update [p| V.VVM {
-        V.vvmID = vmID,
-        V.vvmType = vmType,
-        V.vload = vmLoad
+deriveBiGULGeneric ''V.RVM
+deriveBiGULGeneric ''V.RView
+
+rvmUpd :: BiGUL S.VM V.RVM
+rvmUpd = $(update [p| V.RVM {
+        V.rvmID = vmID,
+        V.rSecurityGroupRef = securityGroupRef
     }|] [p| S.VM {
-            S.vmID = vmID,
-            S.vmType = vmType,
-            S.load = vmLoad
+        S.vmID = vmID,
+        S.securityGroupRef = securityGroupRef
     }|] [d| vmID = Replace;
-            vmType = Replace;
-            vmLoad = Replace
+            securityGroupRef = Replace
     |])
 
-vmListAlign :: BiGUL [S.VM] [V.VVM]
-vmListAlign = align (const True)
-  (\ s v -> S.vmID s == V.vvmID v)
-  ($(update [p| v |] [p| v |] [d| v = vmUpd |]))
+rvmListAlign :: BiGUL [S.VM] [V.RVM]
+rvmListAlign = align (const True)
+  (\ s v -> S.vmID s == V.rvmID v)
+  ($(update [p| v |] [p| v |] [d| v = rvmUpd |]))
   (\v -> S.VM {
-      S.vmID = V.vvmID v,
-      S.vmType = V.vvmType v,
-      S.load = V.vload v,
+      S.vmID = V.rvmID v,
+      S.vmType = "t2.micro",
+      S.load = 0.00,
       S.cost = 0.00,
       S.cpu = 0,
       S.ram = 0,
       S.ami = "0000",
       S.state = 0,
-      S.securityGroupRef = "sg-123"
+      S.securityGroupRef = V.rSecurityGroupRef v
       })
   (const Nothing)
 
 svm :: [S.VM]
 svm = [vm1, vm2]
 
--- svm3 :: [VM]
--- svm3 = [vm1, vm2, vm3]
+rvm :: [V.RVM]
+rvm = [rvm1, rvm2, rvm3]
 
--- vvm :: [VirtualMachineLoad]
--- vvm = [vmview1, vmview2]
+rvm1 = V.RVM {
+  V.rvmID = "vm1",
+  V.rSecurityGroupRef = "sg-123"
+  }
 
--- vvmDelete :: [VirtualMachineLoad]
--- vvmDelete = [vmview1]
+rvm2 = V.RVM {
+  V.rvmID = "vm2",
+  V.rSecurityGroupRef = "sg-NEW"
+  }
 
--- vvmNoOrder :: [VirtualMachineLoad]
--- vvmNoOrder = [vmview1, vmview3, vmview2]
-
--- vvmAdd :: [VirtualMachineLoad]
--- vvmAdd = [vmview1, vmview2, vmview3]
-
--- vmDefault = VirtualMachine {
--- svmID = "0000",
--- svmType = "0000",
--- svmLoad = 0.00,
--- svmCost = 0.00,
--- svmCPU = 0,
--- svmRAM = 0,
--- svmAMI = "0000",
--- svmState = 0,
--- svmSecurityGroupRef = "0000",
--- svmFirewallRules = []
--- }
-
--- vmview1 = VirtualMachineLoad {
--- vvmID = "vm1",
--- vvmType = "t2.large",
--- vvmLoad = 1.12
--- }
-
--- vmview2 = VirtualMachineLoad {
--- vvmID = "vm2",
--- vvmType = "t2.xxlarge",
--- vvmLoad = 0.42
--- }
-
--- vmview3 = VirtualMachineLoad {
--- vvmID = "vm3",
--- vvmType = "t4.xlarge",
--- vvmLoad = 10.22
--- }
+rvm3 = V.RVM {
+  V.rvmID = "vm3",
+  V.rSecurityGroupRef = "sg-456"
+  }
 
 align :: (a -> Bool)
       -> (a -> b -> Bool)
