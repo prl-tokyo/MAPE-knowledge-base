@@ -14,7 +14,7 @@ import Control.Arrow
 import Data.Maybe
 import AWSModel
 import qualified SourceModel as S
-import qualified RedundancyModel as V (View(..), RVM(..))
+import qualified RedundancyModel as V (RView(..), RVM(..))
 
 deriveBiGULGeneric ''S.Model
 deriveBiGULGeneric ''S.VM
@@ -22,27 +22,27 @@ deriveBiGULGeneric ''S.FirewallRule
 deriveBiGULGeneric ''S.Reservation
 deriveBiGULGeneric ''S.SecurityGroup
 deriveBiGULGeneric ''V.RVM
-deriveBiGULGeneric ''V.View
+deriveBiGULGeneric ''V.RView
 
 main :: IO ()
 main = do
-	putStrLn "Hello, world!"
+  putStrLn "Hello, world!"
 
-vmUpd :: BiGUL S.VM V.RVM
-vmUpd = $(update [p| V.RVM {
+rvmUpd :: BiGUL S.VM V.RVM
+rvmUpd = $(update [p| V.RVM {
         V.rvmID = vmID,
         V.rSecurityGroupRef = securityGroupRef
     }|] [p| S.VM {
-        S.vmID = rvmID,
-        S.securityGroupRef = rSecurityGroupRef
+        S.vmID = vmID,
+        S.securityGroupRef = securityGroupRef
     }|] [d| vmID = Replace;
-        securityGroupRef = Replace
+            securityGroupRef = Replace
     |])
 
-vmListAlign :: BiGUL [S.VM] [V.RVM]
-vmListAlign = align (const True)
+rvmListAlign :: BiGUL [S.VM] [V.RVM]
+rvmListAlign = align (const True)
   (\ s v -> S.vmID s == V.rvmID v)
-  ($(update [p| v |] [p| v |] [d| v = vmUpd |]))
+  ($(update [p| v |] [p| v |] [d| v = rvmUpd |]))
   (\v -> S.VM {
       S.vmID = V.rvmID v,
       S.load = 0.00,
