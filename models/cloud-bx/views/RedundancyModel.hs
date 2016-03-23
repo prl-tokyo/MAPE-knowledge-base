@@ -1,16 +1,11 @@
-module RedundancyModel(
-  View(..)
-  , VVM(..)
-  ) where
+module RedundancyModel(View(..), RVM(..)) where
 
-data View = View {
-  vvms :: [VVM]} deriving (Show, Eq)
+data View = View {rvms :: [RVM]} deriving (Show, Eq)
 
-data VVM = VVM {
-  vvmID :: String
-  , vvmType :: String
-  , vload :: Double
+data RVM = RVM {
+    rvmID :: String
+  , rSecurityGroupRef :: String
   } deriving (Show, Eq)
 
-instance Ord VVM where
-  compare vm1 vm2 = compare (vvmID vm1) (vvmID vm2)
+instance Ord RVM where
+  compare vm1 vm2 = compare (rvmID vm1) (rvmID vm2)
