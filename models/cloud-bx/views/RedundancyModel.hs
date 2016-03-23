@@ -1,6 +1,6 @@
-module RedundancyModel(View(..), RVM(..)) where
+module RedundancyModel(RView(..), RVM(..)) where
 
-data View = View {rvms :: [RVM]} deriving (Show, Eq)
+data RView = RView {rvms :: [RVM]} deriving (Show, Eq)
 
 data RVM = RVM {
     rvmID :: String
