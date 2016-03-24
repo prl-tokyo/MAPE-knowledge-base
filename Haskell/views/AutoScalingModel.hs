@@ -1,5 +1,6 @@
 {-# LANGUAGE TemplateHaskell
 , TypeFamilies #-}
+
 module AutoScalingModel(
   View(..)
   , VVM(..)
