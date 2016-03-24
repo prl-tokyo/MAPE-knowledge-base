@@ -3,7 +3,6 @@
 module RedundancyBX(
   rvmUpd,
   rvmListAlign,
-  V.rView1
   ) where
 
 --import Generics.BiGUL
@@ -18,7 +17,6 @@ import Data.List
 import GHC.Generics
 import Control.Arrow
 import Data.Maybe
-import AWSModel
 import Utils
 import qualified SourceModel as S
 import qualified RedundancyModel as V --(RView(..), RVM(..))
@@ -50,24 +48,3 @@ rvmListAlign = align (const True)
       S.securityGroupRef = V.rSecurityGroupRef v
       })
   (const Nothing)
-
-svm :: [S.VM]
-svm = [vm1, vm2]
-
-rvm :: [V.RVM]
-rvm = [rvm1, rvm2, rvm3]
-
-rvm1 = V.RVM {
-  V.rvmID = "vm1",
-  V.rSecurityGroupRef = "sg-123"
-  }
-
-rvm2 = V.RVM {
-  V.rvmID = "vm2",
-  V.rSecurityGroupRef = "sg-NEW"
-  }
-
-rvm3 = V.RVM {
-  V.rvmID = "vm3",
-  V.rSecurityGroupRef = "sg-456"
-  }
