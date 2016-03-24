@@ -1,1 +1,0 @@
-data Cost = Cost Double
