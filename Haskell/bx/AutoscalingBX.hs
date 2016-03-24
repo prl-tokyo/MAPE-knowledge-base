@@ -1,4 +1,5 @@
-{-# LANGUAGE FlexibleContexts, TemplateHaskell, TypeFamilies, TypeOperators, ViewPatterns #-}
+{-# LANGUAGE TemplateHaskell
+, TypeFamilies #-}
 
 module AutoscalingBX(
   vmUpd,
