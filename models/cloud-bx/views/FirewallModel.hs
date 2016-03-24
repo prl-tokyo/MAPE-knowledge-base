@@ -19,6 +19,5 @@ data FWRule = FWRule {
   } deriving (Show, Eq)
 
 data FWSG = FWSG {
-  fwsgID :: String,
-  fwsgName :: String
+  fwsgID :: String
   } deriving (Show, Eq)
