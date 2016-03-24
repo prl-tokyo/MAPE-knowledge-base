@@ -1,11 +1,11 @@
-{-# LANGUAGE FlexibleContexts, TemplateHaskell, TypeFamilies, TypeOperators, ViewPatterns #-}
+{-# LANGUAGE TemplateHaskell,
+TypeFamilies #-}
 
 module RedundancyBX(
   rvmUpd,
   rvmListAlign,
   ) where
 
---import Generics.BiGUL
 import Generics.BiGUL.AST
 import Generics.BiGUL.Error
 import Generics.BiGUL.Interpreter
@@ -19,7 +19,7 @@ import Control.Arrow
 import Data.Maybe
 import Utils
 import qualified SourceModel as S
-import qualified RedundancyModel as V --(RView(..), RVM(..))
+import qualified RedundancyModel as V
 
 rvmUpd :: BiGUL S.VM V.RVM
 rvmUpd = $(update [p| V.RVM {
