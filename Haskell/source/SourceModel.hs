@@ -1,4 +1,5 @@
-{-# LANGUAGE OverloadedStrings, ScopedTypeVariables, FlexibleInstances, DeriveGeneric, TemplateHaskell, TypeFamilies, ViewPatterns #-}
+{-# LANGUAGE TemplateHaskell
+, TypeFamilies #-}
 
 module SourceModel(
   Model(..)
@@ -8,10 +9,6 @@ module SourceModel(
   , FirewallRule(..)
   ) where
 
-import Generics.BiGUL.AST
-import Generics.BiGUL.Error
-import Generics.BiGUL.Interpreter
-import Language.Haskell.TH as TH hiding (Name)
 import Generics.BiGUL.TH
 import GHC.Generics
 
