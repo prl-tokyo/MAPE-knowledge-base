@@ -5,7 +5,10 @@ module AutoScalingModel(
   ) where
 
 data View = View {
-  vvms :: [VVM]} deriving (Show, Eq)
+  current :: [VVM]
+  , additions :: [VVM]
+  , terminations :: [VVM]
+  } deriving (Show, Eq)
 
 data VVM = VVM {
   vvmID :: String
