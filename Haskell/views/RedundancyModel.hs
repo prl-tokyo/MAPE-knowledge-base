@@ -1,9 +1,14 @@
-{-# LANGUAGE OverloadedStrings, FlexibleInstances, DeriveGeneric, TemplateHaskell, ScopedTypeVariables #-}
+{-# LANGUAGE TemplateHaskell
+, TypeFamilies #-}
+
 module RedundancyModel (
     RView(..)
   , RVM(..)
   , rView1
   ) where
+
+import Generics.BiGUL.TH
+import GHC.Generics
 
 data RView = RView {rvms :: [RVM]} deriving (Show, Eq)
 
@@ -14,6 +19,9 @@ data RVM = RVM {
 
 instance Ord RVM where
   compare vm1 vm2 = compare (rvmID vm1) (rvmID vm2)
+
+deriveBiGULGeneric ''RView
+deriveBiGULGeneric ''RVM
 
 rView1 = [RVM {rvmID = "vm1"
               , rSecurityGroupRef = "sg-123"}

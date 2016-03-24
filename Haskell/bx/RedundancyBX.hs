@@ -23,10 +23,6 @@ import Utils
 import qualified SourceModel as S
 import qualified RedundancyModel as V --(RView(..), RVM(..))
 
-
-deriveBiGULGeneric ''V.RVM
-deriveBiGULGeneric ''V.RView
-
 rvmUpd :: BiGUL S.VM V.RVM
 rvmUpd = $(update [p| V.RVM {
         V.rvmID = vmID,
