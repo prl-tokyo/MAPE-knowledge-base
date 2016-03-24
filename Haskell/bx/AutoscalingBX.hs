@@ -4,9 +4,6 @@
 module AutoscalingBX(
   vmUpd,
   vmListAlign,
-  svm,
-  V.asView1,
-  svm2
   ) where
 
 --import Generics.BiGUL
@@ -21,7 +18,6 @@ import Data.List
 import GHC.Generics
 import Control.Arrow
 import Data.Maybe
-import AWSModel
 import Utils
 import qualified SourceModel as S
 import qualified AutoScalingModel as V
@@ -56,6 +52,3 @@ vmListAlign = align (const True)
       S.securityGroupRef = "sg-123"
       })
   (const Nothing)
-
-svm :: [S.VM]
-svm = [vm1, vm2]
