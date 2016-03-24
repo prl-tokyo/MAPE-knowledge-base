@@ -1,10 +1,14 @@
-{-# LANGUAGE OverloadedStrings, FlexibleInstances, DeriveGeneric, TemplateHaskell, ScopedTypeVariables #-}
+{-# LANGUAGE TemplateHaskell
+, TypeFamilies #-}
 
 module FirewallModel (
   FWView(..)
   , FWRule(..)
   , FWSG(..)
   ) where
+
+import Generics.BiGUL.TH
+import GHC.Generics
 
 data FWView = FWView {
   fwRules :: [FWRule]
@@ -21,3 +25,7 @@ data FWRule = FWRule {
 data FWSG = FWSG {
   fwsgID :: String
   } deriving (Show, Eq)
+
+deriveBiGULGeneric ''FWView
+deriveBiGULGeneric ''FWRule
+deriveBiGULGeneric ''FWSG
