@@ -1,4 +1,6 @@
-{-# LANGUAGE TemplateHaskell, ViewPatterns #-}
+{-# LANGUAGE TemplateHaskell
+, ViewPatterns #-}
+
 module Utils (align) where
 
 import Generics.BiGUL.AST
