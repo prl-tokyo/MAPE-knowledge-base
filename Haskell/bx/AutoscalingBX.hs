@@ -25,9 +25,6 @@ import Utils
 import qualified SourceModel as S
 import qualified AutoScalingModel as V
 
-deriveBiGULGeneric ''V.VVM
-deriveBiGULGeneric ''V.View
-
 vmUpd :: BiGUL S.VM V.VVM
 vmUpd = $(update [p| V.VVM {
         V.vvmID = vmID,
