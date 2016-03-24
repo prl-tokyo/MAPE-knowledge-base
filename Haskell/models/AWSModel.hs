@@ -58,10 +58,32 @@ vm3 = S.VM {
 }
 
 sg1 = S.SecurityGroup {
+  S.sgID = "sg-1",
+  S.vmRefs = ["vm1", "vm2"],
+  S.firewallRules = [fw1, fw2]
 }
 
 sg2 = S.SecurityGroup {
+  S.sgID = "sg-2",
+  S.vmRefs = ["vm3"],
+  S.firewallRules = [fw1]
 }
+
+fw1 = S.FirewallRule {
+  S.fwID = "fw-1"
+  , S.outbound = False
+  , S.port = "80"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
+  }
+
+fw2 = S.FirewallRule {
+  S.fwID = "fw-2"
+  , S.outbound = False
+  , S.port = "443"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
+  }
 
 svm2 = [S.VM {S.vmID = "vm1"
              , S.vmType = "t2.micro"
