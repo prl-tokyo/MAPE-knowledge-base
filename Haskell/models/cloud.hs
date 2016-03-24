@@ -1,8 +1,5 @@
-{-# LANGUAGE FlexibleContexts,
-TemplateHaskell,
-TypeFamilies,
-TypeOperators,
-ViewPatterns #-}
+{-# LANGUAGE TemplateHaskell,
+TypeFamilies #-}
 
 import Generics.BiGUL.AST
 import Generics.BiGUL.Error
