@@ -4,15 +4,15 @@
 module FirewallModel (
   FWView(..)
   , FWRule(..)
-  , FWSG(..)
   ) where
 
 import Generics.BiGUL.TH
 import GHC.Generics
 
 data FWView = FWView {
-  fwRules :: [FWRule]
-  , fwSecurityGroups :: [FWSG]
+  current :: [FWRule]
+  , additions :: [FWRule]
+  , deletions :: [FWRule]
   } deriving (Show, Eq)
 
 data FWRule = FWRule {
@@ -22,10 +22,5 @@ data FWRule = FWRule {
   fwProtocol :: String
   } deriving (Show, Eq)
 
-data FWSG = FWSG {
-  fwsgID :: String
-  } deriving (Show, Eq)
-
 deriveBiGULGeneric ''FWView
 deriveBiGULGeneric ''FWRule
-deriveBiGULGeneric ''FWSG
