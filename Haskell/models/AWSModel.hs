@@ -1,6 +1,13 @@
 module AWSModel where
 
+import qualified AutoScalingModel as AV
+import qualified FirewallModel as FV
 import qualified SourceModel as S
+import qualified RedundancyModel as RV
+
+-----------------
+-- Source example
+-----------------
 
 fw = S.FirewallRule {
     S.fwID = "123"
@@ -11,6 +18,10 @@ fw = S.FirewallRule {
   }
 
 model = S.Model {
+  S.current = current
+}
+
+current = S.Current {
     S.reservations = [res1]
   , S.securityGroups = [sg1, sg2]
 }
@@ -111,4 +122,44 @@ svm2 = [S.VM {S.vmID = "vm1"
              , S.ami = "0000"
              , S.state = 0
              , S.securityGroupRef = "sg-123"
-             , S.load = 1.32}]
+             , S.load = 1.32}
+       ]
+
+--------------------------
+-- Redundancy view example
+--------------------------
+
+rView1 = [RV.RVM {
+             RV.rvmID = "vm1"
+             , RV.rSecurityGroupRef = "sg-123"}
+         ,RV.RVM {
+             RV.rvmID = "vm2"
+             , RV.rSecurityGroupRef = "sg-123"}
+         ,RV.RVM {
+             RV.rvmID = "vm3"
+             , RV.rSecurityGroupRef = "sg-123"}
+         ]
+
+---------------------------
+-- Autoscaling view example
+---------------------------
+
+asView1 = [AV.VVM {
+              AV.vvmID = "vm1"
+              , AV.vvmType = "t2.micro"
+              , AV.vload = 1.12}
+          ,AV.VVM {
+              AV.vvmID = "vm2"
+              , AV.vvmType = "t2.micro"
+              , AV.vload = 0.42}
+          ,AV.VVM {
+              AV.vvmID = "vm3"
+              , AV.vvmType = "t4.large"
+              , AV.vload = 1.32}
+          ]
+
+------------------------
+-- Firewall view example
+------------------------
+
+-- TODO

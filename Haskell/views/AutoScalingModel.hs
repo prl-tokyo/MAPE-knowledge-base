@@ -3,7 +3,6 @@
 module AutoScalingModel(
   View(..)
   , VVM(..)
-  , asView1
   ) where
 
 import Generics.BiGUL.TH
@@ -26,7 +25,3 @@ instance Ord VVM where
 
 deriveBiGULGeneric ''VVM
 deriveBiGULGeneric ''View
-
-asView1 = [VVM {vvmID = "vm1", vvmType = "t2.micro", vload = 1.12}
-        ,VVM {vvmID = "vm2", vvmType = "t2.micro", vload = 0.42}
-        ,VVM {vvmID = "vm3", vvmType = "t4.large", vload = 1.32}]
