@@ -4,6 +4,8 @@ TypeFamilies #-}
 module RedundancyBX(
   rvmUpd,
   rvmListAlign,
+  get,
+  put
   ) where
 
 import Generics.BiGUL.AST
