@@ -4,6 +4,8 @@
 module AutoscalingBX(
   vmUpd,
   vmListAlign,
+  get,
+  put
   ) where
 
 --import Generics.BiGUL
