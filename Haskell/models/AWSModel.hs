@@ -144,6 +144,12 @@ rView1 = [RV.RVM {
 -- Autoscaling view example
 ---------------------------
 
+asVM1 = AV.VVM {
+  AV.vvmID = "vm1",
+  AV.vvmType = "t2.micro",
+  AV.vload = 1.12
+}
+
 asView1 = [AV.VVM {
               AV.vvmID = "vm1"
               , AV.vvmType = "t2.micro"
