@@ -1,6 +1,11 @@
 {-# LANGUAGE TemplateHaskell
 , TypeFamilies #-}
 
+-- This model defines the structure of the source model. The root is `Model`.
+-- It is assumed that the put behaviour updating this model will not directly
+-- modify model elements, but add them to the `Addition` or `Deletion` lists,
+-- as appropriate.
+
 module SourceModel(
   Model(..)
   , Current(..)
