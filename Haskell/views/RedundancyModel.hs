@@ -2,22 +2,30 @@
 , TypeFamilies #-}
 
 module RedundancyModel (
-    RView(..)
-  , RVM(..)
+  ChangeView(..)
+  , View(..)
+  , VM(..)
   ) where
 
 import Generics.BiGUL.TH
 import GHC.Generics
 
-data RView = RView {rvms :: [RVM]} deriving (Show, Eq)
-
-data RVM = RVM {
-  rvmID :: String
-  , rSecurityGroupRef :: String
+data ChangeView = ChangeView {
+  current :: [VM]
+  , additions :: [VM]
+  , terminations :: [VM]
   } deriving (Show, Eq)
 
-instance Ord RVM where
-  compare vm1 vm2 = compare (rvmID vm1) (rvmID vm2)
+data View = View {vms :: [VM]} deriving (Show, Eq)
 
-deriveBiGULGeneric ''RView
-deriveBiGULGeneric ''RVM
+data VM = VM {
+  vmID :: String
+  , securityGroupRef :: String
+  } deriving (Show, Eq)
+
+instance Ord VM where
+  compare vm1 vm2 = compare (vmID vm1) (vmID vm2)
+
+deriveBiGULGeneric ''ChangeView
+deriveBiGULGeneric ''View
+deriveBiGULGeneric ''VM
