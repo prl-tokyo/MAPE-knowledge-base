@@ -8,40 +8,20 @@
 
 module SourceModel(
   Model(..)
-  , Current(..)
-  , Addition(..)
-  , Deletion(..)
   , Reservation(..)
   , Instance(..)
   , SecurityGroup(..)
   , FirewallRule(..)
   , InstanceType(..)
-  , Static(..)
   ) where
 
 import Generics.BiGUL.TH
 import GHC.Generics
 
 data Model = Model {
-  current :: Current
-  , additions :: [Addition]
-  , deletions :: [Deletion]
-  , static :: Static
-  } deriving (Show, Eq)
-
-data Current = Current {
   reservations :: [Reservation]
   , securityGroups :: [SecurityGroup]
-  } deriving (Show, Eq)
-
-data Addition = Addition {
-  addFW :: [FirewallRule]
-  , addInst :: [Instance]
-  } deriving (Show, Eq)
-
-data Deletion = Deletion {
-  delFW :: [FirewallRule]
-  , delInst :: [Instance]
+  , instanceTypes :: [InstanceType]
   } deriving (Show, Eq)
 
 data Reservation = Reservation {
@@ -58,6 +38,7 @@ data Instance = Instance {
   , instType :: String
   , ami :: String
   , state :: Int
+  , instStatus :: Int
   , securityGroupRef :: String
   , load :: Double
 } deriving (Show, Eq)
@@ -79,10 +60,7 @@ data FirewallRule = FirewallRule {
   , port :: String
   , ip :: String
   , protocol :: String
-  } deriving (Show, Eq)
-
-data Static = Static {
-  instanceTypes :: [InstanceType]
+  , fwStatus :: Int
   } deriving (Show, Eq)
 
 data InstanceType = InstanceType {
@@ -96,12 +74,8 @@ instance Ord InstanceType where
   compare inst1 inst2 = compare (typeID inst1) (typeID inst2)
 
 deriveBiGULGeneric ''Model
-deriveBiGULGeneric ''Current
-deriveBiGULGeneric ''Addition
-deriveBiGULGeneric ''Deletion
 deriveBiGULGeneric ''Instance
 deriveBiGULGeneric ''FirewallRule
 deriveBiGULGeneric ''Reservation
 deriveBiGULGeneric ''SecurityGroup
 deriveBiGULGeneric ''InstanceType
-deriveBiGULGeneric ''Static

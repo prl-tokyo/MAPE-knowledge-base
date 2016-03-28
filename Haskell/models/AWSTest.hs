@@ -10,15 +10,10 @@ import qualified RedundancyModel as RV
 ------------------------------------------------------------------------
 
 source = S.Model {
-  S.current = current
-  , S.additions = []
-  , S.deletions = []
-  , S.static = static
-  }
-
-current = S.Current {
   S.reservations = [res1, res2]
   , S.securityGroups = [sg1, sg2, sg3, sg4, sg5]
+  , S.instanceTypes = [t1, t2, t3, t4, t5, t6, t7
+                    , t8, t9, t10, t11, t12, t13, t14]
   }
 
 res1 = S.Reservation {
@@ -32,6 +27,7 @@ inst1 = S.Instance {
   , S.instType = "t2.micro"
   , S.ami = "ami-59bdb937"
   , S.state = 16
+  , S.instStatus = 0
   , S.securityGroupRef = "sg-b8d400dc"
   , S.load = 0.00
   }
@@ -47,6 +43,7 @@ inst2 = S.Instance {
   , S.instType = "t2.micro"
   , S.ami = "ami-59bdb937"
   , S.state = 16
+  , S.instStatus = 0
   , S.securityGroupRef = "sg-77d40013"
   , S.load = 0.00
   }
@@ -56,6 +53,7 @@ inst3 = S.Instance {
   , S.instType = "t2.micro"
   , S.ami = "ami-59bdb937"
   , S.state = 16
+  , S.instStatus = 0
   , S.securityGroupRef = "sg-77d40013"
   , S.load = 0.00
   }
@@ -65,6 +63,7 @@ inst4 = S.Instance {
   , S.instType = "t2.micro"
   , S.ami = "ami-59bdb937"
   , S.state = 16
+  , S.instStatus = 0
   , S.securityGroupRef = "sg-77d40013"
   , S.load = 0.00
   }
@@ -86,6 +85,7 @@ fw1 = S.FirewallRule {
   , S.port = "80"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
+  , S.fwStatus = 0
   }
 
 fw2 = S.FirewallRule {
@@ -93,6 +93,7 @@ fw2 = S.FirewallRule {
   , S.port = "22"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
+  , S.fwStatus = 0
   }
 
 fw3 = S.FirewallRule {
@@ -100,6 +101,7 @@ fw3 = S.FirewallRule {
   , S.port = "443"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
+  , S.fwStatus = 0
   }
 
 sg3 = S.SecurityGroup {
@@ -113,6 +115,7 @@ fw4 = S.FirewallRule {
   , S.port = "22"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
+  , S.fwStatus = 0
   }
 
 sg4 = S.SecurityGroup {
@@ -126,6 +129,7 @@ fw5 = S.FirewallRule {
   , S.port = "22"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
+  , S.fwStatus = 0
   }
 
 fw6 = S.FirewallRule {
@@ -133,6 +137,7 @@ fw6 = S.FirewallRule {
   , S.port = "3306"
   , S.ip = "sg-77d40013"
   , S.protocol = "tcp"
+  , S.fwStatus = 0
   }
 
 sg5 = S.SecurityGroup {
@@ -146,6 +151,7 @@ fw7 = S.FirewallRule {
   , S.port = "80"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
+  , S.fwStatus = 0
   }
 
 fw8 = S.FirewallRule {
@@ -153,6 +159,7 @@ fw8 = S.FirewallRule {
   , S.port = "22"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
+  , S.fwStatus = 0
   }
 
 fw9 = S.FirewallRule {
@@ -160,11 +167,7 @@ fw9 = S.FirewallRule {
   , S.port = "443"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
-  }
-
-static = S.Static {
-  S.instanceTypes = [t1, t2, t3, t4, t5, t6, t7
-                    , t8, t9, t10, t11, t12, t13, t14]
+  , S.fwStatus = 0
   }
 
 t1 = S.InstanceType {
