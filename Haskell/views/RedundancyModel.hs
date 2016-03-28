@@ -3,29 +3,29 @@
 
 module RedundancyModel (
   ChangeView(..)
+  , Instance(..)
   , View(..)
-  , VM(..)
   ) where
 
 import Generics.BiGUL.TH
 import GHC.Generics
 
 data ChangeView = ChangeView {
-  current :: [VM]
-  , additions :: [VM]
-  , terminations :: [VM]
+  current :: [Instance]
+  , additions :: [Instance]
+  , terminations :: [Instance]
   } deriving (Show, Eq)
 
-data View = View {vms :: [VM]} deriving (Show, Eq)
+data View = View {instances :: [Instance]} deriving (Show, Eq)
 
-data VM = VM {
-  vmID :: String
+data Instance = Instance {
+  instID :: String
   , securityGroupRef :: String
   } deriving (Show, Eq)
 
-instance Ord VM where
-  compare vm1 vm2 = compare (vmID vm1) (vmID vm2)
+instance Ord Instance where
+  compare inst1 inst2 = compare (instID inst1) (instID inst2)
 
 deriveBiGULGeneric ''ChangeView
+deriveBiGULGeneric ''Instance
 deriveBiGULGeneric ''View
-deriveBiGULGeneric ''VM
