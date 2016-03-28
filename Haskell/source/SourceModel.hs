@@ -75,15 +75,11 @@ instance Ord SecurityGroup where
   compare sg1 sg2 = compare (sgID sg1) (sgID sg2)
 
 data FirewallRule = FirewallRule {
-  fwID :: String
-  , outbound :: Bool
+  outbound :: Bool
   , port :: String
   , ip :: String
   , protocol :: String
   } deriving (Show, Eq)
-
-instance Ord FirewallRule where
-  compare fw1 fw2 = compare (fwID fw1) (fwID fw2)
 
 data Static = Static {
   instanceTypes :: [InstanceType]
