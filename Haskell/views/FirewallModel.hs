@@ -27,5 +27,6 @@ data Rule = Rule {
   protocol :: String
   } deriving (Show, Eq)
 
+deriveBiGULGeneric ''ChangeView
 deriveBiGULGeneric ''View
 deriveBiGULGeneric ''Rule
