@@ -12,7 +12,7 @@ module SourceModel(
   , Addition(..)
   , Deletion(..)
   , Reservation(..)
-  , VM(..)
+  , Instance(..)
   , SecurityGroup(..)
   , FirewallRule(..)
   , InstanceType(..)
@@ -35,34 +35,34 @@ data Current = Current {
 
 data Addition = Addition {
   addFW :: [FirewallRule]
-  , addVM :: [VM]
+  , addInst :: [Instance]
   } deriving (Show, Eq)
 
 data Deletion = Deletion {
   delFW :: [FirewallRule]
-  , delVM :: [VM]
+  , delInst :: [Instance]
   } deriving (Show, Eq)
 
 data Reservation = Reservation {
   resID :: String
   , securityGroupRefs :: [String]
-  , vms :: [VM]
+  , instances :: [Instance]
   } deriving (Show, Eq)
 
 instance Ord Reservation where
   compare res1 res2 = compare (resID res1) (resID res2)
 
-data VM = VM {
-  vmID :: String
-  , vmType :: String
+data Instance = Instance {
+  instID :: String
+  , instType :: String
   , ami :: String
   , state :: Int
   , securityGroupRef :: String
   , load :: Double
 } deriving (Show, Eq)
 
-instance Ord VM where
-  compare vm1 vm2 = compare (vmID vm1) (vmID vm2)
+instance Ord Instance where
+  compare inst1 inst2 = compare (instID inst1) (instID inst2)
 
 data SecurityGroup = SecurityGroup {
   sgID :: String
@@ -98,7 +98,7 @@ deriveBiGULGeneric ''Model
 deriveBiGULGeneric ''Current
 deriveBiGULGeneric ''Addition
 deriveBiGULGeneric ''Deletion
-deriveBiGULGeneric ''VM
+deriveBiGULGeneric ''Instance
 deriveBiGULGeneric ''FirewallRule
 deriveBiGULGeneric ''Reservation
 deriveBiGULGeneric ''SecurityGroup
