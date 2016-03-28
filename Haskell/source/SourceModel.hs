@@ -92,7 +92,7 @@ data Static = Static {
 data InstanceType = InstanceType {
   typeID :: String
   , typeCPUs :: Int
-  , typeRAM :: Int
+  , typeRAM :: Double
   , typeCost :: Double
   } deriving (Show, Eq)
 
