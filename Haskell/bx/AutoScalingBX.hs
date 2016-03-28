@@ -2,8 +2,8 @@
 , TypeFamilies #-}
 
 module AutoscalingBX(
-  vmUpd,
-  vmListAlign,
+  instUpd,
+  instListAlign,
   get,
   put
   ) where
@@ -24,31 +24,28 @@ import Utils
 import qualified SourceModel as S
 import qualified AutoScalingModel as V
 
-vmUpd :: BiGUL S.VM V.VVM
-vmUpd = $(update [p| V.VVM {
-        V.vvmID = vmID,
-        V.vvmType = vmType,
-        V.vload = vmLoad
-    }|] [p| S.VM {
-            S.vmID = vmID,
-            S.vmType = vmType,
-            S.load = vmLoad
-    }|] [d| vmID = Replace;
-            vmType = Replace;
-            vmLoad = Replace
-    |])
+instUpd :: BiGUL S.Instance V.Instance
+instUpd = $(update [p| V.Instance {
+                       V.instID = instID,
+                       V.instType = instType,
+                       V.instLoad = instLoad
+               }|] [p| S.Instance {
+                       S.instID = instID,
+                       S.instType = instType,
+                       S.load = instLoad
+               }|] [d| instID = Replace;
+                       instType = Replace;
+                       instLoad = Replace
+  |])
 
-vmListAlign :: BiGUL [S.VM] [V.VVM]
-vmListAlign = align (const True)
-  (\ s v -> S.vmID s == V.vvmID v)
-  ($(update [p| v |] [p| v |] [d| v = vmUpd |]))
-  (\v -> S.VM {
-      S.vmID = V.vvmID v,
-      S.vmType = V.vvmType v,
-      S.load = V.vload v,
-      S.cost = 0.00,
-      S.cpu = 0,
-      S.ram = 0,
+instListAlign :: BiGUL [S.Instance] [V.Instance]
+instListAlign = align (const True)
+  (\ s v -> S.instID s == V.instID v)
+  ($(update [p| v |] [p| v |] [d| v = instUpd |]))
+  (\v -> S.Instance {
+      S.instID = V.instID v,
+      S.instType = V.instType v,
+      S.load = V.instLoad v,
       S.ami = "0000",
       S.state = 0,
       S.securityGroupRef = "sg-123"
