@@ -15,6 +15,7 @@ module SourceModel(
   , VM(..)
   , SecurityGroup(..)
   , FirewallRule(..)
+  , InstanceType(..)
   ) where
 
 import Generics.BiGUL.TH
@@ -29,6 +30,7 @@ data Model = Model {
 data Current = Current {
   reservations :: [Reservation]
   , securityGroups :: [SecurityGroup]
+  , instanceTypes :: [InstanceType]
   } deriving (Show, Eq)
 
 data Addition = Addition {
@@ -53,9 +55,6 @@ instance Ord Reservation where
 data VM = VM {
   vmID :: String
   , vmType :: String
-  , cost :: Double
-  , cpu :: Int
-  , ram :: Int
   , ami :: String
   , state :: Int
   , securityGroupRef :: String
@@ -85,6 +84,16 @@ data FirewallRule = FirewallRule {
 instance Ord FirewallRule where
   compare fw1 fw2 = compare (fwID fw1) (fwID fw2)
 
+data InstanceType = InstanceType {
+  typeID :: String
+  , typeCPUs :: Int
+  , typeRAM :: Int
+  , typeCost :: Double
+  } deriving (Show, Eq)
+
+instance Ord InstanceType where
+  compare inst1 inst2 = compare (typeID inst1) (typeID inst2)
+
 deriveBiGULGeneric ''Model
 deriveBiGULGeneric ''Current
 deriveBiGULGeneric ''Addition
@@ -93,3 +102,4 @@ deriveBiGULGeneric ''VM
 deriveBiGULGeneric ''FirewallRule
 deriveBiGULGeneric ''Reservation
 deriveBiGULGeneric ''SecurityGroup
+deriveBiGULGeneric ''InstanceType
