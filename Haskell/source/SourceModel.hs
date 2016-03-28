@@ -67,7 +67,7 @@ instance Ord Instance where
 
 data SecurityGroup = SecurityGroup {
   sgID :: String
-  , vmRefs :: [String]
+  , instRefs :: [String]
   , firewallRules :: [FirewallRule]
   } deriving (Show, Eq)
 
