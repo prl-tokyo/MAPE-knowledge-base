@@ -26,7 +26,7 @@ data View = View {
 data Instance = Instance {
   instID :: String
   , instType :: String
-  , instload :: Double
+  , instLoad :: Double
   } deriving (Show, Eq)
 
 instance Ord Instance where
