@@ -25,12 +25,12 @@ data Model = Model {
   current :: Current
   , additions :: [Addition]
   , deletions :: [Deletion]
+  , static :: Static
   } deriving (Show, Eq)
 
 data Current = Current {
   reservations :: [Reservation]
   , securityGroups :: [SecurityGroup]
-  , instanceTypes :: [InstanceType]
   } deriving (Show, Eq)
 
 data Addition = Addition {
@@ -84,6 +84,10 @@ data FirewallRule = FirewallRule {
 instance Ord FirewallRule where
   compare fw1 fw2 = compare (fwID fw1) (fwID fw2)
 
+data Static = Static {
+  instanceTypes :: [InstanceType]
+  } deriving (Show, Eq)
+
 data InstanceType = InstanceType {
   typeID :: String
   , typeCPUs :: Int
@@ -103,3 +107,4 @@ deriveBiGULGeneric ''FirewallRule
 deriveBiGULGeneric ''Reservation
 deriveBiGULGeneric ''SecurityGroup
 deriveBiGULGeneric ''InstanceType
+deriveBiGULGeneric ''Static
