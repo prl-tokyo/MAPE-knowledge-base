@@ -16,6 +16,7 @@ module SourceModel(
   , SecurityGroup(..)
   , FirewallRule(..)
   , InstanceType(..)
+  , Static(..)
   ) where
 
 import Generics.BiGUL.TH
