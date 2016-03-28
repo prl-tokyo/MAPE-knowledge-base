@@ -39,13 +39,14 @@ instUpd = $(update [p| V.Instance {
   |])
 
 instListAlign :: BiGUL [S.Instance] [V.Instance]
-instListAlign = align (const True)
+instListAlign = align (\s -> S.status /= 2)
   (\ s v -> S.instID s == V.instID v)
   ($(update [p| v |] [p| v |] [d| v = instUpd |]))
   (\v -> S.Instance {
       S.instID = V.instID v,
       S.instType = V.instType v,
       S.load = V.instLoad v,
+      S.status = 1,
       S.ami = "0000",
       S.state = 0,
       S.securityGroupRef = "sg-123"
