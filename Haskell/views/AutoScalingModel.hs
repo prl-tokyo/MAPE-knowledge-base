@@ -2,21 +2,13 @@
 , TypeFamilies #-}
 
 module AutoScalingModel(
-  ChangeView(..)
-  , Instance(..)
+  Instance(..)
   , InstanceType(..)
   , View(..)
   ) where
 
 import Generics.BiGUL.TH
 import GHC.Generics
-
-data ChangeView = ChangeView {
-  current :: [Instance]
-  , additions :: [Instance]
-  , terminations :: [Instance]
-  , cvInstanceTypes :: [InstanceType]
-  } deriving (Show, Eq)
 
 data View = View {
   instances :: [Instance]
@@ -43,7 +35,6 @@ instance Ord InstanceType where
   compare inst1 inst2 = compare (typeID inst1) (typeID inst2)
 
 
-deriveBiGULGeneric ''ChangeView
 deriveBiGULGeneric ''Instance
 deriveBiGULGeneric ''InstanceType
 deriveBiGULGeneric ''View
