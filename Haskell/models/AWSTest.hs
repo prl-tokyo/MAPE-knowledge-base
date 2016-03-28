@@ -18,7 +18,7 @@ source = S.Model {
 
 current = S.Current {
   S.reservations = [res1, res2]
-  , S.securityGroups = []
+  , S.securityGroups = [sg1, sg2, sg3, sg4, sg5]
   }
 
 res1 = S.Reservation {
@@ -78,37 +78,88 @@ sg1 = S.SecurityGroup {
 sg2 = S.SecurityGroup {
   S.sgID = "sg-88c92fec"
   , S.instRefs = []
-  , S.firewallRules = []
+  , S.firewallRules = [fw1, fw2, fw3]
+  }
+
+fw1 = S.FirewallRule {
+  S.outbound = True
+  , S.port = "80"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
+  }
+
+fw2 = S.FirewallRule {
+  S.outbound = True
+  , S.port = "22"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
+  }
+
+fw3 = S.FirewallRule {
+  S.outbound = True
+  , S.port = "443"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
   }
 
 sg3 = S.SecurityGroup {
   S.sgID = "sg-e9195c8c"
   , S.instRefs = []
-  , S.firewallRules = []
+  , S.firewallRules = [fw4]
+  }
+
+fw4 = S.FirewallRule {
+  S.outbound = True
+  , S.port = "22"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
   }
 
 sg4 = S.SecurityGroup {
   S.sgID = "sg-b8d400dc"
   , S.instRefs = []
-  , S.firewallRules = []
+  , S.firewallRules = [fw5, fw6]
+  }
+
+fw5 = S.FirewallRule {
+  S.outbound = True
+  , S.port = "22"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
+  }
+
+fw6 = S.FirewallRule {
+  S.outbound = True
+  , S.port = "3306"
+  , S.ip = "sg-77d40013"
+  , S.protocol = "tcp"
   }
 
 sg5 = S.SecurityGroup {
   S.sgID = "sg-77d40013"
   , S.instRefs = []
-  , S.firewallRules = []
+  , S.firewallRules = [fw7, fw8, fw9]
   }
 
-sg6 = S.SecurityGroup {
-  S.sgID = "sg-b9610fdc"
-  , S.instRefs = []
-  , S.firewallRules = []
+fw7 = S.FirewallRule {
+  S.outbound = True
+  , S.port = "80"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
   }
 
-sg7 = S.SecurityGroup {
-  S.sgID = "sg-b8610fdd"
-  , S.instRefs = []
-  , S.firewallRules = []
+fw8 = S.FirewallRule {
+  S.outbound = True
+  , S.port = "22"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
+  }
+
+fw9 = S.FirewallRule {
+  S.outbound = True
+  , S.port = "443"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
   }
 
 static = S.Static {
