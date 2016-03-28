@@ -2,25 +2,30 @@
 , TypeFamilies #-}
 
 module FirewallModel (
-  FWView(..)
-  , FWRule(..)
+  ChangeView(..)
+  , Rule(..)
+  , View(..)
   ) where
 
 import Generics.BiGUL.TH
 import GHC.Generics
 
-data FWView = FWView {
-  current :: [FWRule]
-  , additions :: [FWRule]
-  , deletions :: [FWRule]
+data ChangeView = ChangeView {
+  current :: [Rule]
+  , additions :: [Rule]
+  , deletions :: [Rule]
   } deriving (Show, Eq)
 
-data FWRule = FWRule {
-  fwSecurityGroupRefFrom :: String,
-  fwSecurityGroupRefTo :: String,
-  fwPort :: Int,
-  fwProtocol :: String
+data View = View {
+  rules :: [Rule]
   } deriving (Show, Eq)
 
-deriveBiGULGeneric ''FWView
-deriveBiGULGeneric ''FWRule
+data Rule = Rule {
+  securityGroupRefFrom :: String,
+  securityGroupRefTo :: String,
+  port :: Int,
+  protocol :: String
+  } deriving (Show, Eq)
+
+deriveBiGULGeneric ''View
+deriveBiGULGeneric ''Rule
