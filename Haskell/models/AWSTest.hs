@@ -10,16 +10,10 @@ import qualified RedundancyModel as RV
 ------------------------------------------------------------------------
 
 source = S.Model {
-  S.reservations = [res1, res2]
+  S.instances = [inst1, inst2, inst3, inst4]
   , S.securityGroups = [sg1, sg2, sg3, sg4, sg5]
   , S.instanceTypes = [t1, t2, t3, t4, t5, t6, t7
                     , t8, t9, t10, t11, t12, t13, t14]
-  }
-
-res1 = S.Reservation {
-  S.resID = "r-e4415446"
-  , S.securityGroupRefs = []
-  , S.instances = [inst1]
   }
 
 inst1 = S.Instance {
@@ -30,12 +24,6 @@ inst1 = S.Instance {
   , S.instStatus = 0
   , S.securityGroupRef = "sg-b8d400dc"
   , S.load = 0.00
-  }
-
-res2 = S.Reservation {
-  S.resID = "r-ff40555d"
-  , S.securityGroupRefs = []
-  , S.instances = [inst2, inst3, inst4]
   }
 
 inst2 = S.Instance {
