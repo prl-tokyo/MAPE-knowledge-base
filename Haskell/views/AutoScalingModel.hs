@@ -12,7 +12,7 @@ import GHC.Generics
 
 data View = View {
   instances :: [Instance]
-  , vInstanceTypes :: [InstanceType]
+  , instanceTypes :: [InstanceType]
   } deriving (Show, Eq)
 
 data Instance = Instance {
