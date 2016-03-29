@@ -8,7 +8,6 @@
 
 module SourceModel(
   Model(..)
-  , Reservation(..)
   , Instance(..)
   , SecurityGroup(..)
   , FirewallRule(..)
@@ -19,19 +18,10 @@ import Generics.BiGUL.TH
 import GHC.Generics
 
 data Model = Model {
-  reservations :: [Reservation]
+  instances :: [Instance]
   , securityGroups :: [SecurityGroup]
   , instanceTypes :: [InstanceType]
   } deriving (Show, Eq)
-
-data Reservation = Reservation {
-  resID :: String
-  , securityGroupRefs :: [String]
-  , instances :: [Instance]
-  } deriving (Show, Eq)
-
-instance Ord Reservation where
-  compare res1 res2 = compare (resID res1) (resID res2)
 
 data Instance = Instance {
   instID :: String
@@ -76,6 +66,5 @@ instance Ord InstanceType where
 deriveBiGULGeneric ''Model
 deriveBiGULGeneric ''Instance
 deriveBiGULGeneric ''FirewallRule
-deriveBiGULGeneric ''Reservation
 deriveBiGULGeneric ''SecurityGroup
 deriveBiGULGeneric ''InstanceType
