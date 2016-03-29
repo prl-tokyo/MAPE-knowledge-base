@@ -2,8 +2,8 @@
 TypeFamilies #-}
 
 module RedundancyBX(
-  rvmUpd,
-  rvmListAlign,
+  instUpd,
+  instListAlign,
   get,
   put
   ) where
@@ -23,30 +23,31 @@ import Utils
 import qualified SourceModel as S
 import qualified RedundancyModel as V
 
-rvmUpd :: BiGUL S.VM V.RVM
-rvmUpd = $(update [p| V.RVM {
-        V.rvmID = vmID,
-        V.rSecurityGroupRef = securityGroupRef
-    }|] [p| S.VM {
-        S.vmID = vmID,
-        S.securityGroupRef = securityGroupRef
-    }|] [d| vmID = Replace;
-            securityGroupRef = Replace
+instUpd :: BiGUL S.Instance V.Instance
+instUpd = $(update [p| V.Instance {
+        V.instID = instID
+        , V.securityGroupRef = securityGroupRef
+        , V.status = status
+    }|] [p| S.Instance {
+        S.instID = instID
+        , S.securityGroupRef = securityGroupRef
+        , S.instStatus = status
+    }|] [d| instID = Replace;
+            securityGroupRef = Replace;
+            status = Replace
     |])
 
-rvmListAlign :: BiGUL [S.VM] [V.RVM]
-rvmListAlign = align (const True)
-  (\ s v -> S.vmID s == V.rvmID v)
-  ($(update [p| v |] [p| v |] [d| v = rvmUpd |]))
-  (\v -> S.VM {
-      S.vmID = V.rvmID v,
-      S.vmType = "t2.micro",
-      S.load = 0.00,
-      S.cost = 0.00,
-      S.cpu = 0,
-      S.ram = 0,
-      S.ami = "0000",
-      S.state = 0,
-      S.securityGroupRef = V.rSecurityGroupRef v
+instListAlign :: BiGUL [S.Instance] [V.Instance]
+instListAlign = align (const True)
+  (\ s v -> S.instID s == V.instID v)
+  ($(update [p| v |] [p| v |] [d| v = instUpd |]))
+  (\v -> S.Instance {
+      S.instID = V.instID v
+      , S.instType = "t2.micro"
+      , S.instStatus = 1
+      , S.ami = "0000"
+      , S.state = 0
+      , S.load = 0.00
+      , S.securityGroupRef = V.securityGroupRef v
       })
   (const Nothing)
