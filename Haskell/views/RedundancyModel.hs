@@ -14,7 +14,7 @@ data View = View {instances :: [Instance]} deriving (Show, Eq)
 data Instance = Instance {
   instID :: String
   , securityGroupRef :: String
-  , state :: Int
+  , status :: Int
   } deriving (Show, Eq)
 
 instance Ord Instance where
