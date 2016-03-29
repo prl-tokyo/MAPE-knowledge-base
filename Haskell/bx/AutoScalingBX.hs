@@ -4,6 +4,7 @@
 module AutoScalingBX(
   instUpd,
   instListAlign,
+  autoScalingUpd,
   get,
   put
   ) where
@@ -23,6 +24,46 @@ import Data.Maybe
 import Utils
 import qualified SourceModel as S
 import qualified AutoScalingModel as V
+
+autoScalingUpd :: BiGUL S.Model V.View
+autoScalingUpd = $(update [p| V.View {
+                              V.instances = instances
+                              , V.instanceTypes = instanceTypes
+                      }|] [p| S.Model {
+                              S.instances = instances
+                              , S.instanceTypes = instanceTypes
+                      }|] [d| instances = instListAlign;
+                              instanceTypes = instTypesAlign
+                       |])
+
+instTypesAlign :: BiGUL [S.InstanceType] [V.InstanceType]
+instTypesAlign = align (\s -> True)
+  (\ s v -> S.typeID s == V.typeID v)
+  ($(update [p| v |] [p| v |] [d| v = instTypeUpd |]))
+  (\v -> S.InstanceType {
+      S.typeID = V.typeID v,
+      S.typeCPUs = V.typeCPUs v,
+      S.typeRAM = V.typeRAM v,
+      S.typeCost = V.typeCost v
+      })
+  (const Nothing)
+
+instTypeUpd :: BiGUL S.InstanceType V.InstanceType
+instTypeUpd = $(update [p| V.InstanceType {
+                           V.typeID = typeID,
+                           V.typeCPUs = typeCPUs,
+                           V.typeRAM = typeRAM,
+                           V.typeCost = typeCost
+                   }|] [p| S.InstanceType {
+                           S.typeID = typeID,
+                           S.typeCPUs = typeCPUs,
+                           S.typeRAM = typeRAM,
+                           S.typeCost = typeCost
+                   }|] [d| typeID = Replace;
+                           typeCPUs = Replace;
+                           typeRAM = Replace;
+                           typeCost = Replace
+  |])
 
 instUpd :: BiGUL S.Instance V.Instance
 instUpd = $(update [p| V.Instance {
