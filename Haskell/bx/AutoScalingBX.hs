@@ -51,4 +51,12 @@ instListAlign = align (\s -> S.instStatus s /= 2)
       S.state = 0,
       S.securityGroupRef = "sg-123"
       })
-  (const Nothing)
+  (\s -> Just S.Instance {
+      S.instID = S.instID s
+      , S.instType = S.instType s
+      , S.load = S.load s
+      , S.instStatus = 2
+      , S.ami = S.ami s
+      , S.state = S.state s
+      , S.securityGroupRef = S.securityGroupRef s
+      })
