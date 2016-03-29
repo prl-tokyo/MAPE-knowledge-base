@@ -1,7 +1,7 @@
 {-# LANGUAGE TemplateHaskell
 , TypeFamilies #-}
 
-module AutoscalingBX(
+module AutoScalingBX(
   instUpd,
   instListAlign,
   get,
