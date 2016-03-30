@@ -46,7 +46,8 @@ instance Ord SecurityGroup where
   compare sg1 sg2 = compare (sgID sg1) (sgID sg2)
 
 data FirewallRule = FirewallRule {
-  outbound :: Bool
+  fwRuleID :: String
+  , outbound :: Bool
   , port :: String
   , ip :: String
   , protocol :: String
