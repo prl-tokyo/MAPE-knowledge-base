@@ -4,6 +4,7 @@ TypeFamilies #-}
 module RedundancyBX(
   instUpd,
   instListAlign,
+  redundancyUpd,
   get,
   put
   ) where
@@ -22,6 +23,14 @@ import Data.Maybe
 import Utils
 import qualified SourceModel as S
 import qualified RedundancyModel as V
+
+redundancyUpd :: BiGUL S.Model V.View
+redundancyUpd = $(update [p| V.View {
+                             V.instances = instances
+                     }|] [p| S.Model {
+                             S.instances = instances
+                     }|] [d| instances = instListAlign
+                      |])
 
 instUpd :: BiGUL S.Instance V.Instance
 instUpd = $(update [p| V.Instance {
