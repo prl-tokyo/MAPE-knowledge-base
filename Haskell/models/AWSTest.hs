@@ -69,7 +69,8 @@ sg2 = S.SecurityGroup {
   }
 
 fw1 = S.FirewallRule {
-  S.outbound = True
+  S.fwRuleID = "fw1"
+  , S.outbound = True
   , S.port = "80"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
@@ -77,7 +78,8 @@ fw1 = S.FirewallRule {
   }
 
 fw2 = S.FirewallRule {
-  S.outbound = True
+  S.fwRuleID = "fw2"
+  , S.outbound = True
   , S.port = "22"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
@@ -85,7 +87,8 @@ fw2 = S.FirewallRule {
   }
 
 fw3 = S.FirewallRule {
-  S.outbound = True
+  S.fwRuleID = "fw3"
+  , S.outbound = True
   , S.port = "443"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
@@ -99,7 +102,8 @@ sg3 = S.SecurityGroup {
   }
 
 fw4 = S.FirewallRule {
-  S.outbound = True
+  S.fwRuleID = "fw4"
+  , S.outbound = True
   , S.port = "22"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
@@ -113,7 +117,8 @@ sg4 = S.SecurityGroup {
   }
 
 fw5 = S.FirewallRule {
-  S.outbound = True
+  S.fwRuleID = "fw5"
+  , S.outbound = True
   , S.port = "22"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
@@ -121,7 +126,8 @@ fw5 = S.FirewallRule {
   }
 
 fw6 = S.FirewallRule {
-  S.outbound = True
+  S.fwRuleID = "fw6"
+  , S.outbound = True
   , S.port = "3306"
   , S.ip = "sg-77d40013"
   , S.protocol = "tcp"
@@ -135,7 +141,8 @@ sg5 = S.SecurityGroup {
   }
 
 fw7 = S.FirewallRule {
-  S.outbound = True
+  S.fwRuleID = "fw7"
+  , S.outbound = True
   , S.port = "80"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
@@ -143,7 +150,8 @@ fw7 = S.FirewallRule {
   }
 
 fw8 = S.FirewallRule {
-  S.outbound = True
+  S.fwRuleID = "fw8"
+  , S.outbound = True
   , S.port = "22"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
@@ -151,7 +159,8 @@ fw8 = S.FirewallRule {
   }
 
 fw9 = S.FirewallRule {
-  S.outbound = True
+  S.fwRuleID = "fw9"
+  , S.outbound = True
   , S.port = "443"
   , S.ip = "0.0.0.0/0"
   , S.protocol = "tcp"
