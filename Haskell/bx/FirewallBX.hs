@@ -23,6 +23,9 @@ import Utils
 import qualified SourceModel as S
 import qualified FirewallModel as V
 
+sgUpd :: BiGUL S.SecurityGroup [V.Rule]
+sgUpd = $(rearrS [| \s ->  map(\rule -> ((S.sgID s),rule)) (S.firewallRules s) |]) ruleListUpd
+
 ruleListUpd :: BiGUL [(String, S.FirewallRule)] [V.Rule]
 ruleListUpd = align (\(id, s) -> S.fwStatus s /= 2)
 	(\ (id, s) v -> S.fwRuleID s == V.ruleID v)
