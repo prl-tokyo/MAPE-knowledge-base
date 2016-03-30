@@ -14,9 +14,10 @@ data View = View {
   } deriving (Show, Eq)
 
 data Rule = Rule {
-  securityGroupRefFrom :: String
+  ruleID :: String
+  , securityGroupRefFrom :: String
   , securityGroupRefTo :: String
-  , port :: Int
+  , port :: String
   , protocol :: String
   } deriving (Show, Eq)
 
