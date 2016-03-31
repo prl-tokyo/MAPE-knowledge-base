@@ -23,8 +23,11 @@ import Utils
 import qualified SourceModel as S
 import qualified FirewallModel as V
 
-sgUpd :: BiGUL S.SecurityGroup [V.Rule]
-sgUpd = $(rearrS [| \s ->  map(\rule -> ((S.sgID s),rule)) (S.firewallRules s) |]) ruleListUpd
+-- sgUpd :: BiGUL S.SecurityGroup [V.Rule]
+-- sgUpd = $(rearrS [| \S.SecurityGroup {S.sgID = x, S.firewallRules = y} -> map (\rule -> (x, rule)) y |]) ruleListUpd
+
+sgUpd' :: BiGUL S.SecurityGroup [V.Rule]
+sgUpd' = $(rearrS [| \S.SecurityGroup {S.sgID = x, S.firewallRules = y} -> (x, y) |]) ruleListUpd
 
 ruleListUpd :: BiGUL [(String, S.FirewallRule)] [V.Rule]
 ruleListUpd = align (\(id, s) -> S.fwStatus s /= 2)
@@ -68,4 +71,3 @@ ruleUpd = $(update [p|  V.Rule {
 	            		port = Replace;
 	            		protocol = Replace
 	            |])
-
