@@ -2,7 +2,8 @@
 , TypeFamilies #-}
 
 module FirewallBX(
-  ruleListUpd
+  dupAndZip
+  , ruleListUpd
   , ruleUpd
   , get
   , put
