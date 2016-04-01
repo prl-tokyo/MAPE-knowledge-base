@@ -23,11 +23,19 @@ import Utils
 import qualified SourceModel as S
 import qualified FirewallModel as V
 
--- sgUpd :: BiGUL S.SecurityGroup [V.Rule]
--- sgUpd = $(rearrS [| \S.SecurityGroup {S.sgID = x, S.firewallRules = y} -> map (\rule -> (x, rule)) y |]) ruleListUpd
-
-sgUpd' :: BiGUL S.SecurityGroup [V.Rule]
-sgUpd' = $(rearrS [| \S.SecurityGroup {S.sgID = x, S.firewallRules = y} -> (x, y) |]) ruleListUpd
+dupAndZip :: BiGUL (String, [S.FirewallRule]) [(String, S.FirewallRule)]
+dupAndZip  =  
+  Case [
+    $(normalV [p| [] |]) $ 
+      $(rearrV [| \[] -> ((), [])|]) $ (Prod Skip Replace),
+    $(adaptiveSV [p| (sn, [])|] [p| v:vs |]) $
+      \(sn, _) ((vn, vrule) :vs) -> (sn, [vrule]),
+    $(normalSV [p| (sn, [srule]) |] [p| [(vn, vrule)]|]) $
+      $(rearrV [| \[(vn, vrule)] -> (vn, [vrule]) |]) Replace,
+    $(normalSV [p| (sn, (srule: srest)) |] [p| v: vs |]) $
+      $(rearrS [| \(sn, (srule: srest)) -> ((sn, srule), (sn, srest)) |]) 
+        ($(rearrV [| \(v:vs) -> (v,vs)|]) (Prod Replace dupAndZip))
+  ]
 
 ruleListUpd :: BiGUL [(String, S.FirewallRule)] [V.Rule]
 ruleListUpd = align (\(id, s) -> S.fwStatus s /= 2)
