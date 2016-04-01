@@ -39,43 +39,43 @@ dupAndZip  =
 
 ruleListUpd :: BiGUL [(String, S.FirewallRule)] [V.Rule]
 ruleListUpd = align (\(id, s) -> S.fwStatus s /= 2)
-	(\ (id, s) v -> S.fwRuleID s == V.ruleID v)
-	($(update [p| v |] [p| v |] [d| v = ruleUpd |]))
-	(\v -> (V.securityGroupRefTo v, S.FirewallRule {
-		S.fwRuleID = V.ruleID v
-		, S.outbound = False
-		, S.ip = V.securityGroupRefFrom v
-		, S.port = V.port v
-		, S.protocol = V.protocol v
-		, S.fwStatus = 1
-		}))
-	(\(id, s) -> Just (id, S.FirewallRule {
-		S.fwRuleID = S.fwRuleID s
-		, S.outbound = False
-		, S.ip = S.ip s
-		, S.port = S.port s
-		, S.protocol = S.protocol s
-		, S.fwStatus = 2
-		}))
+    (\ (id, s) v -> S.fwRuleID s == V.ruleID v)
+    ($(update [p| v |] [p| v |] [d| v = ruleUpd |]))
+    (\v -> (V.securityGroupRefTo v, S.FirewallRule {
+        S.fwRuleID = V.ruleID v
+        , S.outbound = False
+        , S.ip = V.securityGroupRefFrom v
+        , S.port = V.port v
+        , S.protocol = V.protocol v
+        , S.fwStatus = 1
+        }))
+    (\(id, s) -> Just (id, S.FirewallRule {
+        S.fwRuleID = S.fwRuleID s
+        , S.outbound = False
+        , S.ip = S.ip s
+        , S.port = S.port s
+        , S.protocol = S.protocol s
+        , S.fwStatus = 2
+        }))
 
 ruleUpd :: BiGUL (String, S.FirewallRule) V.Rule
 ruleUpd = $(update [p|  V.Rule {
-	                   	V.ruleID = ruleID
-						, V.securityGroupRefFrom = from
-						, V.securityGroupRefTo = to
-						, V.port = port
-						, V.protocol = protocol
-						}
-	            |] [p|  (to
-	            		, S.FirewallRule {
-	            		S.ip = from
-	            		, S.port = port
-	            		, S.fwRuleID = ruleID
-	            		, S.protocol = protocol
-	            		})
-	            |] [d|  ruleID = Replace;
-	            		from = Replace;
-	            		to = Replace;
-	            		port = Replace;
-	            		protocol = Replace
-	            |])
+                            V.ruleID = ruleID
+                            , V.securityGroupRefFrom = from
+                            , V.securityGroupRefTo = to
+                            , V.port = port
+                            , V.protocol = protocol
+                        }
+                |] [p|  (to
+                        , S.FirewallRule {
+                            S.ip = from
+                            , S.port = port
+                            , S.fwRuleID = ruleID
+                            , S.protocol = protocol
+                        })
+                |] [d|  ruleID = Replace;
+                        from = Replace;
+                        to = Replace;
+                        port = Replace;
+                        protocol = Replace
+                |])
