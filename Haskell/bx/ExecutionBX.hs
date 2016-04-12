@@ -41,6 +41,24 @@ instUpd = $(update [p| V.Instance {
     |])
 
 fwUpd :: BiGUL S.FirewallRule V.FirewallRule
+fwUpd = $(update [p| V.FirewallRule {
+		V.fwRuleID = fwRuleID
+		, V.outbound = outbound
+		, V.port = port
+		, V.ip = ip
+		, V.protocol = protocol
+	} |] [p| S.FirewallRule {
+		S.fwRuleID = fwRuleID
+		, S.outbound = outbound
+		, S.port = port
+		, S.ip = ip
+		, S.protocol = protocol
+	} |] [d| fwRuleID = Replace;
+		     outbound = Replace;
+		     port = Replace;
+		     ip = Replace;
+		     protocol = Replace;
+	}|])
 
 instListAlign :: BiGUL [S.Instance] [V.Instance]
 
