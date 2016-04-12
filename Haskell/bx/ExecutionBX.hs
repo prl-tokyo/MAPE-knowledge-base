@@ -61,5 +61,18 @@ fwUpd = $(update [p| V.FirewallRule {
 	}|])
 
 instListAlign :: BiGUL [S.Instance] [V.Instance]
+instListAlign = align (const True)
+  (\ s v -> S.instID s == V.instID v)
+  ($(update [p| v |] [p| v |] [d| v = instUpd |]))
+  (\v -> S.Instance {
+      S.instID = V.instID v
+      , S.instType = V.instType v
+      , S.instStatus = 0
+      , S.ami = V.ami v
+      , S.state = V.state v
+      , S.load = 0.00
+      , S.securityGroupRef = V.securityGroupRef v
+      })
+  (\s -> const Nothing)
 
 fwListAlign :: BiGUL [S.FirewallRule] [V.FirewallRule]
