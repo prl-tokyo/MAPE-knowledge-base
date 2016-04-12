@@ -9,8 +9,8 @@ import GHC.Generics
 import Data.Aeson
 
 data View = View {
-    additions :: Changes
-    , terminations :: Changes
+    additions :: [Instance]
+    , terminations :: [Instance]
 } deriving (Show, Eq)
 
 data Changes = Changes {
@@ -76,3 +76,9 @@ instance ToJSON FirewallRule where
                 , "port" .= port
                 , "ip" .= ip
                 , "protocol" .= protocol]
+
+
+deriveBiGULGeneric ''View
+deriveBiGULGeneric ''Instance
+deriveBiGULGeneric ''FirewallRule
+deriveBiGULGeneric ''Changes
