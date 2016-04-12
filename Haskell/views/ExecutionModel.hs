@@ -24,7 +24,6 @@ data Instance = Instance {
   	, ami :: String
   	, state :: Int
   	, securityGroupRef :: String
-  	, load :: Double
 } deriving (Show, Eq)
 
 instance Ord Instance where
@@ -36,20 +35,18 @@ instance FromJSON Instance where
                            v .: "instType" <*>
                            v .: "ami" <*>
                            v .: "state" <*>
-                           v .: "securityGroupRef" <*>
-                           v .: "load"
+                           v .: "securityGroupRef"
     -- A non-Object value is of the wrong type, so fail.
     parseJSON _          = mempty
 
 instance ToJSON Instance where
     -- this generates a Value
-    toJSON (Instance instID instType ami state securityGroupRef load) =
+    toJSON (Instance instID instType ami state securityGroupRef) =
         object ["instID" .= instID
                 , "instType" .= instType
                 , "ami" .= ami
                 , "state" .= state
-                , "securityGroupRef" .= securityGroupRef
-                , "load" .= load]
+                , "securityGroupRef" .= securityGroupRef]
 
 data FirewallRule = FirewallRule {
 	fwRuleID :: String
