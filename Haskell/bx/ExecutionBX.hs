@@ -21,6 +21,24 @@ import qualified ExecutionModel as V
 executionUpd :: BiGUL S.Model V.View
 
 instUpd :: BiGUL S.Instance V.Instance
+instUpd = $(update [p| V.Instance {
+        V.instID = instID
+        , V.instType = instType
+        , V.ami = ami
+        , V.state = state
+        , V.securityGroupRef = securityGroupRef
+    }|] [p| S.Instance {
+        S.instID = instID
+        , S.instType = instType
+        , S.ami = ami
+        , S.state = state
+        , S.securityGroupRef = securityGroupRef
+    }|] [d| instID = Replace;
+            instType = Replace;
+            ami = Replace;
+            state = Replace;
+            securityGroupRef = Replace
+    |])
 
 fwUpd :: BiGUL S.FirewallRule V.FirewallRule
 
