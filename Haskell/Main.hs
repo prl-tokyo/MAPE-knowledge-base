@@ -15,9 +15,11 @@ import SourceModel
 import qualified AutoScalingBX as ASBX
 import qualified FirewallBX as FWBX
 import qualified RedundancyBX as REDBX
+import qualified ExecutionBX as EXBX
 import qualified AutoScalingModel as ASV
 import qualified FirewallModel as FWV
 import qualified RedundancyModel as REDV
+import qualified ExecutionModel as EXV
 
 sourceFile :: FilePath
 sourceFile = "source.json"
@@ -32,6 +34,9 @@ doGet bx source = case bx of
   "redundancy" -> case result of
     Right res -> encode res
     where result = (REDBX.get REDBX.redundancyUpd source)
+  "execution" -> case result of
+    Right res -> encode res
+    where result = (EXBX.get EXBX.executionUpd source)
 
 doASPut source view = case result of
   Right res -> encode res
@@ -40,6 +45,11 @@ doASPut source view = case result of
 doREDPut source view = case result of
   Right res -> encode res
   where result = (REDBX.put REDBX.redundancyUpd source view)
+
+doEXPut source view = case result of
+  Right res -> encode res
+  where result = (EXBX.put EXBX.executionUpd source view)
+
 
 -- arguments are:
 -- dir: the direction, either get or put
@@ -67,4 +77,9 @@ main = do
             case v of
               Left err -> putStrLn err
               Right vw -> B.writeFile sourceFile (doREDPut source vw)
+          "execution" -> do
+            v <- (eitherDecode <$> getJSON) :: IO (Either String EXV.View)
+            case v of
+              Left err -> putStrLn err
+              Right vw -> B.writeFile sourceFile (doEXPut source vw)
 
