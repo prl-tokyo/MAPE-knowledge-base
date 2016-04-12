@@ -9,25 +9,24 @@ import GHC.Generics
 import Data.Aeson
 
 data View = View {
-	additions :: Changes
-	, terminations :: Changes
+    additions :: Changes
+    , terminations :: Changes
 } deriving (Show, Eq)
 
 data Changes = Changes {
-	instances :: [Instance]
-	,fwRules :: [FirewallRule]
+    instances :: [Instance]
 } deriving (Show, Eq)
 
 data Instance = Instance {
-	instID :: String
-  	, instType :: String
-  	, ami :: String
-  	, state :: Int
-  	, securityGroupRef :: String
+    instID :: String
+    , instType :: String
+    , ami :: String
+    , state :: Int
+    , securityGroupRef :: String
 } deriving (Show, Eq)
 
 instance Ord Instance where
-  compare inst1 inst2 = compare (instID inst1) (instID inst2)
+    compare inst1 inst2 = compare (instID inst1) (instID inst2)
 
 instance FromJSON Instance where
     parseJSON (Object v) = Instance <$>
@@ -49,15 +48,15 @@ instance ToJSON Instance where
                 , "securityGroupRef" .= securityGroupRef]
 
 data FirewallRule = FirewallRule {
-	fwRuleID :: String
-  	, outbound :: Bool
-  	, port :: String
-  	, ip :: String
-  	, protocol :: String
+    fwRuleID :: String
+    , outbound :: Bool
+    , port :: String
+    , ip :: String
+    , protocol :: String
 } deriving (Show, Eq)
 
 instance Ord FirewallRule where
-	compare fw1 fw2 = compare (fwRuleID fw1) (fwRuleID fw2)
+    compare fw1 fw2 = compare (fwRuleID fw1) (fwRuleID fw2)
 
 instance FromJSON FirewallRule where
     parseJSON (Object v) = FirewallRule <$>
