@@ -24,6 +24,12 @@ import Utils
 import qualified SourceModel as S
 import qualified FirewallModel as V
 
+firewallUpd :: BiGUL S.Model V.View
+firewallUpd = 
+
+sourceToList :: BiGUL S.Model [(String, [S.FirewallRule])]
+sourceToList =
+
 dupAndZip :: BiGUL (String, [S.FirewallRule]) [(String, S.FirewallRule)]
 dupAndZip  =  
   Case [
