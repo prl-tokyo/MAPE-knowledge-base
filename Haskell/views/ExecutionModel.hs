@@ -13,6 +13,19 @@ data View = View {
     , terminations :: [Instance]
 } deriving (Show, Eq)
 
+instance FromJSON View where
+    parseJSON (Object v) = View <$>
+                           v .: "additions" <*>
+                           v .: "terminations"
+    -- A non-Object value is of the wrong type, so fail.
+    parseJSON _          = mempty
+
+instance ToJSON View where
+    -- this generates a Value
+    toJSON (View additions terminations) =
+        object ["additions" .= additions
+                , "terminations" .= terminations]
+
 data Changes = Changes {
     instances :: [Instance]
 } deriving (Show, Eq)
