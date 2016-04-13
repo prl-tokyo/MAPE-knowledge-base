@@ -34,9 +34,7 @@ doGet bx source = case bx of
   "redundancy" -> case result of
     Right res -> encode res
     where result = (REDBX.get REDBX.redundancyUpd source)
-  "execution" -> case result of
-    Right res -> encode res
-    where result = (EXBX.get EXBX.executionUpd source)
+  "execution" -> encode (EXBX.getExecution source)
 
 doASPut source view = case result of
   Right res -> encode res
