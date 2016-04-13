@@ -58,6 +58,7 @@ doEXPut source view = case result of
 main :: IO ()
 main = do 
   [dir, bx, view] <- getArgs
+  putStrLn "Start"
   src <- (eitherDecode <$> getJSON) :: IO (Either String Model)
   case src of
     Left err -> putStrLn err
@@ -66,20 +67,32 @@ main = do
         B.writeFile view (doGet bx source)
         putStrLn "Done"
       "put" -> do
+        putStrLn "put"
         case bx of
           "autoScaling" -> do
-            v <- (eitherDecode <$> getJSON) :: IO (Either String ASV.View)
+            putStrLn "autoscaling: reading JSON file"
+            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String ASV.View)
             case v of
-              Left err -> putStrLn err
+              Left err -> do
+                putStrLn "JSON parse error"
+                putStrLn err
               Right vw -> B.writeFile sourceFile (doASPut source vw)
           "redundancy" -> do
-            v <- (eitherDecode <$> getJSON) :: IO (Either String REDV.View)
+            putStrLn "redundancy: reading JSON file"
+            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String REDV.View)
             case v of
-              Left err -> putStrLn err
-              Right vw -> B.writeFile sourceFile (doREDPut source vw)
+              Left err -> do
+                putStrLn "JSON parse error"
+                putStrLn err
+              Right vw -> do
+                putStrLn "redundancy: running put transformation and writing file"
+                B.writeFile sourceFile (doREDPut source vw)
           "execution" -> do
-            v <- (eitherDecode <$> getJSON) :: IO (Either String EXV.View)
+            putStrLn "execution: reading JSON file"
+            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String EXV.View)
             case v of
-              Left err -> putStrLn err
+              Left err -> do
+                putStrLn "JSON parse error"
+                putStrLn err
               Right vw -> B.writeFile sourceFile (doEXPut source vw)
 
