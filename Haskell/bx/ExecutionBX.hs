@@ -1,7 +1,13 @@
 {-# LANGUAGE TemplateHaskell
 , TypeFamilies #-}
 
-module ExecutionBX where
+module ExecutionBX(
+	put,
+	get,
+	addUpd,
+	termUpd,
+	executionUpd
+	) where
 
 import Generics.BiGUL.AST
 import Generics.BiGUL.Error
@@ -18,8 +24,8 @@ import Utils
 import qualified SourceModel as S
 import qualified ExecutionModel as V
 
---executionUpd :: BiGUL S.Model V.View
---executionUpd = addUpd `Prod` termUpd
+executionUpd :: BiGUL S.Model V.View
+executionUpd = addUpd
 
 addUpd :: BiGUL S.Model V.View
 addUpd = $(update [p| V.View {
