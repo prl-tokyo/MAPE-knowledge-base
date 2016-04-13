@@ -4,7 +4,8 @@
 module ExecutionBX(
 	put,
 	get,
-	getExecution
+	getExecution,
+	executionUpd
 	) where
 
 import Generics.BiGUL.AST
