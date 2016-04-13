@@ -39,7 +39,7 @@ instance Ord InstanceType where
 instance FromJSON View where
     parseJSON (Object v) = View <$>
                            v .: "instances" <*>
-                           v .: "instanceTypes" 
+                           v .: "instanceTypes"
     -- A non-Object value is of the wrong type, so fail.
     parseJSON _          = mempty
 
