@@ -4,9 +4,7 @@
 module ExecutionBX(
 	put,
 	get,
-	addUpd,
-	termUpd,
-	executionUpd
+	getExecution
 	) where
 
 import Generics.BiGUL.AST
@@ -20,6 +18,7 @@ import Data.List
 import GHC.Generics
 import Control.Arrow
 import Data.Maybe
+import Data.Either.Extra
 import Utils
 import qualified SourceModel as S
 import qualified ExecutionModel as V
@@ -37,22 +36,25 @@ addUpd = $(update [p| V.View {
                		   terminations = Skip
                 |])
 
-termUpd :: BiGUL S.Model V.View
-termUpd = $(update [p| V.View {
-                       V.terminations = terminations,
-                       V.additions = additions
-               }|] [p| S.Model {
-                       S.instances = terminations
-               }|] [d| terminations = instListTermAlign;
-                       additions = Skip
-                |])
+getExecution s = V.View {
+	V.terminations = fromRight (getTermUpd s),
+	V.additions = fromRight (getAddUpd s)
+}
 
-data Instance = Instance {
-    instID :: String
-    , instType :: String
-    , ami :: String
-    , state :: Int
-    , securityGroupRef :: String}
+getTermUpd s = case s' of
+	Right ps -> get instListTermAlign ps
+	where s' = get sInstListUpd s
+
+getAddUpd s = case s' of
+	Right ps -> get instListAddAlign ps
+	where s' = get sInstListUpd s
+
+sInstListUpd :: BiGUL S.Model [S.Instance]
+sInstListUpd = $(update [p| instances |]
+	               [p| S.Model {
+	                    S.instances = instances
+	           }|] [d| instances = Replace
+	            |])
 
 instUpd :: BiGUL S.Instance V.Instance
 instUpd = $(update [p| V.Instance {
