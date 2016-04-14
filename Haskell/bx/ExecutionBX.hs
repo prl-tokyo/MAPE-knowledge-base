@@ -62,18 +62,15 @@ instUpd = $(update [p| V.Instance {
                        V.instID = instID,
                        V.instType = instType,
                        V.ami = ami,
-                       V.state = state,
                        V.securityGroupRef = securityGroupRef
                }|] [p| S.Instance {
                        S.instID = instID,
                        S.instType = instType,
                        S.ami = ami,
-                       S.state = state,
                        S.securityGroupRef = securityGroupRef
                }|] [d| instID = Replace;
                        instType = Replace;
                        ami = Replace;
-                       state = Replace;
                        securityGroupRef = Replace
   |])
 
@@ -86,7 +83,7 @@ instListAddAlign = align (\s -> S.instStatus s == 1)
       , S.instType = V.instType v
       , S.instStatus = 0
       , S.ami = V.ami v
-      , S.state = V.state v
+      , S.state = 0
       , S.load = 0.00
       , S.securityGroupRef = V.securityGroupRef v
       })
@@ -101,7 +98,7 @@ instListTermAlign = align (\s -> S.instStatus s == 2)
       , S.instType = V.instType v
       , S.instStatus = 0
       , S.ami = V.ami v
-      , S.state = V.state v
+      , S.state = 0
       , S.load = 0.00
       , S.securityGroupRef = V.securityGroupRef v
       })
