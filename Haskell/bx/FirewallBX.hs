@@ -25,22 +25,30 @@ import qualified SourceModel as S
 import qualified FirewallModel as V
 
 firewallUpd :: BiGUL S.Model V.View
-firewallUpd = 
+firewallUpd =
 
+-- probably just need to rearrange the source, eliminating anything that
+-- isn't a FirewallRule, or a SecurityGroup identifier
 sourceToList :: BiGUL S.Model [(String, [S.FirewallRule])]
 sourceToList =
 
+-- In a way this is a form of flattening. We want to duplicate the String into
+-- however many elements there are in the paired list. dupAndZip does it for
+-- a single pair in the source, but it needs to be done for a list of pairs.
+dupAndZipList :: BiGUL [(String, [S.FirewallRule])] [(String, S.FirewallRule)]
+dupAndZipList =
+
 dupAndZip :: BiGUL (String, [S.FirewallRule]) [(String, S.FirewallRule)]
-dupAndZip  =  
+dupAndZip  =
   Case [
-    $(normalV [p| [] |]) $ 
+    $(normalV [p| [] |]) $
       $(rearrV [| \[] -> ((), [])|]) $ (Prod Skip Replace),
     $(adaptiveSV [p| (sn, [])|] [p| v:vs |]) $
       \(sn, _) ((vn, vrule) :vs) -> (sn, [vrule]),
     $(normalSV [p| (sn, [srule]) |] [p| [(vn, vrule)]|]) $
       $(rearrV [| \[(vn, vrule)] -> (vn, [vrule]) |]) Replace,
     $(normalSV [p| (sn, (srule: srest)) |] [p| v: vs |]) $
-      $(rearrS [| \(sn, (srule: srest)) -> ((sn, srule), (sn, srest)) |]) 
+      $(rearrS [| \(sn, (srule: srest)) -> ((sn, srule), (sn, srest)) |])
         ($(rearrV [| \(v:vs) -> (v,vs)|]) (Prod Replace dupAndZip))
   ]
 
