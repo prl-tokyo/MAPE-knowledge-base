@@ -1,7 +1,7 @@
 {-# LANGUAGE TemplateHaskell
 , ViewPatterns #-}
 
-module Utils (align) where
+module Utils (align,emb) where
 
 import Generics.BiGUL.AST
 import Generics.BiGUL.TH
@@ -37,3 +37,15 @@ align p match b create conceal = Case
     findFirst p [] = Nothing
     findFirst p (x:xs) | p x       = Just (x, xs)
     findFirst p (x:xs) | otherwise = fmap (id *** (x:)) (findFirst p xs)
+
+
+emb :: Eq v => (s -> v) -> (s -> v -> s) -> BiGUL s v
+emb g p = Case
+  [ $(normal [| \x y -> g x == y |])$
+      $(rearrV [| \x -> ((), x) |])$
+        Dep Skip (\x () -> g x)
+  , $(adaptive [| \_ _ -> True |])
+      p
+  ]
+
+

@@ -48,11 +48,11 @@ doEXPut source view = case result of
   Right res -> encode res
   where result = (EXBX.put EXBX.executionUpd source view)
 
-
 -- arguments are:
 -- dir: the direction, either get or put
 -- bx: the name of the transformation
 -- view: the filename of the view, expected to be in JSON
+-- Example: ./Main get autoScaling as.json
 main :: IO ()
 main = do 
   [dir, bx, view] <- getArgs
@@ -94,3 +94,23 @@ main = do
                 putStrLn err
               Right vw -> B.writeFile sourceFile (doEXPut source vw)
 
+
+{-
+Zhenjiang: the following two functions can be used to generate the Haskell
+representations from the JSON representation of soruce/view for simple
+testing of FirewallBX.hs.
+-}
+
+jsonSource2Haskell :: IO ()
+jsonSource2Haskell = do 
+  src <- (eitherDecode <$> B.readFile "source.json") :: IO (Either String Model)
+  case src of
+    Right s -> putStrLn (show s)
+    Left _  -> putStrLn "wrong in passing JSON" 
+
+jsonFirewallView2Haskell :: IO ()
+jsonFirewallView2Haskell = do 
+  view <- (eitherDecode <$> B.readFile "firewall.json") :: IO (Either String FWV.View)
+  case view of
+    Right v -> putStrLn (show v)
+    Left _  -> putStrLn "wrong in passing JSON" 

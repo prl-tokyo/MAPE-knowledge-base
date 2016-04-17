@@ -7,6 +7,9 @@
 -- modify model elements, but add them to the `Addition` or `Deletion` lists,
 -- as appropriate.
 
+module SourceModel where
+
+{--
 module SourceModel(
   Model(..)
   , Instance(..)
@@ -15,6 +18,7 @@ module SourceModel(
   , InstanceType(..)
   , Root(..)
   ) where
+--}
 
 import Generics.BiGUL.TH
 import GHC.Generics
