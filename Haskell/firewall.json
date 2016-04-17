@@ -1,0 +1,68 @@
+{
+  "rules": [
+    {
+      "ruleID": "fw1",
+      "securityGroupRefFrom": "0.0.0.0/0",
+      "securityGroupRefTo": "sg-88c92fec",
+      "port": "80",
+      "protocol": "tcp"
+    },
+    {
+      "ruleID": "fw2",
+      "securityGroupRefFrom": "0.0.0.0/0",
+      "securityGroupRefTo": "sg-88c92fec",
+      "port": "22",
+      "protocol": "tcp"
+    },
+    {
+      "ruleID": "fw3",
+      "securityGroupRefFrom": "0.0.0.0/0",
+      "securityGroupRefTo": "sg-88c92fec",
+      "port": "443",
+      "protocol": "tcp"
+    },
+    {
+      "ruleID": "fw4",
+      "securityGroupRefFrom": "0.0.0.0/0",
+      "securityGroupRefTo": "sg-e9195c8c",
+      "port": "22",
+      "protocol": "tcp"
+    },
+    {
+      "ruleID": "fw5",
+      "securityGroupRefFrom": "0.0.0.0/0",
+      "securityGroupRefTo": "sg-b8d400dc",
+      "port": "22",
+      "protocol": "tcp"
+    },
+    {
+      "ruleID": "fw6",
+      "securityGroupRefFrom": "sg-77d40013",
+      "securityGroupRefTo": "sg-b8d400dc",
+      "port": "3306",
+      "protocol": "tcp"
+    },
+    {
+      "ruleID": "fw7",
+      "securityGroupRefFrom": "0.0.0.0/0",
+      "securityGroupRefTo": "sg-77d40013",
+      "port": "80",
+      "protocol": "tcp"
+    },
+    {
+      "ruleID": "fw8",
+      "securityGroupRefFrom": "0.0.0.0/0",
+      "securityGroupRefTo": "sg-77d40013",
+      "port": "22",
+      "protocol": "tcp"
+    },
+    {
+      "ruleID": "fw9",
+      "securityGroupRefFrom": "0.0.0.0/0",
+      "securityGroupRefTo": "sg-77d40013",
+      "port": "443",
+      "protocol": "tcp"
+    }
+  ]
+
+}
