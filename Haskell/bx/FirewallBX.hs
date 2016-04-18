@@ -5,8 +5,8 @@
 --   > ghci -ibx:models:source:views
 
 module FirewallBX(
-  dupAndZip
-  , ruleListUpd
+--  dupAndZip
+    ruleListUpd
   , ruleUpd
   , get
   , put
@@ -88,7 +88,7 @@ upFilterSep:
  <->
     [(100,1),(100,2),(100,3),(200,5),(200,6)]
 
-** We assume that new group cannot be added at the end.
+** We assume that new group can only be added from the end.
 
 -}
 
