@@ -55,6 +55,9 @@ import qualified FirewallModel as V
 
 -}
 
+firewallUpd :: BiGUL S.Model [V.Rule]
+firewallUpd = sourceToSGList `Compose` sgListToTuplesList `Compose` flatten `Compose` ruleListUpd
+
 sourceToSGList :: BiGUL S.Model [S.SecurityGroup]
 sourceToSGList = $(update [p| sgs
                         |][p| S.Model {
