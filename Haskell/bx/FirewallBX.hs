@@ -30,10 +30,12 @@ import qualified FirewallModel as V
 -- firewallUpd :: BiGUL S.Model V.View
 -- firewallUpd =
 
--- probably just need to rearrange the source, eliminating anything that
--- isn't a FirewallRule, or a SecurityGroup identifier
--- sourceToList :: BiGUL S.Model [(String, [S.FirewallRule])]
--- sourceToList =
+-- Dropping unnecessary data from the source
+--sourceToList :: BiGUL S.Model [(String, [S.FirewallRule])]
+--sourceToList = $(update [p|
+-- |][p|
+-- |][d|
+-- |])
 
 -- In a way this is a form of flattening. We want to duplicate the String into
 -- however many elements there are in the paired list. dupAndZip does it for
@@ -52,6 +54,45 @@ import qualified FirewallModel as V
     [(100,1),(100,2),(100,3),(200,4),(200,5)] v
 
 -}
+
+sourceToSGList :: BiGUL S.Model [S.SecurityGroup]
+sourceToSGList = $(update [p| sgs
+                        |][p| S.Model {
+                              S.securityGroups = sgs
+                       }|][d| sgs = Replace;
+                        |])
+
+sgListToTuplesList :: BiGUL [S.SecurityGroup] [(String, [S.FirewallRule])]
+sgListToTuplesList = align (const True)
+  (\s v -> S.sgID s == fst v)
+  ($(update [p| v |] [p| v |] [d| v = sgToTuple |]))
+  (\v -> S.SecurityGroup {
+    S.sgID = fst v,
+    S.instRefs = [],
+    S.firewallRules = snd v
+  })
+  (\s -> Nothing)
+
+sgToTuple :: BiGUL S.SecurityGroup (String, [S.FirewallRule])
+sgToTuple = $(update [p| (id, rules)
+                  |] [p| S.SecurityGroup {
+                         S.sgID = id,
+                         S.firewallRules = rules
+                 }|] [d| id = Replace;
+                         rules = Replace;
+                 |])
+
+emptyFirewallRule = S.FirewallRule {
+  S.fwRuleID = "SEP"
+  , S.outbound = True
+  , S.port = "80"
+  , S.ip = "0.0.0.0/0"
+  , S.protocol = "tcp"
+  , S.fwStatus = 0
+}
+
+flatten :: BiGUL [(String, [S.FirewallRule])] [(String, S.FirewallRule)]
+flatten = dupAndZipList emptyFirewallRule
 
 dupAndZipList :: (Eq k, Eq c) => c -> BiGUL [(k,[c])] [(k,c)]
 dupAndZipList c0 = emb g p
@@ -77,7 +118,7 @@ Right [(100,[1,3]),(200,[4])]
 Right [(100,[1,3]),(200,[4]),(300,[5])]
 
 -}
-  
+
 type ListWithSep k c = [(k,c)]
 
 {-
@@ -96,10 +137,10 @@ upFilterSep :: (Eq k, Eq c) => c -> BiGUL (ListWithSep k c) [(k,c)]
 upFilterSep c0 =
   Case [
     $(normalSV [p| [] |] [p| [] |]) $ Replace,
-    
+
     $(adaptive [| \s v -> length s == 0 && length v /= 0 |]) $
       \[] ((k,c):v) -> [(k,c),(k,c0)],
-      
+
     $(normal [| \((k,c):s) v -> length v == 0 && c==c0 |]) $
       $(rearrS [| \(a:s) -> (a,s) |]) $
          $(rearrV [| \v -> ((),v) |]) $
@@ -155,15 +196,15 @@ upListWithGroup c0 =
   Case [
     $(normalSV [p| [] |] [p| [] |]) $
       $(rearrV [| \[] -> () |]) $ Skip,
-      
+
     $(adaptive [| \s v -> length v == 0 |]) $
       \s v -> [],
-      
+
     $(adaptive [| \s (b:bs) -> not (fst b `elem` map fst s) |]) $
       (\s ((k,cs):v) -> case cs of
-                          [] -> (k,c0):s 
+                          [] -> (k,c0):s
                           c:_ -> (k,c):s),
-      
+
     $(adaptive [| \(a:as) (b:bs) -> fst a /= fst b |]) $
       \s ((k,_):v) -> moveHd s k,
 
@@ -174,7 +215,7 @@ upListWithGroup c0 =
 
    $(adaptive [| \(a:s) ((k,cs):v) -> fst a == k && length cs == 0 && snd a /= c0 |]) $
      \(a:s) v -> s,
-     
+
    $(normal [| \(a:s) ((k,cs):v) -> fst a == k && length cs == 0 |]) $
       $(rearrS [| \(a:s) -> (a,s) |]) $
          $(rearrV [| \((k,[]):v) -> ((k,()),v) |]) $
@@ -198,7 +239,7 @@ moveHd ((a,b):s) k
 
 -}
 
-{-    
+{-
 mergeFst :: Eq a => BiGUL (a,[b]) [(a,b)]
 mergeFst =
   Case [
@@ -218,7 +259,7 @@ mergeFst =
 > put mergeFst (100,[1,2]) [(100,1)]
 
 -}
-      
+
 dupAndZip :: BiGUL (String, [S.FirewallRule]) [(String, S.FirewallRule)]
 dupAndZip  =
   Case [
