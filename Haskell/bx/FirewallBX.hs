@@ -55,8 +55,8 @@ import qualified FirewallModel as V
 
 -}
 
-firewallUpd :: BiGUL S.Model [V.Rule]
-firewallUpd = sourceToSGList `Compose` sgListToTuplesList `Compose` flatten `Compose` ruleListUpd
+firewallUpd :: BiGUL S.Model V.View
+firewallUpd = sourceToSGList `Compose` sgListToTuplesList `Compose` flatten `Compose` ruleListUpd `Compose` ruleListToView
 
 sourceToSGList :: BiGUL S.Model [S.SecurityGroup]
 sourceToSGList = $(update [p| sgs
@@ -321,6 +321,13 @@ ruleUpd = $(update [p|  V.Rule {
                         port = Replace;
                         protocol = Replace
                 |])
+
+ruleListToView :: BiGUL [V.Rule] V.View
+ruleListToView = $(update [p| V.View {
+                                V.rules = rules
+                      }|] [p| rules
+                       |] [d| rules = Replace
+                       |])
 
 
 -- src = S.Model {instances = [S.Instance {instID = "i-cd33dc69", instType = "t2.micro", ami = "ami-59bdb937", state = 16, instStatus = 0, securityGroupRef = "sg-b8d400dc", load = 5.0},S.Instance {instID = "i-6834dbcc", instType = "t2.micro", ami = "ami-59bdb937", state = 16, instStatus = 0, securityGroupRef = "sg-77d40013", load = 6.0},S.Instance {instID = "i-6a34dbce", instType = "t2.micro", ami = "ami-59bdb937", state = 16, instStatus = 0, securityGroupRef = "sg-77d40013", load = 3.0},S.Instance {instID = "i-6b34dbcf", instType = "t2.micro", ami = "ami-59bdb937", state = 16, instStatus = 0, securityGroupRef = "sg-77d40013", load = 1.0},S.Instance {instID = "820114b8-f0b4-44b7-8cc8-40a483cd1c68", instType = "t2.nano", ami = "0000", state = 0, instStatus = 1, securityGroupRef = "sg-123", load = 0.0},S.Instance {instID = "29c00ebc-92b7-43a4-8a24-3e363784618e", instType = "t2.nano", ami = "0000", state = 0, instStatus = 1, securityGroupRef = "sg-123", load = 0.0},S.Instance {instID = "acc11663-075f-4b9d-ae2c-fc6664dbbd54", instType = "t2.nano", ami = "0000", state = 0, instStatus = 1, securityGroupRef = "sg-123", load = 0.0}], securityGroups = [S.SecurityGroup {sgID = "sg-4864f92d", instRefs = [], firewallRules = []},S.SecurityGroup {sgID = "sg-88c92fec", instRefs = [], firewallRules = [S.FirewallRule {fwRuleID = "fw1", outbound = True, port = "80", ip = "0.0.0.0/0", protocol = "tcp", fwStatus = 0},S.FirewallRule {fwRuleID = "fw2", outbound = True, port = "22", ip = "0.0.0.0/0", protocol = "tcp", fwStatus = 0},S.FirewallRule {fwRuleID = "fw3", outbound = True, port = "443", ip = "0.0.0.0/0", protocol = "tcp", fwStatus = 0}]},S.SecurityGroup {sgID = "sg-e9195c8c", instRefs = [], firewallRules = [S.FirewallRule {fwRuleID = "fw4", outbound = True, port = "22", ip = "0.0.0.0/0", protocol = "tcp", fwStatus = 0}]},S.SecurityGroup {sgID = "sg-b8d400dc", instRefs = [], firewallRules = [S.FirewallRule {fwRuleID = "fw5", outbound = True, port = "22", ip = "0.0.0.0/0", protocol = "tcp", fwStatus = 0},S.FirewallRule {fwRuleID = "fw6", outbound = True, port = "3306", ip = "sg-77d40013", protocol = "tcp", fwStatus = 0}]},S.SecurityGroup {sgID = "sg-77d40013", instRefs = [], firewallRules = [S.FirewallRule {fwRuleID = "fw7", outbound = True, port = "80", ip = "0.0.0.0/0", protocol = "tcp", fwStatus = 0},S.FirewallRule {fwRuleID = "fw8", outbound = True, port = "22", ip = "0.0.0.0/0", protocol = "tcp", fwStatus = 0},S.FirewallRule {fwRuleID = "fw9", outbound = True, port = "443", ip = "0.0.0.0/0", protocol = "tcp", fwStatus = 0}]}], instanceTypes = [S.InstanceType {typeID = "t2.nano", typeCPUs = 1, typeRAM = 0.5, typeCost = 1.0e-2},S.InstanceType {typeID = "t2.micro", typeCPUs = 1, typeRAM = 1.0, typeCost = 2.0e-2},S.InstanceType {typeID = "t2.small", typeCPUs = 1, typeRAM = 2.0, typeCost = 4.0e-2},S.InstanceType {typeID = "t2.medium", typeCPUs = 2, typeRAM = 4.0, typeCost = 8.0e-2},S.InstanceType {typeID = "t2.large", typeCPUs = 2, typeRAM = 8.0, typeCost = 0.16},S.InstanceType {typeID = "m4.large", typeCPUs = 2, typeRAM = 8.0, typeCost = 0.174},S.InstanceType {typeID = "m4.xlarge", typeCPUs = 4, typeRAM = 16.0, typeCost = 0.348},S.InstanceType {typeID = "m4.2xlarge", typeCPUs = 8, typeRAM = 32.0, typeCost = 0.695},S.InstanceType {typeID = "m4.4xlarge", typeCPUs = 16, typeRAM = 64.0, typeCost = 1.391},S.InstanceType {typeID = "m4.10xlarge", typeCPUs = 40, typeRAM = 160.0, typeCost = 3.477},S.InstanceType {typeID = "m3.medium", typeCPUs = 1, typeRAM = 3.75, typeCost = 9.6e-2},S.InstanceType {typeID = "m3.large", typeCPUs = 2, typeRAM = 7.5, typeCost = 0.193},S.InstanceType {typeID = "m3.xlarge", typeCPUs = 4, typeRAM = 15.0, typeCost = 0.385},S.InstanceType {typeID = "m3.2xlarge", typeCPUs = 8, typeRAM = 30.0, typeCost = 0.77}]}
