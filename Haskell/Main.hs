@@ -27,18 +27,18 @@ sourceFile = "source.json"
 getJSON :: IO B.ByteString
 getJSON = B.readFile sourceFile
 
-doGet bx source = case bx of
+doGet bx source param = case bx of
   "autoScaling" -> case result of
     Right res -> encode res
-    where result = (ASBX.get ASBX.autoScalingUpd source)
+    where result = (ASBX.get (ASBX.autoScalingUpd param) source)
   "redundancy" -> case result of
     Right res -> encode res
     where result = (REDBX.get REDBX.redundancyUpd source)
   "execution" -> encode (EXBX.getExecution source)
 
-doASPut source view = case result of
+doASPut source view param = case result of
   Right res -> encode res
-  where result = (ASBX.put ASBX.autoScalingUpd source view)
+  where result = (ASBX.put (ASBX.autoScalingUpd param) source view)
 
 doREDPut source view = case result of
   Right res -> encode res
@@ -52,17 +52,18 @@ doEXPut source view = case result of
 -- dir: the direction, either get or put
 -- bx: the name of the transformation
 -- view: the filename of the view, expected to be in JSON
+-- param: a parameter to pass to the bx (not all BX need this)
 -- Example: ./Main get autoScaling as.json
 main :: IO ()
-main = do 
-  [dir, bx, view] <- getArgs
+main = do
+  [dir, bx, view, param] <- getArgs
   putStrLn "Start"
   src <- (eitherDecode <$> getJSON) :: IO (Either String Model)
   case src of
     Left err -> putStrLn err
     Right source -> case dir of
       "get" -> do
-        B.writeFile view (doGet bx source)
+        B.writeFile view (doGet bx source param)
         putStrLn "Done"
       "put" -> do
         putStrLn "put"
@@ -74,7 +75,7 @@ main = do
               Left err -> do
                 putStrLn "JSON parse error"
                 putStrLn err
-              Right vw -> B.writeFile sourceFile (doASPut source vw)
+              Right vw -> B.writeFile sourceFile (doASPut source vw param)
           "redundancy" -> do
             putStrLn "redundancy: reading JSON file"
             v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String REDV.View)
@@ -102,15 +103,15 @@ testing of FirewallBX.hs.
 -}
 
 jsonSource2Haskell :: IO ()
-jsonSource2Haskell = do 
+jsonSource2Haskell = do
   src <- (eitherDecode <$> B.readFile "source.json") :: IO (Either String Model)
   case src of
     Right s -> putStrLn (show s)
-    Left _  -> putStrLn "wrong in passing JSON" 
+    Left _  -> putStrLn "wrong in passing JSON"
 
 jsonFirewallView2Haskell :: IO ()
-jsonFirewallView2Haskell = do 
+jsonFirewallView2Haskell = do
   view <- (eitherDecode <$> B.readFile "firewall.json") :: IO (Either String FWV.View)
   case view of
     Right v -> putStrLn (show v)
-    Left _  -> putStrLn "wrong in passing JSON" 
+    Left _  -> putStrLn "wrong in passing JSON"
