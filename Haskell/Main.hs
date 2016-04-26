@@ -34,6 +34,9 @@ doGet bx source param = case bx of
   "redundancy" -> case result of
     Right res -> encode res
     where result = (REDBX.get REDBX.redundancyUpd source)
+  "firewall" -> case result of
+    Right res -> encode res
+    where result = (FWBX.get FWBX.firewallUpd source)
   "execution" -> encode (EXBX.getExecution source)
 
 doASPut source view param = case result of
@@ -43,6 +46,10 @@ doASPut source view param = case result of
 doREDPut source view = case result of
   Right res -> encode res
   where result = (REDBX.put REDBX.redundancyUpd source view)
+
+doFWPut source view = case result of
+  Right res -> encode res
+  where result = (FWBX.put FWBX.firewallUpd source view)
 
 doEXPut source view = case result of
   Right res -> encode res
@@ -86,6 +93,16 @@ main = do
               Right vw -> do
                 putStrLn "redundancy: running put transformation and writing file"
                 B.writeFile sourceFile (doREDPut source vw)
+          "firewall" -> do
+            putStrLn "firewall: reading JSON file"
+            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String FWV.View)
+            case v of
+              Left err -> do
+                putStrLn "JSON parse error"
+                putStrLn err
+              Right vw -> do
+                putStrLn "firewall: running put transformation and writing file"
+                B.writeFile sourceFile (doFWPut source vw)
           "execution" -> do
             putStrLn "execution: reading JSON file"
             v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String EXV.View)
