@@ -25,16 +25,16 @@ import Utils
 import qualified SourceModel as S
 import qualified AutoScalingModel as V
 
-autoScalingUpd :: BiGUL S.Model V.View
-autoScalingUpd = $(update [p| V.View {
-                              V.instances = instances
-                              , V.instanceTypes = instanceTypes
-                      }|] [p| S.Model {
-                              S.instances = instances
-                              , S.instanceTypes = instanceTypes
-                      }|] [d| instances = instListAlign;
-                              instanceTypes = instTypesAlign
-                       |])
+autoScalingUpd :: String -> BiGUL S.Model V.View
+autoScalingUpd sg = $(update [p| V.View {
+                                 V.instances = instances
+                                 , V.instanceTypes = instanceTypes
+                         }|] [p| S.Model {
+                                 S.instances = instances
+                                 , S.instanceTypes = instanceTypes
+                         }|] [d| instances = instListAlign sg;
+                                 instanceTypes = instTypesAlign
+                          |])
 
 instTypesAlign :: BiGUL [S.InstanceType] [V.InstanceType]
 instTypesAlign = align (\s -> True)
@@ -79,8 +79,8 @@ instUpd = $(update [p| V.Instance {
                        instLoad = Replace
   |])
 
-instListAlign :: BiGUL [S.Instance] [V.Instance]
-instListAlign = align (\s -> S.instStatus s /= 2)
+instListAlign :: String -> BiGUL [S.Instance] [V.Instance]
+instListAlign sg = align (\s -> (S.instStatus s /= 2) && (S.securityGroupRef s == sg))
   (\ s v -> S.instID s == V.instID v)
   ($(update [p| v |] [p| v |] [d| v = instUpd |]))
   (\v -> S.Instance {
