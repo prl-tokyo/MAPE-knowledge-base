@@ -5,8 +5,8 @@
 --   > ghci -ibx:models:source:views
 
 module FirewallBX(
---  dupAndZip
-    ruleListUpd
+    firewallUpd
+  , ruleListUpd
   , ruleUpd
   , get
   , put
