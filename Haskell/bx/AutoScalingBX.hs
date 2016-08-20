@@ -25,7 +25,7 @@ import Utils
 import qualified AutoscalingFailureModel as S
 import qualified AutoScalingModel as V
 
-autoScalingUpd :: BiGUL S.Model V.View
+autoScalingUpd :: BiGUL S.AutoscalingFailure V.View
 autoScalingUpd = $(update [p| V.View {
                               V.instances = instances
                               , V.instanceTypes = instanceTypes
