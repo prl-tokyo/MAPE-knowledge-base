@@ -95,5 +95,5 @@ instListAlign = align (\s -> (S.instStatus s /= 2))
       , S.instType = S.instType s
       , S.load = S.load s
       , S.instStatus = 2
-      , S.instResponseTime = S.instResponseTime
+      , S.instResponseTime = S.instResponseTime s
       })
