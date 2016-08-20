@@ -89,9 +89,6 @@ instListAlign = align (\s -> (S.instStatus s /= 2))
       , S.load = V.instLoad v
       , S.instStatus = 1
       , S.instResponseTime = -1
-      , S.ami = "0000"
-      , S.state = 0
-      , S.securityGroupRef = "sg-123"
       })
   (\s -> Just S.Instance {
       S.instID = S.instID s
@@ -99,7 +96,4 @@ instListAlign = align (\s -> (S.instStatus s /= 2))
       , S.load = S.load s
       , S.instStatus = 2
       , S.instResponseTime = S.instResponseTime
-      , S.ami = S.ami s
-      , S.state = S.state s
-      , S.securityGroupRef = S.securityGroupRef s
       })
