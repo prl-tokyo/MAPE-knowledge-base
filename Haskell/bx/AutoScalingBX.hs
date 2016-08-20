@@ -22,7 +22,7 @@ import GHC.Generics
 import Control.Arrow
 import Data.Maybe
 import Utils
-import qualified SourceModel as S
+import qualified AutoscalingFailureModel as S
 import qualified AutoScalingModel as V
 
 autoScalingUpd :: BiGUL S.Model V.View
