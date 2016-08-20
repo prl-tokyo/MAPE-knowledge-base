@@ -39,6 +39,7 @@ data Instance = Instance {
   , instType :: String
   , ami :: String
   , state :: Int
+  , instResponseTime :: Int
   , instStatus :: Int
   , securityGroupRef :: String
   , load :: Double
@@ -134,6 +135,7 @@ instance FromJSON Instance where
                            v .: "instType" <*>
                            v .: "ami" <*>
                            v .: "state" <*>
+                           v .: "instResponseTime" <*>
                            v .: "instStatus" <*>
                            v .: "securityGroupRef" <*>
                            v .: "load"
@@ -142,11 +144,12 @@ instance FromJSON Instance where
 
 instance ToJSON Instance where
     -- this generates a Value
-    toJSON (Instance instID instType ami state instStatus securityGroupRef load) =
+    toJSON (Instance instID instType ami state instResponseTime instStatus securityGroupRef load) =
         object ["instID" .= instID
                 , "instType" .= instType
                 , "ami" .= ami
                 , "state" .= state
+                , "instResponseTime" .= instResponseTime
                 , "instStatus" .= instStatus
                 , "securityGroupRef" .= securityGroupRef
                 , "load" .= load]
@@ -183,4 +186,3 @@ deriveBiGULGeneric ''FirewallRule
 deriveBiGULGeneric ''SecurityGroup
 deriveBiGULGeneric ''InstanceType
 deriveBiGULGeneric ''Root
-
