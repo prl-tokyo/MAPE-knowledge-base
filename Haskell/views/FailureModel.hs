@@ -3,7 +3,8 @@
 , OverloadedStrings #-}
 
 module FailureModel(
-
+  Instance(..)
+  , FailureView(..)
 ) where
 
 import Generics.BiGUL.TH
@@ -44,3 +45,6 @@ instance ToJSON Instance where
     object ["instID" .= instID
             , "instType" .= instType
             , "instResponseTime" .= instResponseTime]
+
+deriveBiGULGeneric ''Instance
+deriveBiGULGeneric ''FailureView
