@@ -22,6 +22,7 @@ data Instance = Instance {
   , instType :: String
   , instLoad :: Double
   , instResponseTime :: Int
+  , instStatus :: Int
   } deriving (Show, Eq)
 
 instance Ord Instance where
@@ -55,17 +56,19 @@ instance FromJSON Instance where
                            v .: "instID" <*>
                            v .: "instType" <*>
                            v .: "instLoad" <*>
-                           v .: "instResponseTime"
+                           v .: "instResponseTime" <*>
+                           v .: "instStatus"
     -- A non-Object value is of the wrong type, so fail.
     parseJSON _          = mempty
 
 instance ToJSON Instance where
     -- this generates a Value
-    toJSON (Instance instID instType instLoad instResponseTime) =
+    toJSON (Instance instID instType instLoad instResponseTime instStatus) =
         object ["instID" .= instID
                 , "instType" .= instType
                 , "instLoad" .= instLoad
-                , "instResponseTime" .= instResponseTime]
+                , "instResponseTime" .= instResponseTime
+                , "instStatus .= instStatus"]
 
 instance FromJSON InstanceType where
     parseJSON (Object v) = InstanceType <$>
