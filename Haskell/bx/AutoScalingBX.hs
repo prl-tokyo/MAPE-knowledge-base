@@ -25,16 +25,16 @@ import Utils
 import qualified SourceModel as S
 import qualified AutoScalingModel as V
 
-autoScalingUpd :: String -> BiGUL S.Model V.View
-autoScalingUpd sg = $(update [p| V.View {
-                                 V.instances = instances
-                                 , V.instanceTypes = instanceTypes
-                         }|] [p| S.Model {
-                                 S.instances = instances
-                                 , S.instanceTypes = instanceTypes
-                         }|] [d| instances = instListAlign sg;
-                                 instanceTypes = instTypesAlign
-                          |])
+autoScalingUpd :: BiGUL S.Model V.View
+autoScalingUpd = $(update [p| V.View {
+                              V.instances = instances
+                              , V.instanceTypes = instanceTypes
+                      }|] [p| S.Model {
+                              S.instances = instances
+                              , S.instanceTypes = instanceTypes
+                      }|] [d| instances = instListAlign;
+                              instanceTypes = instTypesAlign
+                       |])
 
 instTypesAlign :: BiGUL [S.InstanceType] [V.InstanceType]
 instTypesAlign = align (\s -> True)
@@ -79,24 +79,26 @@ instUpd = $(update [p| V.Instance {
                        instLoad = Replace
   |])
 
-instListAlign :: String -> BiGUL [S.Instance] [V.Instance]
-instListAlign sg = align (\s -> (S.instStatus s /= 2) && (S.securityGroupRef s == sg))
+instListAlign :: BiGUL [S.Instance] [V.Instance]
+instListAlign = align (\s -> (S.instStatus s /= 2))
   (\ s v -> S.instID s == V.instID v)
   ($(update [p| v |] [p| v |] [d| v = instUpd |]))
   (\v -> S.Instance {
-      S.instID = V.instID v,
-      S.instType = V.instType v,
-      S.load = V.instLoad v,
-      S.instStatus = 1,
-      S.ami = "0000",
-      S.state = 0,
-      S.securityGroupRef = "sg-123"
+      S.instID = V.instID v
+      , S.instType = V.instType v
+      , S.load = V.instLoad v
+      , S.instStatus = 1
+      , S.instResponseTime = -1
+      , S.ami = "0000"
+      , S.state = 0
+      , S.securityGroupRef = "sg-123"
       })
   (\s -> Just S.Instance {
       S.instID = S.instID s
       , S.instType = S.instType s
       , S.load = S.load s
       , S.instStatus = 2
+      , S.instResponseTime = S.instResponseTime
       , S.ami = S.ami s
       , S.state = S.state s
       , S.securityGroupRef = S.securityGroupRef s
