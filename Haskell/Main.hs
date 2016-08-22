@@ -25,22 +25,10 @@ import qualified AutoscalingFailureBX as ASFBX
 import qualified FailureModel as FAV
 import qualified FailureBX as FABX
 
---sourceFile :: FilePath
---sourceFile = "source.json"
-
-getJSON :: IO B.ByteString
-getJSON sourceFile = B.readFile sourceFile
-
 doGet bx source param = case bx of
   "autoscalingFailure" -> case result of
     Right res -> encode res
     where result = (ASFBX.get (ASFBX.autoscalingFailureUpd param) source)
-  "failure" -> case result of
-    Right res -> encode res
-    where result = (FABX.get FABX.failureUpd source)
-  "autoScaling" -> case result of
-    Right res -> encode res
-    where result = (ASBX.get ASBX.autoScalingUpd source)
   "redundancy" -> case result of
     Right res -> encode res
     where result = (REDBX.get REDBX.redundancyUpd source)
@@ -48,6 +36,14 @@ doGet bx source param = case bx of
     Right res -> encode res
     where result = (FWBX.get FWBX.firewallUpd source)
   "execution" -> encode (EXBX.getExecution source)
+
+doGet' bx source = case bx of
+  "failure" -> case result of
+    Right res -> encode res
+    where result = (FABX.get FABX.failureUpd source)
+  "autoScaling" -> case result of
+    Right res -> encode res
+    where result = (ASBX.get ASBX.autoScalingUpd source)
 
 doASPut source view = case result of
   Right res -> encode res
@@ -76,75 +72,98 @@ doFAPut source view = case result of
 -- arguments are:
 -- dir: the direction, either get or put
 -- bx: the name of the transformation
--- view: the filename of the view, expected to be in JSON
 -- param: a parameter to pass to the bx (not all BX need this)
 -- Example: ./Main get autoScaling as.json
 main :: IO ()
 main = do
-  [dir, bx, sourceFile, view, param] <- getArgs
-  putStrLn "Start"
-  src <- (eitherDecode <$> getJSON sourceFile) :: IO (Either String Model)
+  [dir, bx, param] <- getArgs
+  putStrLn "Starting"
+  case bx of
+    "autoscalingFailure" -> do
+      doAutoscalingFailure dir param
+    "autoScaling" -> do
+      doAutoScaling dir
+    "failure" -> do
+      doFailure dir
+    "execution" -> do
+      doExecution dir
+    "firewall" -> do
+      doFirewall dir
+
+doExecution dir = do
+  src <- (eitherDecode <$> (B.readFile "source.json")) :: IO (Either String Model)
   case src of
     Left err -> putStrLn err
     Right source -> case dir of
       "get" -> do
-        B.writeFile view (doGet bx source param)
-        putStrLn "Done"
+        B.writeFile "execution.json" (doGet "execution" source "")
       "put" -> do
-        putStrLn "put"
-        case bx of
-          "autoscalingFailure" -> do
-            putStrLn "autoscalingFailure: reading JSON file"
-            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String ASFV.AutoscalingFailure)
-            case v of
-              Left err -> do
-                putStrLn "JSON parse error"
-                putStrLn err
-              Right vw -> B.writeFile sourceFile (doASFPut source vw param)
-          "autoScaling" -> do
-            putStrLn "autoscaling: reading JSON file"
-            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String ASV.View)
-            case v of
-              Left err -> do
-                putStrLn "JSON parse error"
-                putStrLn err
-              Right vw -> B.writeFile sourceFile (doASPut source vw)
-          "failure" -> do
-            putStrLn "failure: reading JSON file"
-            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String FAV.FailureView)
-            case v of
-              Left err -> do
-                putStrLn "JSON parse error"
-                putStrLn err
-              Right vw -> B.writeFile sourceFile (doFAPut source vw)
-          "redundancy" -> do
-            putStrLn "redundancy: reading JSON file"
-            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String REDV.View)
-            case v of
-              Left err -> do
-                putStrLn "JSON parse error"
-                putStrLn err
-              Right vw -> do
-                putStrLn "redundancy: running put transformation and writing file"
-                B.writeFile sourceFile (doREDPut source vw)
-          "firewall" -> do
-            putStrLn "firewall: reading JSON file"
-            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String FWV.View)
-            case v of
-              Left err -> do
-                putStrLn "JSON parse error"
-                putStrLn err
-              Right vw -> do
-                putStrLn "firewall: running put transformation and writing file"
-                B.writeFile sourceFile (doFWPut source vw)
-          "execution" -> do
-            putStrLn "execution: reading JSON file"
-            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String EXV.View)
-            case v of
-              Left err -> do
-                putStrLn "JSON parse error"
-                putStrLn err
-              Right vw -> B.writeFile sourceFile (doEXPut source vw)
+        v <- (eitherDecode <$> (B.readFile "execution.json")) :: IO (Either String EXV.View)
+        case v of
+          Left err -> do
+            putStrLn "Error parse execution.json"
+            putStrLn err
+          Right vw -> B.writeFile "source.json" (doEXPut source vw)
+
+doAutoscalingFailure dir param = do
+  src <- (eitherDecode <$> (B.readFile "source.json")) :: IO (Either String Model)
+  case src of
+    Left err -> putStrLn err
+    Right source -> case dir of
+      "get" -> do
+        B.writeFile "autoscalingFailure.json" (doGet "autoscalingFailure" source param)
+      "put" -> do
+        v <- (eitherDecode <$> (B.readFile "autoscalingFailure.json")) :: IO (Either String ASFV.AutoscalingFailure)
+        case v of
+          Left err -> do
+            putStrLn "Error parse autoscalingFailure.json"
+            putStrLn err
+          Right vw -> B.writeFile "source.json" (doASFPut source vw param)
+
+doAutoScaling dir = do
+  src <- (eitherDecode <$> (B.readFile "autoscalingFailure.json")) :: IO (Either String ASFV.AutoscalingFailure)
+  case src of
+    Left err -> putStrLn err
+    Right source -> case dir of
+      "get" -> do
+        B.writeFile "autoScaling.json" (doGet' "autoScaling" source)
+      "put" -> do
+        v <- (eitherDecode <$> (B.readFile "autoScaling.json")) :: IO (Either String ASV.View)
+        case v of
+          Left err -> do
+            putStrLn "Error parse autoScaling.json"
+            putStrLn err
+          Right vw -> B.writeFile "autoscalingFailure.json" (doASPut source vw)
+
+doFailure dir = do
+  src <- (eitherDecode <$> (B.readFile "autoscalingFailure.json")) :: IO (Either String ASFV.AutoscalingFailure)
+  case src of
+    Left err -> putStrLn err
+    Right source -> case dir of
+      "get" -> do
+        B.writeFile "failure.json" (doGet' "failure" source)
+      "put" -> do
+        v <- (eitherDecode <$> (B.readFile "failure.json")) :: IO (Either String FAV.FailureView)
+        case v of
+          Left err -> do
+            putStrLn "Error parse failure.json"
+            putStrLn err
+          Right vw -> B.writeFile "autoscalingFailure.json" (doFAPut source vw)
+
+doFirewall dir = do
+  src <- (eitherDecode <$> (B.readFile "source.json")) :: IO (Either String Model)
+  case src of
+    Left err -> putStrLn err
+    Right source -> case dir of
+      "get" -> do
+        B.writeFile "firewall.json" (doGet "firewall" source "")
+      "put" -> do
+        v <- (eitherDecode <$> (B.readFile "firewall.json")) :: IO (Either String FWV.View)
+        case v of
+          Left err -> do
+            putStrLn "Error parse firewall.json"
+            putStrLn err
+          Right vw -> B.writeFile "source.json" (doFWPut source vw)
 
 
 {-
@@ -158,11 +177,11 @@ jsonSource2Haskell = do
   src <- (eitherDecode <$> B.readFile "source.json") :: IO (Either String Model)
   case src of
     Right s -> putStrLn (show s)
-    Left _  -> putStrLn "wrong in passing JSON"
+    Left _  -> putStrLn "JSON parse error (source)"
 
 jsonFirewallView2Haskell :: IO ()
 jsonFirewallView2Haskell = do
   view <- (eitherDecode <$> B.readFile "firewall.json") :: IO (Either String FWV.View)
   case view of
     Right v -> putStrLn (show v)
-    Left _  -> putStrLn "wrong in passing JSON"
+    Left _  -> putStrLn "JSON parse error (firewall)"
