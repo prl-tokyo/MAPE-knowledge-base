@@ -29,7 +29,7 @@ autoScalingUpd :: BiGUL S.AutoscalingFailure V.View
 autoScalingUpd = $(update [p| V.View {
                               V.instances = instances
                               , V.instanceTypes = instanceTypes
-                      }|] [p| S.Model {
+                      }|] [p| S.AutoscalingFailure {
                               S.instances = instances
                               , S.instanceTypes = instanceTypes
                       }|] [d| instances = instListAlign;
@@ -73,7 +73,7 @@ instUpd = $(update [p| V.Instance {
                }|] [p| S.Instance {
                        S.instID = instID,
                        S.instType = instType,
-                       S.load = instLoad
+                       S.instLoad = instLoad
                }|] [d| instID = Replace;
                        instType = Replace;
                        instLoad = Replace
@@ -86,14 +86,14 @@ instListAlign = align (\s -> (S.instStatus s /= 2))
   (\v -> S.Instance {
       S.instID = V.instID v
       , S.instType = V.instType v
-      , S.load = V.instLoad v
+      , S.instLoad = V.instLoad v
       , S.instResponseTime = -1
       , S.instStatus = 1
       })
   (\s -> Just S.Instance {
       S.instID = S.instID s
       , S.instType = S.instType s
-      , S.load = S.load s
+      , S.instLoad = S.instLoad s
       , S.instResponseTime = S.instResponseTime s
       , S.instStatus = 2
       })
