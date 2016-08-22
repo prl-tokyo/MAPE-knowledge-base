@@ -13,7 +13,7 @@ import GHC.Generics
 import Data.Aeson
 
 data AutoscalingFailure = AutoscalingFailure {
-  instance :: [Instance]
+  instances :: [Instance]
   , instanceTypes :: [InstanceType]
 } deriving (Show, Eq)
 
@@ -38,16 +38,16 @@ data InstanceType = InstanceType {
 instance Ord InstanceType where
   compare inst1 inst2 = compare (typeID inst1) (typeID inst2)
 
-instance FromJSON View where
-    parseJSON (Object v) = View <$>
+instance FromJSON AutoscalingFailure where
+    parseJSON (Object v) = AutoscalingFailure <$>
                            v .: "instances" <*>
                            v .: "instanceTypes"
     -- A non-Object value is of the wrong type, so fail.
     parseJSON _          = mempty
 
-instance ToJSON View where
+instance ToJSON AutoscalingFailure where
     -- this generates a Value
-    toJSON (View instances instanceTypes) =
+    toJSON (AutoscalingFailure instances instanceTypes) =
         object ["instances" .= instances
                 , "instanceTypes" .= instanceTypes]
 
@@ -68,7 +68,7 @@ instance ToJSON Instance where
                 , "instType" .= instType
                 , "instLoad" .= instLoad
                 , "instResponseTime" .= instResponseTime
-                , "instStatus .= instStatus"]
+                , "instStatus" .= instStatus]
 
 instance FromJSON InstanceType where
     parseJSON (Object v) = InstanceType <$>
