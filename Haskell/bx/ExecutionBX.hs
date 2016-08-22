@@ -84,6 +84,7 @@ instListAddAlign = align (\s -> S.instStatus s == 1)
       , S.instStatus = 0
       , S.ami = V.ami v
       , S.state = 0
+			, S.instResponseTime = -1
       , S.load = 0.00
       , S.securityGroupRef = V.securityGroupRef v
       })
@@ -99,6 +100,7 @@ instListTermAlign = align (\s -> S.instStatus s == 2)
       , S.instStatus = 0
       , S.ami = V.ami v
       , S.state = 0
+			, S.instResponseTime = -1
       , S.load = 0.00
       , S.securityGroupRef = V.securityGroupRef v
       })

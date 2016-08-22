@@ -56,6 +56,7 @@ instListAlign = align (const True)
       , S.instStatus = 1
       , S.ami = "0000"
       , S.state = 0
+      , S.instResponseTime = -1
       , S.load = 0.00
       , S.securityGroupRef = V.securityGroupRef v
       })
@@ -66,5 +67,6 @@ instListAlign = align (const True)
       , S.instStatus = 2
       , S.ami = S.ami s
       , S.state = S.state s
+      , S.instResponseTime = S.instResponseTime s
       , S.securityGroupRef = S.securityGroupRef s
       })
