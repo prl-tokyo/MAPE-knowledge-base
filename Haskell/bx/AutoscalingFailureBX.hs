@@ -7,31 +7,31 @@ module AutoscalingFailureBX(
   put
 ) where
 
-  import Generics.BiGUL.AST
-  import Generics.BiGUL.Error
-  import Generics.BiGUL.Interpreter
-  import Language.Haskell.TH as TH hiding (Name)
-  import Generics.BiGUL.TH
-  import Control.Monad
-  import Data.Char
-  import Data.List
-  import GHC.Generics
-  import Control.Arrow
-  import Data.Maybe
-  import Utils
-  import qualified SourceModel as S
-  import qualified AutoscalingFailureModel as V
+import Generics.BiGUL.AST
+import Generics.BiGUL.Error
+import Generics.BiGUL.Interpreter
+import Language.Haskell.TH as TH hiding (Name)
+import Generics.BiGUL.TH
+import Control.Monad
+import Data.Char
+import Data.List
+import GHC.Generics
+import Control.Arrow
+import Data.Maybe
+import Utils
+import qualified SourceModel as S
+import qualified AutoscalingFailureModel as V
 
-  autoscalingFailureUpd :: String -> BiGUL S.Model V.View
-  autoScalingFailureUpd sg = $(update [p|V.View {
-                                         V.instances = instances
-                                         , V.instanceTypes = instanceTypes
-                                   }|][p| S.Model {
-                                         S.instances = instances
-                                         , S.instanceTypes = instanceTypes
-                                   }|][d| instances = instListAlign sg;
-                                          instanceTypes = instTypesAlign
-                                    |])
+autoscalingFailureUpd :: String -> BiGUL S.Model V.AutoscalingFailure
+autoscalingFailureUpd sg = $(update [p| V.AutoscalingFailure {
+                                        V.instances = instances
+                                        , V.instanceTypes = instanceTypes
+                                }|] [p| S.Model {
+                                        S.instances = instances
+                                        , S.instanceTypes = instanceTypes
+                                }|] [d| instances = instListAlign sg;
+                                        instanceTypes = instTypesAlign
+                                 |])
 
 instTypesAlign :: BiGUL [S.InstanceType] [V.InstanceType]
 instTypesAlign = align (\s -> True)
@@ -90,17 +90,19 @@ instListAlign sg = align (\s -> (S.instStatus s /= 2) && (S.securityGroupRef s =
       S.instID = V.instID v
       , S.instType = V.instType v
       , S.load = V.instLoad v
-      , S.instStatus = V.instStatus
+      , S.instStatus = V.instStatus v
       , S.ami = "0000"
       , S.state = 0
+      , S.instResponseTime = V.instResponseTime v
       , S.securityGroupRef = "sg-123"
       })
   (\s -> Just S.Instance {
       S.instID = S.instID s
       , S.instType = S.instType s
       , S.load = S.load s
-      , S.instStatus = V.instStatus
+      , S.instStatus = S.instStatus s
       , S.ami = S.ami s
       , S.state = S.state s
+      , S.instResponseTime = S.instResponseTime s
       , S.securityGroupRef = S.securityGroupRef s
       })
