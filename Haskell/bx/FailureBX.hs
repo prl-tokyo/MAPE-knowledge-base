@@ -36,14 +36,14 @@ instListAlign = align (\s -> (S.instStatus s /= 2))
   (\v -> S.Instance {
       S.instID = V.instID v
       , S.instType = V.instType v
-      , S.load = 0
-      , S.instResponseTime = V.instResponseTime
+      , S.instLoad = 0
+      , S.instResponseTime = V.instResponseTime v
       , S.instStatus = 1
   })
   (\s -> Just S.Instance {
       S.instID = S.instID s
       , S.instType = S.instType s
-      , S.load = S.load s
+      , S.instLoad = S.instLoad s
       , S.instResponseTime = S.instResponseTime s
       , S.instStatus = 2
   })

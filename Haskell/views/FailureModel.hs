@@ -31,7 +31,7 @@ instance FromJSON FailureView where
 
 instance ToJSON FailureView where
   toJSON(FailureView instances) =
-    object["instances" .= instance]
+    object["instances" .= instances]
 
 instance FromJSON Instance where
   parseJSON (Object v) = Instance <$>
@@ -41,7 +41,7 @@ instance FromJSON Instance where
   parseJSON _          = mempty
 
 instance ToJSON Instance where
-  toJSON (Instance instID intType instResponseTime) =
+  toJSON (Instance instID instType instResponseTime) =
     object ["instID" .= instID
             , "instType" .= instType
             , "instResponseTime" .= instResponseTime]
