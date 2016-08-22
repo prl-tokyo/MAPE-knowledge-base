@@ -20,17 +20,27 @@ import qualified AutoScalingModel as ASV
 import qualified FirewallModel as FWV
 import qualified RedundancyModel as REDV
 import qualified ExecutionModel as EXV
+import qualified AutoscalingFailureModel as ASFV
+import qualified AutoscalingFailureBX as ASFBX
+import qualified FailureModel as FAV
+import qualified FailureBX as FABX
 
-sourceFile :: FilePath
-sourceFile = "source.json"
+--sourceFile :: FilePath
+--sourceFile = "source.json"
 
 getJSON :: IO B.ByteString
-getJSON = B.readFile sourceFile
+getJSON sourceFile = B.readFile sourceFile
 
 doGet bx source param = case bx of
+  "autoscalingFailure" -> case result of
+    Right res -> encode res
+    where result = (ASFBX.get (ASFBX.autoscalingFailureUpd param) source)
+  "failure" -> case result of
+    Right res -> encode res
+    where result = (FABX.get FABX.failureUpd source)
   "autoScaling" -> case result of
     Right res -> encode res
-    where result = (ASBX.get (ASBX.autoScalingUpd param) source)
+    where result = (ASBX.get ASBX.autoScalingUpd source)
   "redundancy" -> case result of
     Right res -> encode res
     where result = (REDBX.get REDBX.redundancyUpd source)
@@ -39,9 +49,9 @@ doGet bx source param = case bx of
     where result = (FWBX.get FWBX.firewallUpd source)
   "execution" -> encode (EXBX.getExecution source)
 
-doASPut source view param = case result of
+doASPut source view = case result of
   Right res -> encode res
-  where result = (ASBX.put (ASBX.autoScalingUpd param) source view)
+  where result = (ASBX.put ASBX.autoScalingUpd source view)
 
 doREDPut source view = case result of
   Right res -> encode res
@@ -55,6 +65,14 @@ doEXPut source view = case result of
   Right res -> encode res
   where result = (EXBX.put EXBX.executionUpd source view)
 
+doASFPut source view param = case result of
+  Right res -> encode res
+  where result = (ASFBX.put (ASFBX.autoscalingFailureUpd param) source view)
+
+doFAPut source view = case result of
+  Right res -> encode res
+  where result = (FABX.put FABX.failureUpd source view)
+
 -- arguments are:
 -- dir: the direction, either get or put
 -- bx: the name of the transformation
@@ -63,9 +81,9 @@ doEXPut source view = case result of
 -- Example: ./Main get autoScaling as.json
 main :: IO ()
 main = do
-  [dir, bx, view, param] <- getArgs
+  [dir, bx, sourceFile, view, param] <- getArgs
   putStrLn "Start"
-  src <- (eitherDecode <$> getJSON) :: IO (Either String Model)
+  src <- (eitherDecode <$> getJSON sourceFile) :: IO (Either String Model)
   case src of
     Left err -> putStrLn err
     Right source -> case dir of
@@ -75,6 +93,14 @@ main = do
       "put" -> do
         putStrLn "put"
         case bx of
+          "autoscalingFailure" -> do
+            putStrLn "autoscalingFailure: reading JSON file"
+            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String ASFV.AutoscalingFailure)
+            case v of
+              Left err -> do
+                putStrLn "JSON parse error"
+                putStrLn err
+              Right vw -> B.writeFile sourceFile (doASFPut source vw param)
           "autoScaling" -> do
             putStrLn "autoscaling: reading JSON file"
             v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String ASV.View)
@@ -82,7 +108,15 @@ main = do
               Left err -> do
                 putStrLn "JSON parse error"
                 putStrLn err
-              Right vw -> B.writeFile sourceFile (doASPut source vw param)
+              Right vw -> B.writeFile sourceFile (doASPut source vw)
+          "failure" -> do
+            putStrLn "failure: reading JSON file"
+            v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String FAV.FailureView)
+            case v of
+              Left err -> do
+                putStrLn "JSON parse error"
+                putStrLn err
+              Right vw -> B.writeFile sourceFile (doFAPut source vw)
           "redundancy" -> do
             putStrLn "redundancy: reading JSON file"
             v <- (eitherDecode <$> (B.readFile view)) :: IO (Either String REDV.View)
