@@ -1,18 +1,17 @@
-{-# LANGUAGE TemplateHaskell
-, TypeFamilies #-}
+{-# LANGUAGE FlexibleContexts, TemplateHaskell, TypeFamilies #-}
 
-module ExecutionBX(
-	put,
-	get,
-	getExecution,
-	executionUpd
-	) where
+module ExecutionBX (
+  put,
+  get,
+  getExecution,
+  executionUpd
+) where
 
-import Generics.BiGUL.AST
-import Generics.BiGUL.Error
+import Generics.BiGUL
 import Generics.BiGUL.Interpreter
-import Language.Haskell.TH as TH hiding (Name)
-import Generics.BiGUL.TH
+import Generics.BiGUL.TH 
+import Generics.BiGUL.Lib
+
 import Control.Monad
 import Data.Char
 import Data.List
@@ -28,46 +27,45 @@ executionUpd :: BiGUL S.Model V.View
 executionUpd = addUpd
 
 addUpd :: BiGUL S.Model V.View
-addUpd = $(update [p| V.View {
-                       V.terminations = terminations,
-                       V.additions = additions
-               }|] [p| S.Model {
+addUpd = $(update [p| S.Model {
                        S.instances = additions
+               }|] [p| V.View {
+                       V.terminations = [],
+                       V.additions = additions
                }|] [d| additions = instListAddAlign;
-               		   terminations = Skip
                 |])
 
 getExecution s = V.View {
-	V.terminations = fromRight (getTermUpd s),
-	V.additions = fromRight (getAddUpd s)
+  V.terminations = fromJust (getTermUpd s),
+  V.additions = fromJust (getAddUpd s)
 }
 
 getTermUpd s = case s' of
-	Right ps -> get instListTermAlign ps
-	where s' = get sInstListUpd s
+  Just ps -> get instListTermAlign ps
+  where s' = get sInstListUpd s
 
 getAddUpd s = case s' of
-	Right ps -> get instListAddAlign ps
-	where s' = get sInstListUpd s
+  Just ps -> get instListAddAlign ps
+  where s' = get sInstListUpd s
 
 sInstListUpd :: BiGUL S.Model [S.Instance]
-sInstListUpd = $(update [p| instances |]
-	               [p| S.Model {
-	                    S.instances = instances
-	           }|] [d| instances = Replace
-	            |])
+sInstListUpd = $(update [p| S.Model {
+                            S.instances = instances
+                            }|]
+                        [p| instances |]
+                        [d| instances = Replace |])
 
 instUpd :: BiGUL S.Instance V.Instance
-instUpd = $(update [p| V.Instance {
-                       V.instID = instID,
-                       V.instType = instType,
-                       V.ami = ami,
-                       V.securityGroupRef = securityGroupRef
-               }|] [p| S.Instance {
+instUpd = $(update [p| S.Instance {
                        S.instID = instID,
                        S.instType = instType,
                        S.ami = ami,
                        S.securityGroupRef = securityGroupRef
+               }|] [p| V.Instance {
+                       V.instID = instID,
+                       V.instType = instType,
+                       V.ami = ami,
+                       V.securityGroupRef = securityGroupRef
                }|] [d| instID = Replace;
                        instType = Replace;
                        ami = Replace;
@@ -84,7 +82,7 @@ instListAddAlign = align (\s -> S.instStatus s == 1)
       , S.instStatus = 0
       , S.ami = V.ami v
       , S.state = 0
-			, S.instResponseTime = -1
+      , S.instResponseTime = -1
       , S.load = 0.00
       , S.securityGroupRef = V.securityGroupRef v
       })
@@ -100,7 +98,7 @@ instListTermAlign = align (\s -> S.instStatus s == 2)
       , S.instStatus = 0
       , S.ami = V.ami v
       , S.state = 0
-			, S.instResponseTime = -1
+      , S.instResponseTime = -1
       , S.load = 0.00
       , S.securityGroupRef = V.securityGroupRef v
       })

@@ -1,5 +1,4 @@
-{-# LANGUAGE TemplateHaskell
-, TypeFamilies #-}
+{-# LANGUAGE FlexibleContexts, TemplateHaskell, TypeFamilies #-}
 
 module AutoScalingBX(
   instUpd,
@@ -10,11 +9,11 @@ module AutoScalingBX(
   ) where
 
 --import Generics.BiGUL
-import Generics.BiGUL.AST
-import Generics.BiGUL.Error
+import Generics.BiGUL
 import Generics.BiGUL.Interpreter
-import Language.Haskell.TH as TH hiding (Name)
-import Generics.BiGUL.TH
+import Generics.BiGUL.TH 
+import Generics.BiGUL.Lib
+
 import Control.Monad
 import Data.Char
 import Data.List
@@ -26,12 +25,12 @@ import qualified AutoscalingFailureModel as S
 import qualified AutoScalingModel as V
 
 autoScalingUpd :: BiGUL S.AutoscalingFailure V.View
-autoScalingUpd = $(update [p| V.View {
-                              V.instances = instances
-                              , V.instanceTypes = instanceTypes
-                      }|] [p| S.AutoscalingFailure {
+autoScalingUpd = $(update [p| S.AutoscalingFailure {
                               S.instances = instances
                               , S.instanceTypes = instanceTypes
+                      }|] [p| V.View {
+                              V.instances = instances
+                              , V.instanceTypes = instanceTypes
                       }|] [d| instances = instListAlign;
                               instanceTypes = instTypesAlign
                        |])
@@ -49,16 +48,16 @@ instTypesAlign = align (\s -> True)
   (const Nothing)
 
 instTypeUpd :: BiGUL S.InstanceType V.InstanceType
-instTypeUpd = $(update [p| V.InstanceType {
-                           V.typeID = typeID,
-                           V.typeCPUs = typeCPUs,
-                           V.typeRAM = typeRAM,
-                           V.typeCost = typeCost
-                   }|] [p| S.InstanceType {
+instTypeUpd = $(update [p| S.InstanceType {
                            S.typeID = typeID,
                            S.typeCPUs = typeCPUs,
                            S.typeRAM = typeRAM,
                            S.typeCost = typeCost
+                   }|] [p| V.InstanceType {
+                           V.typeID = typeID,
+                           V.typeCPUs = typeCPUs,
+                           V.typeRAM = typeRAM,
+                           V.typeCost = typeCost
                    }|] [d| typeID = Replace;
                            typeCPUs = Replace;
                            typeRAM = Replace;
@@ -66,14 +65,14 @@ instTypeUpd = $(update [p| V.InstanceType {
   |])
 
 instUpd :: BiGUL S.Instance V.Instance
-instUpd = $(update [p| V.Instance {
-                       V.instID = instID,
-                       V.instType = instType,
-                       V.instLoad = instLoad
-               }|] [p| S.Instance {
+instUpd = $(update [p| S.Instance {
                        S.instID = instID,
                        S.instType = instType,
                        S.instLoad = instLoad
+               }|] [p| V.Instance {
+                       V.instID = instID,
+                       V.instType = instType,
+                       V.instLoad = instLoad
                }|] [d| instID = Replace;
                        instType = Replace;
                        instLoad = Replace

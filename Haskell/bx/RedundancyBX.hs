@@ -1,5 +1,4 @@
-{-# LANGUAGE TemplateHaskell,
-TypeFamilies #-}
+{-# LANGUAGE FlexibleContexts, TemplateHaskell, TypeFamilies #-}
 
 module RedundancyBX(
   instUpd,
@@ -9,11 +8,11 @@ module RedundancyBX(
   put
   ) where
 
-import Generics.BiGUL.AST
-import Generics.BiGUL.Error
+import Generics.BiGUL
 import Generics.BiGUL.Interpreter
-import Language.Haskell.TH as TH hiding (Name)
-import Generics.BiGUL.TH
+import Generics.BiGUL.TH 
+import Generics.BiGUL.Lib
+
 import Control.Monad
 import Data.Char
 import Data.List
@@ -25,22 +24,22 @@ import qualified SourceModel as S
 import qualified RedundancyModel as V
 
 redundancyUpd :: BiGUL S.Model V.View
-redundancyUpd = $(update [p| V.View {
-                             V.instances = instances
-                     }|] [p| S.Model {
+redundancyUpd = $(update [p| S.Model {
                              S.instances = instances
+                     }|] [p| V.View {
+                             V.instances = instances
                      }|] [d| instances = instListAlign
                       |])
 
 instUpd :: BiGUL S.Instance V.Instance
-instUpd = $(update [p| V.Instance {
-        V.instID = instID
-        , V.securityGroupRef = securityGroupRef
-        , V.status = status
-    }|] [p| S.Instance {
+instUpd = $(update [p| S.Instance {
         S.instID = instID
         , S.securityGroupRef = securityGroupRef
         , S.instStatus = status
+    }|] [p| V.Instance {
+        V.instID = instID
+        , V.securityGroupRef = securityGroupRef
+        , V.status = status
     }|] [d| instID = Replace;
             securityGroupRef = Replace;
             status = Replace
