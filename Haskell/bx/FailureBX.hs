@@ -7,11 +7,11 @@ module FailureBX(
   put
 ) where
 
-import Generics.BiGUL.AST
-import Generics.BiGUL.Error
+import Generics.BiGUL
 import Generics.BiGUL.Interpreter
-import Language.Haskell.TH as TH hiding (Name)
 import Generics.BiGUL.TH
+import Generics.BiGUL.Lib
+
 import Control.Monad
 import Data.Char
 import Data.List
@@ -23,10 +23,10 @@ import qualified AutoscalingFailureModel as S
 import qualified FailureModel as V
 
 failureUpd :: BiGUL S.AutoscalingFailure V.FailureView
-failureUpd = $(update [p| V.FailureView {
-                          V.instances = instances
-                   }|][p| S.AutoscalingFailure {
+failureUpd = $(update [p| S.AutoscalingFailure {
                           S.instances = instances
+                   }|][p| V.FailureView {
+                          V.instances = instances
                    }|][d| instances = instListAlign
                     |])
 instListAlign :: BiGUL [S.Instance] [V.Instance]
@@ -49,14 +49,14 @@ instListAlign = align (\s -> (S.instStatus s /= 2))
   })
 
 instUpd :: BiGUL S.Instance V.Instance
-instUpd = $(update [p| V.Instance {
-                       V.instID = instID,
-                       V.instType = instType,
-                       V.instResponseTime = instResponseTime
-               }|] [p| S.Instance {
+instUpd = $(update [p| S.Instance {
                        S.instID = instID,
                        S.instType = instType,
                        S.instResponseTime = instResponseTime
+               }|] [p| V.Instance {
+                       V.instID = instID,
+                       V.instType = instType,
+                       V.instResponseTime = instResponseTime
                }|] [d| instID = Replace;
                        instType = Replace;
                        instResponseTime = Replace

@@ -7,11 +7,12 @@ module AutoscalingFailureBX(
   put
 ) where
 
-import Generics.BiGUL.AST
-import Generics.BiGUL.Error
+import Generics.BiGUL
+import Generics.BiGUL
 import Generics.BiGUL.Interpreter
-import Language.Haskell.TH as TH hiding (Name)
 import Generics.BiGUL.TH
+import Generics.BiGUL.Lib
+
 import Control.Monad
 import Data.Char
 import Data.List
@@ -23,12 +24,12 @@ import qualified SourceModel as S
 import qualified AutoscalingFailureModel as V
 
 autoscalingFailureUpd :: String -> BiGUL S.Model V.AutoscalingFailure
-autoscalingFailureUpd sg = $(update [p| V.AutoscalingFailure {
-                                        V.instances = instances
-                                        , V.instanceTypes = instanceTypes
-                                }|] [p| S.Model {
+autoscalingFailureUpd sg = $(update [p| S.Model {
                                         S.instances = instances
                                         , S.instanceTypes = instanceTypes
+                                }|] [p| V.AutoscalingFailure {
+                                        V.instances = instances
+                                        , V.instanceTypes = instanceTypes
                                 }|] [d| instances = instListAlign sg;
                                         instanceTypes = instTypesAlign
                                  |])
@@ -46,16 +47,16 @@ instTypesAlign = align (\s -> True)
   (const Nothing)
 
 instTypeUpd :: BiGUL S.InstanceType V.InstanceType
-instTypeUpd = $(update [p| V.InstanceType {
-                           V.typeID = typeID,
-                           V.typeCPUs = typeCPUs,
-                           V.typeRAM = typeRAM,
-                           V.typeCost = typeCost
-                   }|] [p| S.InstanceType {
+instTypeUpd = $(update [p| S.InstanceType {
                            S.typeID = typeID,
                            S.typeCPUs = typeCPUs,
                            S.typeRAM = typeRAM,
                            S.typeCost = typeCost
+                   }|] [p| V.InstanceType {
+                           V.typeID = typeID,
+                           V.typeCPUs = typeCPUs,
+                           V.typeRAM = typeRAM,
+                           V.typeCost = typeCost
                    }|] [d| typeID = Replace;
                            typeCPUs = Replace;
                            typeRAM = Replace;
@@ -63,18 +64,18 @@ instTypeUpd = $(update [p| V.InstanceType {
   |])
 
 instUpd :: BiGUL S.Instance V.Instance
-instUpd = $(update [p| V.Instance {
-                       V.instID = instID,
-                       V.instType = instType,
-                       V.instLoad = instLoad,
-                       V.instResponseTime = instResponseTime,
-                       V.instStatus = instStatus
-               }|] [p| S.Instance {
+instUpd = $(update [p| S.Instance {
                        S.instID = instID,
                        S.instType = instType,
                        S.load = instLoad,
                        S.instResponseTime = instResponseTime,
                        S.instStatus = instStatus
+               }|] [p| V.Instance {
+                       V.instID = instID,
+                       V.instType = instType,
+                       V.instLoad = instLoad,
+                       V.instResponseTime = instResponseTime,
+                       V.instStatus = instStatus
                }|] [d| instID = Replace;
                        instType = Replace;
                        instLoad = Replace;

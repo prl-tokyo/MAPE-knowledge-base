@@ -27,46 +27,46 @@ import qualified FailureBX as FABX
 
 doGet bx source param = case bx of
   "autoscalingFailure" -> case result of
-    Right res -> encode res
+    Just res -> encode res
     where result = (ASFBX.get (ASFBX.autoscalingFailureUpd param) source)
   "redundancy" -> case result of
-    Right res -> encode res
+    Just res -> encode res
     where result = (REDBX.get REDBX.redundancyUpd source)
   "firewall" -> case result of
-    Right res -> encode res
+    Just res -> encode res
     where result = (FWBX.get FWBX.firewallUpd source)
   "execution" -> encode (EXBX.getExecution source)
 
 doGet' bx source = case bx of
   "failure" -> case result of
-    Right res -> encode res
+    Just res -> encode res
     where result = (FABX.get FABX.failureUpd source)
   "autoScaling" -> case result of
-    Right res -> encode res
+    Just res -> encode res
     where result = (ASBX.get ASBX.autoScalingUpd source)
 
 doASPut source view = case result of
-  Right res -> encode res
+  Just res -> encode res
   where result = (ASBX.put ASBX.autoScalingUpd source view)
 
 doREDPut source view = case result of
-  Right res -> encode res
+  Just res -> encode res
   where result = (REDBX.put REDBX.redundancyUpd source view)
 
 doFWPut source view = case result of
-  Right res -> encode res
+  Just res -> encode res
   where result = (FWBX.put FWBX.firewallUpd source view)
 
 doEXPut source view = case result of
-  Right res -> encode res
+  Just res -> encode res
   where result = (EXBX.put EXBX.executionUpd source view)
 
 doASFPut source view param = case result of
-  Right res -> encode res
+  Just res -> encode res
   where result = (ASFBX.put (ASFBX.autoscalingFailureUpd param) source view)
 
 doFAPut source view = case result of
-  Right res -> encode res
+  Just res -> encode res
   where result = (FABX.put FABX.failureUpd source view)
 
 -- arguments are:
