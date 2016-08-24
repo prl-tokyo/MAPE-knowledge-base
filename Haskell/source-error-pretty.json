@@ -1,0 +1,626 @@
+{
+    "instanceTypes": [
+        {
+            "typeCPUs": 1,
+            "typeCost": 0.01,
+            "typeID": "t2.nano",
+            "typeRAM": 0.5
+        },
+        {
+            "typeCPUs": 1,
+            "typeCost": 0.02,
+            "typeID": "t2.micro",
+            "typeRAM": 1.0
+        },
+        {
+            "typeCPUs": 1,
+            "typeCost": 0.04,
+            "typeID": "t2.small",
+            "typeRAM": 2.0
+        },
+        {
+            "typeCPUs": 2,
+            "typeCost": 0.08,
+            "typeID": "t2.medium",
+            "typeRAM": 4.0
+        },
+        {
+            "typeCPUs": 2,
+            "typeCost": 0.16,
+            "typeID": "t2.large",
+            "typeRAM": 8.0
+        },
+        {
+            "typeCPUs": 2,
+            "typeCost": 0.174,
+            "typeID": "m4.large",
+            "typeRAM": 8.0
+        },
+        {
+            "typeCPUs": 4,
+            "typeCost": 0.348,
+            "typeID": "m4.xlarge",
+            "typeRAM": 16.0
+        },
+        {
+            "typeCPUs": 8,
+            "typeCost": 0.695,
+            "typeID": "m4.2xlarge",
+            "typeRAM": 32.0
+        },
+        {
+            "typeCPUs": 16,
+            "typeCost": 1.391,
+            "typeID": "m4.4xlarge",
+            "typeRAM": 64.0
+        },
+        {
+            "typeCPUs": 40,
+            "typeCost": 3.477,
+            "typeID": "m4.10xlarge",
+            "typeRAM": 160.0
+        },
+        {
+            "typeCPUs": 16,
+            "typeCost": 1.391,
+            "typeID": "m4.4xlarge",
+            "typeRAM": 64.0
+        }
+    ],
+    "instances": [
+        {
+            "ami": "ami-374db956",
+            "instID": "i-eeebf961",
+            "instResponseTime": 237,
+            "instStatus": 0,
+            "instType": "t2.micro",
+            "load": 0.134,
+            "securityGroupRef": "sg-04e55d60",
+            "state": 16
+        },
+        {
+            "ami": "ami-374db956",
+            "instID": "i-edebf962",
+            "instResponseTime": 336,
+            "instStatus": 0,
+            "instType": "t2.micro",
+            "load": 0.11600000000000002,
+            "securityGroupRef": "sg-04e55d60",
+            "state": 16
+        },
+        {
+            "ami": "ami-374db956",
+            "instID": "i-ecebf963",
+            "instResponseTime": 356,
+            "instStatus": 0,
+            "instType": "t2.micro",
+            "load": 0.134,
+            "securityGroupRef": "sg-04e55d60",
+            "state": 16
+        },
+        {
+            "ami": "ami-374db956",
+            "instID": "i-ebebf964",
+            "instResponseTime": 537,
+            "instStatus": 0,
+            "instType": "t2.micro",
+            "load": 0.15,
+            "securityGroupRef": "sg-04e55d60",
+            "state": 16
+        },
+        {
+            "ami": "ami-374db956",
+            "instID": "i-eaebf965",
+            "instResponseTime": 437,
+            "instStatus": 0,
+            "instType": "t2.micro",
+            "load": 3.2020000000000004,
+            "securityGroupRef": "sg-04e55d60",
+            "state": 16
+        },
+        {
+            "ami": "ami-374db956",
+            "instID": "i-e9ebf966",
+            "instResponseTime": 369,
+            "instStatus": 0,
+            "instType": "t2.micro",
+            "load": 4.017,
+            "securityGroupRef": "sg-04e55d60",
+            "state": 16
+        },
+        {
+            "ami": "ami-a21529cc",
+            "instID": "i-f8c48667",
+            "instResponseTime": 337,
+            "instStatus": 0,
+            "instType": "t2.small",
+            "load": 0.083,
+            "securityGroupRef": "sg-95276ff1",
+            "state": 16
+        },
+        {
+            "ami": "ami-f80e0596",
+            "instID": "i-dd54d142",
+            "instResponseTime": 422,
+            "instStatus": 0,
+            "instType": "t2.large",
+            "load": 25.49083333333333,
+            "securityGroupRef": "sg-04e55d60",
+            "state": 16
+        },
+        {
+            "ami": "ami-374db956",
+            "instID": "i-a7f1c338",
+            "instResponseTime": 428,
+            "instStatus": 0,
+            "instType": "t2.micro",
+            "load": 0.034,
+            "securityGroupRef": "sg-77d40013",
+            "state": 16
+        },
+        {
+            "ami": "ami-374db956",
+            "instID": "i-a6f1c339",
+            "instResponseTime": 545,
+            "instStatus": 0,
+            "instType": "t2.micro",
+            "load": 0.033,
+            "securityGroupRef": "sg-77d40013",
+            "state": 16
+        },
+        {
+            "ami": "ami-374db956",
+            "instID": "i-a5f1c33a",
+            "instResponseTime": 262,
+            "instStatus": 0,
+            "instType": "t2.micro",
+            "load": 0.03333333333333333,
+            "securityGroupRef": "sg-77d40013",
+            "state": 16
+        },
+        {
+            "ami": "ami-a21529cc",
+            "instID": "i-c022f85f",
+            "instResponseTime": 337,
+            "instStatus": 0,
+            "instType": "t2.small",
+            "load": 0.1,
+            "securityGroupRef": "sg-5fad0b3b",
+            "state": 16
+        }
+    ],
+    "securityGroups": [
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "efe49d59-c2c8-4171-9c1f-53a6f8413392",
+                    "fwStatus": 0,
+                    "ip": "sg-4864f92d",
+                    "outbound": false,
+                    "port": "-1",
+                    "protocol": "-1"
+                }
+            ],
+            "instRefs": [],
+            "sgID": "sg-4864f92d"
+        },
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "78c1712d-2359-4675-8cd5-ff89b9108ab8",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "80",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "5f2eb2b2-2d34-4da6-a4a3-353fc940faf3",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "22",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "7d900bda-e949-4763-881a-3f9e5f4d26b6",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "443",
+                    "protocol": "tcp"
+                }
+            ],
+            "instRefs": [],
+            "sgID": "sg-88c92fec"
+        },
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "fce9d3e1-b220-4f62-a9cc-9aebe877df22",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "22",
+                    "protocol": "tcp"
+                }
+            ],
+            "instRefs": [],
+            "sgID": "sg-e9195c8c"
+        },
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "8cccc957-d27c-40f2-ab8c-158f4eb60008",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "80",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "974f97e3-53bd-45b7-b0bf-a99dfdd4097f",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "8080",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "999f37e1-98ad-48be-ba7a-58b76e1a2042",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "22",
+                    "protocol": "tcp"
+                }
+            ],
+            "instRefs": [
+                "i-eeebf961",
+                "i-edebf962",
+                "i-ecebf963",
+                "i-eaebf965",
+                "i-ebebf964",
+                "i-e9ebf966",
+                "i-dd54d142",
+                "i-eeebf961",
+                "i-edebf962",
+                "i-ecebf963",
+                "i-ebebf964",
+                "i-eaebf965",
+                "i-e9ebf966",
+                "i-dd54d142"
+            ],
+            "sgID": "sg-04e55d60"
+        },
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "55301885-685b-404d-b30e-5d662bc9f864",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "22",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "fdde7aa3-6717-423a-a5be-3e993df8796c",
+                    "fwStatus": 0,
+                    "ip": "sg-77d40013",
+                    "outbound": false,
+                    "port": "3306",
+                    "protocol": "tcp"
+                }
+            ],
+            "instRefs": [],
+            "sgID": "sg-b8d400dc"
+        },
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "c50f4d5c-2626-4307-a285-03c3471ff382",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "80",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "1e783fd9-e730-4a2d-8cb5-0a04bb292a40",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "22",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "4f530cce-1604-49dc-81c0-41412ffd3864",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "443",
+                    "protocol": "tcp"
+                }
+            ],
+            "instRefs": [
+                "i-a7f1c338",
+                "i-a6f1c339",
+                "i-a5f1c33a",
+                "i-a7f1c338",
+                "i-a6f1c339",
+                "i-a5f1c33a"
+            ],
+            "sgID": "sg-77d40013"
+        },
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "5ede7a5c-596a-48d1-86fc-41f4fec3b066",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "50030",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "122401ab-6ae6-43e7-ad6b-ee81fb7338b7",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "50070",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "35afd1dc-ad8a-4498-aa6a-5d7125427cd9",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "8081",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "0388dbc0-5be2-409b-9950-2d87a9de3efc",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "5080",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "121ec9ea-caae-4cf5-a054-8a5f1ba6f0e9",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "22",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "afd4c6ef-fe3a-4c1f-8329-94b25ba0588b",
+                    "fwStatus": 0,
+                    "ip": "sg-b8610fdd",
+                    "outbound": false,
+                    "port": "65535",
+                    "protocol": "udp"
+                },
+                {
+                    "fwRuleID": "6215d4ce-6045-4f6f-91a4-971d763b72cf",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "60070",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "714b7f84-92ca-470f-9718-e7595a13bacb",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "19999",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "888054c8-0b75-4083-b735-72fa618011a2",
+                    "fwStatus": 0,
+                    "ip": "sg-b8610fdd",
+                    "outbound": false,
+                    "port": "65535",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "613cdc9d-d8f3-4f05-b68a-072d00a628b3",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "4045",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "cb10987b-bca3-44f3-96a1-a0b3994a570a",
+                    "fwStatus": 0,
+                    "ip": "sg-b8610fdd",
+                    "outbound": false,
+                    "port": "-1",
+                    "protocol": "icmp"
+                },
+                {
+                    "fwRuleID": "ba2c57cd-21f1-4c80-ac98-19782d7a46fd",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "18080",
+                    "protocol": "tcp"
+                }
+            ],
+            "instRefs": [],
+            "sgID": "sg-b9610fdc"
+        },
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "2fd07b2a-be0c-4d67-ad3f-99cfe43b3f33",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "50075",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "77a59318-1edd-4f5a-9e87-a38efb5e7ebc",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "8081",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "c90c8d81-eadf-4e5a-89ca-867af863f687",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "60060",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "aeb4927a-d452-4c2c-8c70-7a908349d8c6",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "22",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "c4777080-3acb-48e0-b5ca-fc24b3b567dc",
+                    "fwStatus": 0,
+                    "ip": "sg-b8610fdd",
+                    "outbound": false,
+                    "port": "65535",
+                    "protocol": "udp"
+                },
+                {
+                    "fwRuleID": "5d0198f2-feca-4355-b154-9efd828e04cc",
+                    "fwStatus": 0,
+                    "ip": "sg-b8610fdd",
+                    "outbound": false,
+                    "port": "65535",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "c197df3c-a019-46a6-8d83-21586ed9396e",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "50060",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "143d4a87-ba01-475b-a90d-2493b618bf2a",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "60075",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "a962aae6-f369-4e42-8569-ceb897332803",
+                    "fwStatus": 0,
+                    "ip": "sg-b8610fdd",
+                    "outbound": false,
+                    "port": "-1",
+                    "protocol": "icmp"
+                }
+            ],
+            "instRefs": [],
+            "sgID": "sg-b8610fdd"
+        },
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "42097f21-5e25-48da-9700-9cb88b7b63ba",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "80",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "f80db66e-a765-4a36-bcf9-0fc5d5960079",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "9000",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "62b7a394-2a61-4f34-af30-26f336dc1961",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "8080",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "f6f6f732-c993-4ff4-9c2a-e7e3ea40338c",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "22",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "ea42f59b-4773-40ab-8bdc-329808942852",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "443",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "99c12769-5010-460d-a32b-7c30acf6d88e",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "400",
+                    "protocol": "tcp"
+                }
+            ],
+            "instRefs": [
+                "i-c022f85f",
+                "i-c022f85f"
+            ],
+            "sgID": "sg-5fad0b3b"
+        },
+        {
+            "firewallRules": [
+                {
+                    "fwRuleID": "f7b385cb-3585-4704-a398-a76b2957b346",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "80",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "496ddfbd-a311-4615-9111-ddda18ea3efd",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "22",
+                    "protocol": "tcp"
+                },
+                {
+                    "fwRuleID": "a1cc9ca9-1b3e-434b-b10d-2fe797d0e1f9",
+                    "fwStatus": 0,
+                    "ip": "0.0.0.0/0",
+                    "outbound": false,
+                    "port": "443",
+                    "protocol": "tcp"
+                }
+            ],
+            "instRefs": [
+                "i-f8c48667",
+                "i-f8c48667"
+            ],
+            "sgID": "sg-95276ff1"
+        }
+    ]
+}
