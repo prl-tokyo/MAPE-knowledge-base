@@ -95,7 +95,7 @@ instListAlign sg = align (\s -> (S.instStatus s /= 2) && (S.securityGroupRef s =
       , S.ami = "0000"
       , S.state = 0
       , S.instResponseTime = V.instResponseTime v
-      , S.securityGroupRef = "sg-123"
+      , S.securityGroupRef = sg
       })
   (\s -> Just S.Instance {
       S.instID = S.instID s
