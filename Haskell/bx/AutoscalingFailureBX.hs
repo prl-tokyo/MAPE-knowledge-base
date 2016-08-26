@@ -84,7 +84,7 @@ instUpd = $(update [p| S.Instance {
   |])
 
 instListAlign :: String -> BiGUL [S.Instance] [V.Instance]
-instListAlign sg = align (\s -> (S.instStatus s /= 2) && (S.securityGroupRef s == sg))
+instListAlign sg = align (\s -> S.securityGroupRef s == sg)
   (\ s v -> S.instID s == V.instID v)
   ($(update [p| v |] [p| v |] [d| v = instUpd |]))
   (\v -> S.Instance {
