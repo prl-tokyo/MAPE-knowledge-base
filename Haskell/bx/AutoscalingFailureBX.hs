@@ -97,13 +97,4 @@ instListAlign sg = align (\s -> (S.instStatus s /= 2) && (S.securityGroupRef s =
       , S.instResponseTime = V.instResponseTime v
       , S.securityGroupRef = sg
       })
-  (\s -> Just S.Instance {
-      S.instID = S.instID s
-      , S.instType = S.instType s
-      , S.load = S.load s
-      , S.instStatus = S.instStatus s
-      , S.ami = S.ami s
-      , S.state = S.state s
-      , S.instResponseTime = S.instResponseTime s
-      , S.securityGroupRef = S.securityGroupRef s
-      })
+  (\s -> Nothing)
